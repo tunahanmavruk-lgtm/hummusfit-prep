@@ -7,6 +7,8 @@
 // ============================================================
 
 const fs = require('fs');
+const https = require('https');
+const crypto = require('crypto');
 
 // Load .env for local dev only (Railway injects env vars natively)
 if (fs.existsSync('.env')) {
@@ -33,6 +35,68 @@ const { sendEmail }                                       = require('./src/email
 
 const TEST_MODE = process.env.TEST_MODE === 'true' || process.argv.includes('--test');
 const VERBOSE   = process.argv.includes('--verbose');
+
+// ── CLOUDINARY UPLOAD ────────────────────────────────────────
+async function uploadToCloudinary(pdfBuffer) {
+  try {
+    const cloudName = process.env.CLOUDINARY_CLOUD_NAME || 'dtwtlbkqm';
+    const apiKey    = process.env.CLOUDINARY_API_KEY    || '781763156221262';
+    const apiSecret = process.env.CLOUDINARY_API_SECRET || 'ewG2wHHrAW8o-hY4MP8tJjpXGVw';
+
+    const timestamp = Math.floor(Date.now() / 1000).toString();
+    const publicId  = 'hummusfit_blueprint_latest';
+    
+    // Generate signature
+    const sigStr = `overwrite=true&public_id=${publicId}&timestamp=${timestamp}${apiSecret}`;
+    const signature = crypto.createHash('sha1').update(sigStr).digest('hex');
+
+    // Build multipart form
+    const boundary = '----FormBoundary' + Math.random().toString(36).slice(2);
+    const fields = { timestamp, api_key: apiKey, signature, public_id: publicId, overwrite: 'true' };
+    
+    let body = '';
+    for (const [k, v] of Object.entries(fields)) {
+      body += `--${boundary}\r\nContent-Disposition: form-data; name="${k}"\r\n\r\n${v}\r\n`;
+    }
+    body += `--${boundary}\r\nContent-Disposition: form-data; name="file"; filename="blueprint.pdf"\r\nContent-Type: application/pdf\r\n\r\n`;
+    
+    const bodyPrefix = Buffer.from(body);
+    const bodySuffix = Buffer.from(`\r\n--${boundary}--\r\n`);
+    const fullBody   = Buffer.concat([bodyPrefix, pdfBuffer, bodySuffix]);
+
+    const url = `https://api.cloudinary.com/v1_1/${cloudName}/raw/upload`;
+    
+    const result = await new Promise((resolve, reject) => {
+      const req = https.request(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': `multipart/form-data; boundary=${boundary}`,
+          'Content-Length': fullBody.length
+        }
+      }, res => {
+        let data = '';
+        res.on('data', chunk => data += chunk);
+        res.on('end', () => {
+          try { resolve(JSON.parse(data)); } catch(e) { reject(e); }
+        });
+      });
+      req.on('error', reject);
+      req.write(fullBody);
+      req.end();
+    });
+
+    if (result.secure_url) {
+      console.log(`  ✓ PDF uploaded to Cloudinary: ${result.secure_url}`);
+      return result.secure_url;
+    } else {
+      console.warn('  ⚠️  Cloudinary upload failed:', JSON.stringify(result));
+      return null;
+    }
+  } catch(e) {
+    console.warn('  ⚠️  Cloudinary upload error:', e.message);
+    return null;
+  }
+}
 
 async function main() {
   console.log('');
@@ -168,6 +232,10 @@ async function main() {
   console.log('📧 STEP 5: Sending email via Resend...\n');
     await sendEmail(pdfBuffer, groupNumber, dayName);
     console.log('\n✅ DONE! Master Blueprint delivered.\n');
+
+  // Upload to Cloudinary for QR code access
+  console.log('☁️  STEP 6: Uploading to Cloudinary for QR access...');
+  await uploadToCloudinary(pdfBuffer);
   }
 }
 
