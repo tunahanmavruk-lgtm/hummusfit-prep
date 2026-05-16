@@ -98,6 +98,118 @@ async function uploadToCloudinary(pdfBuffer) {
   }
 }
 
+// ── CLOSED NOTICE PDF ────────────────────────────────────────
+async function generateClosedPdf() {
+  const puppeteer = require('puppeteer');
+  const html = `<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #1C4A45;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px;
+  }
+  .logo-text {
+    font-size: 28pt;
+    font-weight: 900;
+    color: #2BBFAA;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .logo-text span { color: #E8612C; }
+  .divider {
+    width: 200px;
+    height: 4px;
+    background: linear-gradient(90deg, #2BBFAA, #E8612C);
+    margin: 20px auto;
+    border-radius: 2px;
+  }
+  .closed-text {
+    font-size: 42pt;
+    font-weight: 900;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+  .closed-text span { color: #E8612C; }
+  .sub-text {
+    font-size: 16pt;
+    color: rgba(255,255,255,0.7);
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+  }
+  .reopen {
+    background: #2BBFAA;
+    color: white;
+    font-size: 14pt;
+    font-weight: 800;
+    padding: 16px 40px;
+    border-radius: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .footer {
+    position: absolute;
+    bottom: 30px;
+    color: rgba(255,255,255,0.4);
+    font-size: 8pt;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+  <div class="logo-text">Hummus<span>FIT</span></div>
+  <div class="divider"></div>
+  <div class="closed-text">Kitchen<br><span>Closed</span></div>
+  <div class="sub-text">Sunday — Dark Day</div>
+  <div class="reopen">We reopen Monday 🥙</div>
+  <div class="footer">HummusFit Kitchen Automation · myhummusfit.com</div>
+</body>
+</html>`;
+
+  const browser = await puppeteer.launch({
+    headless: 'new',
+    args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
+  });
+
+  try {
+    const page = await browser.newPage();
+    await page.setViewport({ width: 1056, height: 816 });
+    await page.setContent(html, { waitUntil: 'networkidle0' });
+
+    const pdfBuffer = await page.pdf({
+      format: 'Letter',
+      landscape: true,
+      printBackground: true,
+      margin: { top: '0', bottom: '0', left: '0', right: '0' }
+    });
+
+    console.log('  ✓ Closed notice PDF generated');
+
+    // Upload to Cloudinary so QR code shows the closed notice
+    await uploadToCloudinary(pdfBuffer);
+    console.log('  ✓ Closed notice live on QR code');
+
+  } finally {
+    await browser.close();
+  }
+}
+
 async function main() {
   console.log('');
   console.log('═══════════════════════════════════════════════════════');
@@ -113,7 +225,8 @@ async function main() {
     : getDayGroup();
 
   if (!groupNumber) {
-    console.log(`\n🌙 Tomorrow is ${dayName} — no cook scheduled. Exiting. (Sunday is a dark day)\n`);
+    console.log(`\n🌙 Tomorrow is Sunday — generating CLOSED notice PDF...\n`);
+    await generateClosedPdf();
     process.exit(0);
   }
 
