@@ -47,12 +47,12 @@ async function uploadToCloudinary(pdfBuffer) {
     const publicId  = 'hummusfit_blueprint_latest';
     
     // Generate signature
-    const sigStr = `overwrite=true&public_id=${publicId}&timestamp=${timestamp}${apiSecret}`;
+    const sigStr = `overwrite=true&public_id=${publicId}&resource_type=image&timestamp=${timestamp}${apiSecret}`;
     const signature = crypto.createHash('sha1').update(sigStr).digest('hex');
 
     // Build multipart form
     const boundary = '----FormBoundary' + Math.random().toString(36).slice(2);
-    const fields = { timestamp, api_key: apiKey, signature, public_id: publicId, overwrite: 'true' };
+    const fields = { timestamp, api_key: apiKey, signature, public_id: publicId, overwrite: 'true', resource_type: 'image' };
     
     let body = '';
     for (const [k, v] of Object.entries(fields)) {
@@ -64,7 +64,7 @@ async function uploadToCloudinary(pdfBuffer) {
     const bodySuffix = Buffer.from(`\r\n--${boundary}--\r\n`);
     const fullBody   = Buffer.concat([bodyPrefix, pdfBuffer, bodySuffix]);
 
-    const url = `https://api.cloudinary.com/v1_1/${cloudName}/raw/upload`;
+    const url = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
     
     const result = await new Promise((resolve, reject) => {
       const req = https.request(url, {
