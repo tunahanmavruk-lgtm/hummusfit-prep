@@ -144,7 +144,7 @@ async function fetchInventory(meals) {
     });
 
     if (i + BATCH_SIZE < meals.length) {
-      await new Promise(r => setTimeout(r, 500));
+      await new Promise(r => setTimeout(r, 100));
     }
   }
   return inventory;
@@ -192,7 +192,7 @@ async function fetchOrdersForRange(start, end) {
   while (pageUrl && pageCount < 10) {
     pageCount++;
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 30000);
+    const timeout = setTimeout(() => controller.abort(), 60000);
 
     let res, json;
     try {
@@ -212,7 +212,7 @@ async function fetchOrdersForRange(start, end) {
     const linkHeader = res.headers.get('link') || '';
     const nextMatch  = linkHeader.match(/<([^>]+)>;\s*rel="next"/);
     pageUrl = nextMatch ? nextMatch[1] : null;
-    if (pageUrl) await new Promise(r => setTimeout(r, 300));
+    if (pageUrl) await new Promise(r => setTimeout(r, 100));
   }
 
   return orders;
@@ -277,7 +277,7 @@ async function fetchSales(meals, cookDay) {
       meals.forEach(m => {
         burnOffSales[m.name] += daySales[m.name.toLowerCase()] || 0;
       });
-      await new Promise(r => setTimeout(r, 300));
+      await new Promise(r => setTimeout(r, 100));
     }
   }
 
@@ -290,7 +290,7 @@ async function fetchSales(meals, cookDay) {
     meals.forEach(m => {
       carryOverSales[m.name] += daySales[m.name.toLowerCase()] || 0;
     });
-    await new Promise(r => setTimeout(r, 300));
+    await new Promise(r => setTimeout(r, 100));
   }
 
   // Log summary
