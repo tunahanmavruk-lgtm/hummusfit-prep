@@ -64,7 +64,7 @@ async function uploadToCloudinary(pdfBuffer) {
     const bodySuffix = Buffer.from(`\r\n--${boundary}--\r\n`);
     const fullBody   = Buffer.concat([bodyPrefix, pdfBuffer, bodySuffix]);
 
-    const url = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
+    const url = `https://api.cloudinary.com/v1_1/${cloudName}/raw/upload`;
     
     const result = await new Promise((resolve, reject) => {
       const req = https.request(url, {
