@@ -14,6 +14,7 @@ const puppeteer = require('puppeteer');
 const LOGO_B64 = 'https://cdn.shopify.com/s/files/1/0624/7797/3879/files/hummus_fit_new_logo.PNG';
 
 function buildHtml(prepSheet, groupNumber, dayName, eventName = null, eventMultiplier = 1.0) {
+  const qrDataUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://res.cloudinary.com/dtwtlbkqm/image/upload/hummusfit_blueprint_latest.pdf';
   // Show tomorrow's date — this sheet runs the night before the cook day
   const now = new Date();
   const tomorrow = new Date(now);
