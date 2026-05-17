@@ -42,15 +42,12 @@ const COOK_SCHEDULE = {
     burnOffDays: 1,   // Last Friday
     carryDays: 4      // Last Sat + Sun + Mon + Tue
   },
-  Saturday: {
-    group: 2,
-    burnOffDays: 1,   // Last Saturday
-    carryDays: 4      // Last Sun + Mon + Tue + Wed
+  Sunday: {
+    group: 1,
+    burnOffDays: 0,
+    carryDays: 2      // Last Mon + Tue (cooking Monday)
   }
 };
-
-const LEAN_BUFFER = 1.10; // 10% safety multiplier on carry-over target
-
 // ── Holiday / Event Dictionary ───────────────────────────────
 // Maps date ranges to demand multipliers.
 // multiplier < 1.0 = dip (cook less)

@@ -176,7 +176,7 @@ async function generateClosedPdf() {
   <div class="logo-text">Hummus<span>FIT</span></div>
   <div class="divider"></div>
   <div class="closed-text">Kitchen<br><span>Closed</span></div>
-  <div class="sub-text">Sunday — Dark Day</div>
+  <div class="sub-text">Saturday — Dark Day</div>
   <div class="reopen">We reopen Monday 🥙</div>
   <div class="footer">HummusFit Kitchen Automation · myhummusfit.com</div>
 </body>
@@ -225,7 +225,7 @@ async function main() {
     : getDayGroup();
 
   if (!groupNumber) {
-    console.log(`\n🌙 Tomorrow is Sunday — generating CLOSED notice PDF...\n`);
+    console.log(`\n🌙 Tomorrow is Saturday — generating CLOSED notice PDF...\n`);
     await generateClosedPdf();
     process.exit(0);
   }
