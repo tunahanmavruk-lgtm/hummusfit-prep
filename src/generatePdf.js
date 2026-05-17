@@ -434,7 +434,7 @@ async function generatePdf(prepSheet, groupNumber, dayName, eventName = null, ev
 
     // Use fixed viewport matching landscape letter size
     await page.setViewport({ width: 1056, height: 816 });
-    await page.setContent(html, { waitUntil: 'networkidle0' });
+    await page.setContent(html, { waitUntil: 'domcontentloaded', timeout: 30000 });
 
     const contentHeight = await page.evaluate(() => document.body.offsetHeight);
     const availableH = 680; // landscape letter minus margins at 96dpi
