@@ -186,10 +186,10 @@ function getDayRange(date) {
 // ── FETCH ORDERS FOR A DATE RANGE (Online Only) ───────────────
 async function fetchOrdersForRange(start, end) {
   const orders = [];
-  let pageUrl = `${REST_URL}/orders.json?status=any&financial_status=paid&created_at_min=${start.toISOString()}&created_at_max=${end.toISOString()}&limit=250`;
+  let pageUrl = `${REST_URL}/orders.json?status=any&financial_status=paid&source_name=web&created_at_min=${start.toISOString()}&created_at_max=${end.toISOString()}&limit=250&fields=id,source_name,line_items`;
   let pageCount = 0;
 
-  while (pageUrl && pageCount < 10) {
+  while (pageUrl && pageCount < 3) {
     pageCount++;
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 60000);
@@ -205,8 +205,7 @@ async function fetchOrdersForRange(start, end) {
     }
     clearTimeout(timeout);
 
-    // Online store only — filter out POS
-    const batch = (json.orders || []).filter(o => o.source_name !== 'pos');
+    const batch = (json.orders || []);
     orders.push(...batch);
 
     const linkHeader = res.headers.get('link') || '';
