@@ -48,6 +48,9 @@ const COOK_SCHEDULE = {
     carryDays: 2      // Last Mon + Tue (cooking Monday)
   }
 };
+
+const LEAN_BUFFER = 1.10; // 10% safety multiplier on carry-over target
+
 // ── Holiday / Event Dictionary ───────────────────────────────
 // Maps date ranges to demand multipliers.
 // multiplier < 1.0 = dip (cook less)
