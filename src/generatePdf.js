@@ -397,23 +397,6 @@ ${eventBanner}
 </div>
 
 
-  <span class="footer-brand">myhummusfit.com</span>
-</div>
-
-
-<!-- FOOTER WITH QR -->
-<div class="footer">
-  <span class="footer-text">HummusFit Kitchen Automation · God Mode Engine</span>
-  ${qrDataUrl ? `
-  <div class="qr-section">
-    <img src="${qrDataUrl}" class="qr-img" alt="Scan for Blueprint">
-    <div class="qr-text">
-      <span class="qr-title">📱 Scan for Today's Blueprint</span>
-      <span class="qr-sub">Opens on any phone or tablet</span>
-    </div>
-  </div>
-  ` : ''}
-  <span class="footer-brand">myhummusfit.com</span>
 </div>
 
 </body>
