@@ -47,12 +47,12 @@ async function uploadToCloudinary(pdfBuffer) {
     const publicId  = 'hummusfit_blueprint_latest';
     
     // Generate signature
-    const sigStr = `overwrite=true&public_id=${publicId}&resource_type=image&timestamp=${timestamp}${apiSecret}`;
+    const sigStr = `overwrite=true&public_id=${publicId}&timestamp=${timestamp}${apiSecret}`;
     const signature = crypto.createHash('sha1').update(sigStr).digest('hex');
 
     // Build multipart form
     const boundary = '----FormBoundary' + Math.random().toString(36).slice(2);
-    const fields = { timestamp, api_key: apiKey, signature, public_id: publicId, overwrite: 'true', resource_type: 'image' };
+    const fields = { timestamp, api_key: apiKey, signature, public_id: publicId, overwrite: 'true' };
     
     let body = '';
     for (const [k, v] of Object.entries(fields)) {
