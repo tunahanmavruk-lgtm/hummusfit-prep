@@ -205,6 +205,10 @@ async function generateClosedPdf() {
     await uploadToCloudinary(pdfBuffer);
     console.log('  ✓ Closed notice live on QR code');
 
+    // Send closed notice email
+    await sendEmail(pdfBuffer, 'Closed', 'Saturday');
+    console.log('  ✓ Closed notice emailed to kitchen team');
+
   } finally {
     await browser.close();
   }
