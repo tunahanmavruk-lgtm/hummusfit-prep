@@ -3,4 +3,4 @@ builder = "NIXPACKS"
 
 [deploy]
 startCommand = "node app.js"
-cronSchedule = "0 1 * * 0-5"
+cronSchedule = "0 23 * * 0-5"
