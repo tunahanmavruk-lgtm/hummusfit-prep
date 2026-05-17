@@ -206,8 +206,12 @@ async function generateClosedPdf() {
     console.log('  ✓ Closed notice live on QR code');
 
     // Send closed notice email
-    await sendEmail(pdfBuffer, 'Closed', 'Saturday');
-    console.log('  ✓ Closed notice emailed to kitchen team');
+    try {
+      await sendEmail(pdfBuffer, 'Closed', 'Saturday');
+      console.log('  ✓ Closed notice emailed to kitchen team');
+    } catch (emailErr) {
+      console.error('  ❌ Email failed:', emailErr.message);
+    }
 
   } finally {
     await browser.close();
