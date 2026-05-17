@@ -17,35 +17,35 @@
 // burnOffDays: days of sales to subtract from inventory
 // carryDays:   days the batch must cover going forward
 const COOK_SCHEDULE = {
-  Monday: {
-    group: 1,
-    burnOffDays: 1,   // Last Monday
-    carryDays: 2      // Last Tue + Wed
-  },
-  Tuesday: {
-    group: 2,
-    burnOffDays: 0,   // Hardcoded 0 — strategic front-load
-    carryDays: 3      // Last Wed + Thu + Fri (food not ready until Wed morning)
-  },
-  Wednesday: {
-    group: 1,
-    burnOffDays: 0,   // Hardcoded 0 — mid-week bridge
-    carryDays: 2      // Last Thu + Fri
-  },
-  Thursday: {
-    group: 2,
-    burnOffDays: 2,   // Last Wed + Thu
-    carryDays: 3      // Last Fri + Sat + Sun
-  },
-  Friday: {
-    group: 1,
-    burnOffDays: 1,   // Last Friday
-    carryDays: 4      // Last Sat + Sun + Mon + Tue
-  },
   Sunday: {
     group: 1,
     burnOffDays: 0,
-    carryDays: 2      // Last Mon + Tue (cooking Monday)
+    carryDays: 3      // Tue + Wed + Thu
+  },
+  Monday: {
+    group: 1,
+    burnOffDays: 1,
+    carryDays: 2      // Tue + Wed
+  },
+  Tuesday: {
+    group: 2,
+    burnOffDays: 0,
+    carryDays: 2      // Wed + Thu
+  },
+  Wednesday: {
+    group: 1,
+    burnOffDays: 0,
+    carryDays: 2      // Thu + Fri
+  },
+  Thursday: {
+    group: 2,
+    burnOffDays: 2,
+    carryDays: 3      // Fri + Sat + Sun
+  },
+  Friday: {
+    group: 1,
+    burnOffDays: 1,
+    carryDays: 4      // Sat + Sun + Mon + Tue
   }
 };
 

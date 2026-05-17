@@ -53,9 +53,9 @@ const BURN_OFF_CONFIG = {
 
 // ── Exact 1-week carry-over target day config ─────────────────
 const CARRY_CONFIG = {
-  Sunday:    ['Monday','Tuesday'],
-  Monday:    ['Tuesday','Wednesday','Thursday'],
-  Tuesday:   ['Wednesday','Thursday','Friday'],
+  Sunday:    ['Tuesday','Wednesday','Thursday'],
+  Monday:    ['Tuesday','Wednesday'],
+  Tuesday:   ['Wednesday','Thursday'],
   Wednesday: ['Thursday','Friday'],
   Thursday:  ['Friday','Saturday','Sunday'],
   Friday:    ['Saturday','Sunday','Monday','Tuesday'],
