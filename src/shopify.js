@@ -42,6 +42,7 @@ const DAY_INDEX = {
 
 // ── Exact 1-week burn-off day config ─────────────────────────
 const BURN_OFF_CONFIG = {
+  Sunday:    { days: [],                      hardcoded: true  },
   Monday:    { days: ['Monday'],              hardcoded: false },
   Tuesday:   { days: [],                      hardcoded: true  },
   Wednesday: { days: [],                      hardcoded: true  },
@@ -52,8 +53,9 @@ const BURN_OFF_CONFIG = {
 
 // ── Exact 1-week carry-over target day config ─────────────────
 const CARRY_CONFIG = {
+  Sunday:    ['Monday','Tuesday'],
   Monday:    ['Tuesday','Wednesday','Thursday'],
-  Tuesday:   ['Wednesday','Thursday','Friday'], // Fortress: Wed+Thu+Fri only (Tue food not ready until Wed morning)
+  Tuesday:   ['Wednesday','Thursday','Friday'],
   Wednesday: ['Thursday','Friday'],
   Thursday:  ['Friday','Saturday','Sunday'],
   Friday:    ['Saturday','Sunday','Monday','Tuesday'],
