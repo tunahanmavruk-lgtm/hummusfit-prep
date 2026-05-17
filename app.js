@@ -33,6 +33,10 @@ const { calculateBatches, getDayGroup, getDayName,
 const { generatePdf }                                     = require('./src/generatePdf');
 const { sendEmail }                                       = require('./src/emailer');
 
+const http = require('http');
+const path = require('path');
+const PDF_PATH = path.join(__dirname, 'latest_blueprint.pdf');
+
 const TEST_MODE = process.env.TEST_MODE === 'true' || process.argv.includes('--test');
 const VERBOSE   = process.argv.includes('--verbose');
 
@@ -235,7 +239,7 @@ async function main() {
   if (!groupNumber) {
     console.log(`\n🌙 Tomorrow is Saturday — generating CLOSED notice PDF...\n`);
     await generateClosedPdf();
-    process.exit(0);
+    return;
   }
 
   const schedule = COOK_SCHEDULE[dayName];
@@ -342,6 +346,10 @@ async function main() {
   console.log('📄 STEP 4: Generating prep sheet PDF...\n');
   const pdfBuffer = await generatePdf(prepSheet, groupNumber, dayName, eventName, eventMultiplier);
 
+  // ── Save PDF to disk for HTTP serving
+  fs.writeFileSync(PDF_PATH, pdfBuffer);
+  console.log('  ✓ PDF saved for HTTP serving');
+
   // ── STEP 5: Send email ───────────────────────────────────────────────────
   if (TEST_MODE) {
     const filename = `PrepSheet_TEST_${dayName}_Group${groupNumber}.pdf`;
@@ -360,8 +368,34 @@ async function main() {
   }
 }
 
+// ── HTTP SERVER — serves latest PDF at /blueprint ───────────
+const PORT = process.env.PORT || 3000;
+http.createServer((req, res) => {
+  if (req.url === '/blueprint' || req.url === '/') {
+    if (fs.existsSync(PDF_PATH)) {
+      const pdf = fs.readFileSync(PDF_PATH);
+      res.writeHead(200, {
+        'Content-Type': 'application/pdf',
+        'Content-Disposition': 'inline; filename="HummusFit_Blueprint.pdf"',
+        'Content-Length': pdf.length
+      });
+      res.end(pdf);
+    } else {
+      res.writeHead(404);
+      res.end('No blueprint available yet.');
+    }
+  } else {
+    res.writeHead(404);
+    res.end('Not found');
+  }
+}).listen(PORT, () => {
+  console.log(`\n🌐 PDF server running on port ${PORT}`);
+});
+
 main()
-  .then(() => process.exit(0))
+  .then(() => {
+    console.log('\n⏳ Cron complete. Server staying alive for next run.');
+  })
   .catch(err => {
   console.error('\n❌ FATAL ERROR:', err.message);
   console.error(err.stack);
