@@ -34,6 +34,7 @@ const { generatePdf }                                     = require('./src/gener
 const { sendEmail }                                       = require('./src/emailer');
 
 const http = require('http');
+const cron = require('node-cron');
 const path = require('path');
 const PDF_PATH = path.join(__dirname, 'latest_blueprint.pdf');
 
@@ -392,12 +393,19 @@ http.createServer((req, res) => {
   console.log(`\n🌐 PDF server running on port ${PORT}`);
 });
 
-main()
-  .then(() => {
-    console.log('\n⏳ Cron complete. Server staying alive for next run.');
-  })
-  .catch(err => {
+// Run immediately on startup
+main().catch(err => {
   console.error('\n❌ FATAL ERROR:', err.message);
   console.error(err.stack);
-  process.exit(1);
 });
+
+// Schedule daily at 11PM UTC (6PM EST) every day
+cron.schedule('0 23 * * *', () => {
+  console.log('\n⏰ Cron triggered — running main()...');
+  main().catch(err => {
+    console.error('\n❌ CRON ERROR:', err.message);
+    console.error(err.stack);
+  });
+});
+
+console.log('\n⏳ Server alive. Next run at 11PM UTC (6PM EST).');
