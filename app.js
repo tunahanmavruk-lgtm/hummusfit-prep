@@ -400,7 +400,7 @@ main().catch(err => {
 });
 
 // Schedule daily at 11PM UTC (6PM EST) every day
-cron.schedule('0 23 * * *', () => {
+cron.schedule('0 22 * * *', () => {
   console.log('\n⏰ Cron triggered — running main()...');
   main().catch(err => {
     console.error('\n❌ CRON ERROR:', err.message);
@@ -408,4 +408,4 @@ cron.schedule('0 23 * * *', () => {
   });
 });
 
-console.log('\n⏳ Server alive. Next run at 11PM UTC (6PM EST).');
+console.log('\n⏳ Server alive. Next run at 10PM UTC (6PM EDT).');
