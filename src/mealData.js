@@ -486,17 +486,6 @@ const GROUP1_MEALS = [
     sauceStation: "",
     rawMeats: "",
   },
-  {
-    name: "Vegan Chorizo Quesadilla",
-    yield: 51,
-    stove: "",
-    oven: "Vegan Beef",
-    grill: "",
-    flatGrill: "",
-    saladStation: "Vegan Quesadillas Mix",
-    sauceStation: "",
-    rawMeats: "Vegan Beef",
-  }
 ];
 
 const GROUP2_MEALS = [
@@ -917,6 +906,17 @@ const GROUP2_MEALS = [
     saladStation: "",
     sauceStation: "Zeus Sauce",
     rawMeats: "Cube Chicken"
+  },
+  {
+    name: "Vegan Chorizo Quesadilla",
+    yield: 51,
+    stove: "",
+    oven: "",
+    grill: "",
+    flatGrill: "",
+    saladStation: "Vegan Quesadillas Mix",
+    sauceStation: "",
+    rawMeats: "Vegan Beef",
   },
   {
     name: "Zeus Bowl V2",
