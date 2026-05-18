@@ -887,7 +887,7 @@ const GROUP2_MEALS = [
   },
   {
     name: "The Clean Bulk Pasta Bowl",
-    yield: 41,
+    yield: 32,
     stove: "Penne, Gr. Beef",
     oven: "",
     grill: "",
