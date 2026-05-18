@@ -47,7 +47,7 @@ const GROUP1_MEALS = [
   },
   {
     name: "Baked Herbed Tilapia (1lb)",
-    yield: 22,
+    yield: 6,
     stove: "",
     oven: "Tilapia",
     grill: "",
@@ -58,7 +58,7 @@ const GROUP1_MEALS = [
   },
   {
     name: "BBQ Chicken Garlic Parm Potatoes",
-    yield: 50,
+    yield: 79,
     stove: "Sauce",
     oven: "Cube Potatoes",
     grill: "",
@@ -222,17 +222,6 @@ const GROUP1_MEALS = [
     rawMeats: "",
   },
   {
-    name: "Crispy Baked Chicken Wrap",
-    yield: 85,
-    stove: "",
-    oven: "Crispy Chicken",
-    grill: "",
-    flatGrill: "",
-    saladStation: "",
-    sauceStation: "",
-    rawMeats: "",
-  },
-  {
     name: "Crispy Vegan Wrap",
     yield: 53,
     stove: "",
@@ -377,7 +366,7 @@ const GROUP1_MEALS = [
   },
   {
     name: "Nacho Average Vegan Bowl",
-    yield: 45,
+    yield: 32,
     stove: "",
     oven: "Vegan Beef, Sweet Fries",
     grill: "",
