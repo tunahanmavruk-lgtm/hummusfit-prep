@@ -46,7 +46,7 @@ const GROUP1_MEALS = [
     rawMeats: "1/2 Filet Oven",
   },
   {
-    name: "Baked Herbed Tilapia (1lb)",
+    name: "Baked Herbed Tilapia (1lb Competition Approved)",
     yield: 6,
     stove: "",
     oven: "Tilapia",
@@ -145,7 +145,7 @@ const GROUP1_MEALS = [
     rawMeats: "",
   },
   {
-    name: "Chipotle Chicken (1lb)",
+    name: "Chipotle Chicken (1lb Competition Approved)",
     yield: 25,
     stove: "",
     oven: "",
