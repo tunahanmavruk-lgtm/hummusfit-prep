@@ -29,8 +29,8 @@ const COOK_SCHEDULE = {
   },
   Tuesday: {
     group: 2,
-    burnOffDays: 0,
-    carryDays: 2      // Wed + Thu
+    burnOffDays: 2,   // Tue + Wed (food not live until Wed 5PM)
+    carryDays: 2      // Thu + Fri
   },
   Wednesday: {
     group: 1,

@@ -44,7 +44,7 @@ const DAY_INDEX = {
 const BURN_OFF_CONFIG = {
   Sunday:    { days: [],                      hardcoded: true  },
   Monday:    { days: ['Monday'],              hardcoded: false },
-  Tuesday:   { days: [],                      hardcoded: true  },
+  Tuesday:   { days: ['Tuesday','Wednesday'],  hardcoded: false },
   Wednesday: { days: [],                      hardcoded: true  },
   Thursday:  { days: ['Wednesday','Thursday'], hardcoded: false },
   Friday:    { days: ['Friday'],              hardcoded: false },
@@ -55,7 +55,7 @@ const BURN_OFF_CONFIG = {
 const CARRY_CONFIG = {
   Sunday:    ['Tuesday','Wednesday','Thursday'],
   Monday:    ['Tuesday','Wednesday'],
-  Tuesday:   ['Wednesday','Thursday'],
+  Tuesday:   ['Thursday','Friday'],
   Wednesday: ['Thursday','Friday'],
   Thursday:  ['Friday','Saturday','Sunday'],
   Friday:    ['Saturday','Sunday','Monday','Tuesday'],
