@@ -189,7 +189,7 @@ async function fetchOrdersForRange(start, end) {
   let pageUrl = `${REST_URL}/orders.json?status=any&financial_status=paid&source_name=web&created_at_min=${start.toISOString()}&created_at_max=${end.toISOString()}&limit=250&fields=id,source_name,line_items`;
   let pageCount = 0;
 
-  while (pageUrl && pageCount < 3) {
+  while (pageUrl && pageCount < 10) {
     pageCount++;
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 60000);
