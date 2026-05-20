@@ -34,8 +34,8 @@ const COOK_SCHEDULE = {
   },
   Wednesday: {
     group: 1,
-    burnOffDays: 0,
-    carryDays: 2      // Thu + Fri
+    burnOffDays: 2,   // Wed + Thu (food not live until Thu 5PM)
+    carryDays: 2      // Fri + Sat
   },
   Thursday: {
     group: 2,
@@ -49,7 +49,7 @@ const COOK_SCHEDULE = {
   }
 };
 
-const LEAN_BUFFER = 1.10; // 10% safety multiplier on carry-over target
+const LEAN_BUFFER = 1.13; // 13% safety multiplier on carry-over target
 
 // ── Holiday / Event Dictionary ───────────────────────────────
 // Maps date ranges to demand multipliers.
