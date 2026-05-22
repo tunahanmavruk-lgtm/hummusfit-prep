@@ -501,17 +501,6 @@ const GROUP2_MEALS = [
     rawMeats: "Ground Beef"
   },
   {
-    name: "Bang Bang Chicken",
-    yield: 74,
-    stove: "Sticky Rice",
-    oven: "",
-    grill: "",
-    flatGrill: "Bang Bang Chicken",
-    saladStation: "",
-    sauceStation: "",
-    rawMeats: "Cube Chicken"
-  },
-  {
     name: "BBQ Chicken Mac Bowl",
     yield: 80,
     stove: "Rotini Pasta",
