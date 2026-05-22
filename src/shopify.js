@@ -59,7 +59,7 @@ const CARRY_CONFIG = {
   Wednesday: ['Friday','Saturday'],
   Thursday:  ['Saturday','Sunday'],
   Friday:    ['Sunday','Monday','Tuesday'],
-  Saturday:  ['Sunday','Monday','Tuesday','Wednesday']
+  Saturday:  ['Monday','Tuesday','Wednesday']
 };
 
 function sanitizeForQuery(name) {
