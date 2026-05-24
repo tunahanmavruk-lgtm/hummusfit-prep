@@ -666,8 +666,7 @@ const GROUP2_MEALS = [
     rawMeats: ""
   },
   {
-    name: "Garlic Flank & Potatoes",
-    yield: 75,
+
     stove: "",
     oven: "Colored Potatoes",
     grill: "",
@@ -677,8 +676,7 @@ const GROUP2_MEALS = [
     rawMeats: "Pesto Steak"
   },
   {
-    name: "General Tso Tacos",
-    yield: 68,
+
     stove: "",
     oven: "",
     grill: "",
@@ -754,8 +752,7 @@ const GROUP2_MEALS = [
     rawMeats: ""
   },
   {
-    name: "MickieStrips",
-    yield: 88,
+
     stove: "",
     oven: "Waffle Fries, Tenders",
     grill: "",
@@ -820,8 +817,7 @@ const GROUP2_MEALS = [
     rawMeats: ""
   },
   {
-    name: "Surf N Turf Shrimp & Steak",
-    yield: 72,
+
     stove: "",
     oven: "Potato Halves",
     grill: "Shrimp/Steak",
