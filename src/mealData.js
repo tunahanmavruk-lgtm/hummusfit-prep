@@ -35,7 +35,7 @@ const GROUP1_MEALS = [
     rawMeats: "1/3 Chicken Breast",
   },
   {
-    name: "Baked Herb Chicken & Potatoes",
+    name: "Baked Herb Chicken and Potatoes",
     yield: 75,
     stove: "",
     oven: "Chicken, Green Beans, Potatoes",
