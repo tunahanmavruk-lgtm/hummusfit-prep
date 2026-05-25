@@ -665,26 +665,8 @@ const GROUP2_MEALS = [
     sauceStation: "",
     rawMeats: ""
   },
-  {
 
-    stove: "",
-    oven: "Colored Potatoes",
-    grill: "",
-    flatGrill: "Garlic Steak",
-    saladStation: "",
-    sauceStation: "",
-    rawMeats: "Pesto Steak"
-  },
-  {
 
-    stove: "",
-    oven: "",
-    grill: "",
-    flatGrill: "Tso Chicken",
-    saladStation: "White Cabbage",
-    sauceStation: "",
-    rawMeats: "Triple Cube Chicken"
-  },
   {
     name: "Harrison Chicken Pasta Bowl",
     yield: 110,
@@ -751,16 +733,7 @@ const GROUP2_MEALS = [
     sauceStation: "",
     rawMeats: ""
   },
-  {
 
-    stove: "",
-    oven: "Waffle Fries, Tenders",
-    grill: "",
-    flatGrill: "",
-    saladStation: "",
-    sauceStation: "Mickie Strips Sauce",
-    rawMeats: ""
-  },
   {
     name: "MsWendy Buff Nuggets",
     yield: 60,
@@ -816,16 +789,7 @@ const GROUP2_MEALS = [
     sauceStation: "BBQ Sriracha",
     rawMeats: ""
   },
-  {
 
-    stove: "",
-    oven: "Potato Halves",
-    grill: "Shrimp/Steak",
-    flatGrill: "",
-    saladStation: "",
-    sauceStation: "Pesto Sauce",
-    rawMeats: ""
-  },
   {
     name: "Taco Build Quesadilla",
     yield: 104,
