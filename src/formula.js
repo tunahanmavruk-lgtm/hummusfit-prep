@@ -54,7 +54,7 @@ const COOK_SCHEDULE = {
   }
 };
 
-const LEAN_BUFFER = 1.13; // 13% safety multiplier on carry-over target
+const LEAN_BUFFER = 1.10; // 10% safety multiplier on carry-over target
 
 // ── Holiday / Event Dictionary ───────────────────────────────
 // Maps date ranges to demand multipliers.
