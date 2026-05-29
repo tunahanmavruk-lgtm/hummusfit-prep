@@ -100,7 +100,7 @@ const EVENT_DICTIONARY = [
     name: "Memorial Day Week",
     multiplier: 1.06,
     type: 'annual',
-    month: 5, startDay: 24, endDay: 30
+    month: 5, startDay: 24, endDay: 26
   },
   {
     name: "Father's Day Week",
