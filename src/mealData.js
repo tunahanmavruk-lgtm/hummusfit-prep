@@ -567,17 +567,6 @@ const GROUP2_MEALS = [
     rawMeats: ""
   },
   {
-    name: "Cheesy Garlic Chicken Wrap",
-    yield: 74,
-    stove: "Garlic Sauce",
-    oven: "",
-    grill: "",
-    flatGrill: "Cheesy Garlic Chicken",
-    saladStation: "Chicken Wrap Mix",
-    sauceStation: "Cheesy Garlic Sauce",
-    rawMeats: "Cube Chicken"
-  },
-  {
     name: "Chicken Stir Fry",
     yield: 80,
     stove: "Peas/Carrots Rice",
@@ -664,17 +653,6 @@ const GROUP2_MEALS = [
     saladStation: "",
     sauceStation: "",
     rawMeats: "",
-  },
-  {
-    name: "Garden Orzo & Meatballs",
-    yield: 76,
-    stove: "Orzo Rice",
-    oven: "",
-    grill: "",
-    flatGrill: "",
-    saladStation: "",
-    sauceStation: "",
-    rawMeats: ""
   },
 
 
