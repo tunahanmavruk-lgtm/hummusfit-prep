@@ -54,7 +54,7 @@ const COOK_SCHEDULE = {
   }
 };
 
-const LEAN_BUFFER = 1.10; // 10% safety multiplier on carry-over target
+const LEAN_BUFFER = 1.05; // 5% safety multiplier on carry-over target
 
 // ── Holiday / Event Dictionary ───────────────────────────────
 // Maps date ranges to demand multipliers.
@@ -269,11 +269,15 @@ function calculateBatchesForMeal({
     finalBatches = Math.ceil(rawBatches);
   }
 
+  const isOverstocked = workingInventory > (carryOverTarget * 2) && carryOverTarget > 0;
+
   return {
     batches: finalBatches,
     exactUnits: null,
     directToAssembly: false,
     isPriority1,
+    isOverstocked,
+    overstockUnits: isOverstocked ? Math.round(workingInventory - carryOverTarget) : 0,
     _debug: {
       burnOffUnits: adjustedBurnOff.toFixed(1),
       workingInventory: workingInventory.toFixed(1),
@@ -330,6 +334,8 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
       exactUnits:       result.exactUnits,
       directToAssembly: result.directToAssembly,
       isPriority1:      result.isPriority1,
+      isOverstocked:    result.isOverstocked,
+      overstockUnits:   result.overstockUnits,
       stove:            meal.stove        || '',
       oven:             meal.oven         || '',
       grill:            meal.grill        || '',

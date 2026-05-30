@@ -33,6 +33,11 @@ function buildHtml(prepSheet, groupNumber, dayName, eventName = null, eventMulti
       return b.batches - a.batches;
     });
 
+  // Separate overstocked items (0 batches but overstocked)
+  const overstocked = prepSheet
+    .filter(m => m.isOverstocked && m.batches === 0)
+    .sort((a, b) => b.overstockUnits - a.overstockUnits);
+
   const rows = active.map((meal, idx) => {
     const batchDisplay = meal.directToAssembly
       ? `<td class="dta-units">${meal.exactUnits} units</td>`
@@ -264,6 +269,26 @@ function buildHtml(prepSheet, groupNumber, dayName, eventName = null, eventMulti
   }
 
   /* ── FOOTER ── */
+  .overstock-section {
+    margin-top: 8px;
+    padding: 6px 10px;
+    background: #EBF5FF;
+    border-left: 4px solid #2196F3;
+    border-radius: 4px;
+  }
+  .overstock-header {
+    font-size: 8pt;
+    font-weight: 900;
+    color: #1565C0;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .overstock-item {
+    font-size: 7pt;
+    color: #1565C0;
+    padding: 1px 0;
+  }
   .footer {
     background: #1C4A45;
     padding: 4px 12px;
