@@ -223,7 +223,8 @@ const GROUP1_MEALS = [
   },
   {
     name: "Crispy Vegan Wrap",
-    yield: 53,
+    isVegan: true,
+    yield: 48,
     stove: "",
     oven: "Vegan Tenders",
     grill: "",
@@ -310,17 +311,6 @@ const GROUP1_MEALS = [
     rawMeats: "Pesto Chicken",
   },
   {
-    name: "Grillin' Gains",
-    yield: 65,
-    stove: "Grillin Gains Rice",
-    oven: "",
-    grill: "Chicken & Steak",
-    flatGrill: "",
-    saladStation: "",
-    sauceStation: "",
-    rawMeats: "Filet Grill",
-  },
-  {
     name: "Hey Arnold! Burrito",
     yield: 75,
     stove: "",
@@ -366,7 +356,8 @@ const GROUP1_MEALS = [
   },
   {
     name: "Nacho Average Vegan Bowl",
-    yield: 32,
+    isVegan: true,
+    yield: 28,
     stove: "",
     oven: "Vegan Beef, Sweet Fries",
     grill: "",
@@ -477,7 +468,8 @@ const GROUP1_MEALS = [
   },
   {
     name: "Vegan Cheeseburger Bowl",
-    yield: 70,
+    isVegan: true,
+    yield: 28,
     stove: "Basmati Rice",
     oven: "Vegan Chorizo",
     grill: "",
@@ -847,7 +839,8 @@ const GROUP2_MEALS = [
   },
   {
     name: "Vegan Chorizo Quesadilla",
-    yield: 51,
+    isVegan: true,
+    yield: 45,
     stove: "",
     oven: "Vegan Chorizo",
     grill: "",
