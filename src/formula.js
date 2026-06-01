@@ -328,14 +328,26 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
       eventMultiplier
     });
 
+    // 4-day clearance cap
+    const totalSalesUnits     = burnOffUnits + carryUnits;
+    const totalSalesDays      = burnOffDays + carryDays;
+    const dailyRate           = totalSalesDays > 0 && totalSalesUnits > 0 ? totalSalesUnits / totalSalesDays : 0;
+    const maxAllowedInventory = dailyRate * 4;
+    const maxBatchesByCap     = dailyRate > 0 ? Math.max(0, Math.floor((maxAllowedInventory - currentInventory) / meal.yield)) : result.batches;
+    const cappedBatches       = dailyRate > 0 ? Math.min(result.batches, maxBatchesByCap) : result.batches;
+    const daysToSellThrough   = dailyRate > 0 ? currentInventory / dailyRate : 999;
+    const shelfLifeRisk       = daysToSellThrough > 4 && currentInventory > 0 && dailyRate > 0;
+
     return {
       name:             meal.name,
-      batches:          result.batches,
+      batches:          cappedBatches,
       exactUnits:       result.exactUnits,
       directToAssembly: result.directToAssembly,
       isPriority1:      result.isPriority1,
       isOverstocked:    result.isOverstocked,
       overstockUnits:   result.overstockUnits,
+      shelfLifeRisk,
+      daysToSellThrough: Math.round(daysToSellThrough * 10) / 10,
       stove:            meal.stove        || '',
       oven:             meal.oven         || '',
       grill:            meal.grill        || '',
