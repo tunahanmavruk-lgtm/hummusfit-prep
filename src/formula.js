@@ -334,7 +334,8 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
     const dailyRate           = totalSalesDays > 0 && totalSalesUnits > 0 ? totalSalesUnits / totalSalesDays : 0;
     const maxAllowedInventory = dailyRate * 4;
     const maxBatchesByCap     = dailyRate > 0 ? Math.max(0, Math.floor((maxAllowedInventory - currentInventory) / meal.yield)) : result.batches;
-    const cappedBatches       = dailyRate > 0 ? Math.min(result.batches, maxBatchesByCap) : result.batches;
+    const rawCapped     = dailyRate > 0 ? Math.min(result.batches, maxBatchesByCap) : result.batches;
+    const cappedBatches = rawCapped > 0 && rawCapped < 2 ? 2 : rawCapped;
     const daysToSellThrough   = dailyRate > 0 ? currentInventory / dailyRate : 999;
     const shelfLifeRisk       = daysToSellThrough > 4 && currentInventory > 0 && dailyRate > 0;
 
