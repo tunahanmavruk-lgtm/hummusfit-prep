@@ -646,19 +646,6 @@ const GROUP2_MEALS = [
     sauceStation: "",
     rawMeats: "",
   },
-
-
-  {
-    name: "Harrison Chicken Pasta Bowl",
-    yield: 110,
-    stove: "Penne Pasta, Marinara",
-    oven: "Breaded Cutlet",
-    grill: "",
-    flatGrill: "",
-    saladStation: "",
-    sauceStation: "",
-    rawMeats: ""
-  },
   {
     name: "Herb Butter Steak Tips Bowl",
     yield: 66,
