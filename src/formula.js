@@ -332,8 +332,9 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
     const totalSalesUnits     = burnOffUnits + carryUnits;
     const totalSalesDays      = burnOffDays + carryDays;
     const dailyRate           = totalSalesDays > 0 && totalSalesUnits > 0 ? totalSalesUnits / totalSalesDays : 0;
-    const maxAllowedInventory = dailyRate * 4;
-    // 4-day cap: total inventory AFTER cooking must not exceed 4-day demand
+    // Day-specific cap: Thu/Fri = 4 days (weekend), Mon/Tue/Wed/Sat = 3 days
+    const CAP_DAYS = ['Thursday','Friday'].includes(day) ? 4 : 3;
+    const maxAllowedInventory = dailyRate * CAP_DAYS;
     const maxUnitsToCook  = dailyRate > 0 ? Math.max(0, maxAllowedInventory - currentInventory) : 999999;
     const maxBatchesByCap = Math.floor(maxUnitsToCook / meal.yield);
     const hasDeficit      = result.batches > 0;
