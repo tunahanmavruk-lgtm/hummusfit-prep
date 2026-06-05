@@ -332,10 +332,10 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
     const totalSalesUnits     = burnOffUnits + carryUnits;
     const totalSalesDays      = burnOffDays + carryDays;
     const dailyRate           = totalSalesDays > 0 && totalSalesUnits > 0 ? totalSalesUnits / totalSalesDays : 0;
-    // Fast movers (150+/day) on Thu/Fri = 4 days, slow/medium Thu/Fri = 3.5 days, Mon/Tue/Wed/Sat = 2 days
+    // Fast movers (150+/day) on Thu/Fri = 3.5 days, slow/medium Thu/Fri = 3 days, Mon/Tue/Wed/Sat = 2 days
     const isFastMover = dailyRate >= 150;
     const isWeekendCook = ['Thursday','Friday'].includes(day);
-    const CAP_DAYS = isWeekendCook ? (isFastMover ? 4 : 3.5) : 2;
+    const CAP_DAYS = isWeekendCook ? (isFastMover ? 3.5 : 3) : 2;
     const maxAllowedInventory = dailyRate * CAP_DAYS;
     const maxUnitsToCook  = dailyRate > 0 ? Math.max(0, maxAllowedInventory - currentInventory) : 999999;
     const maxBatchesByCap = Math.floor(maxUnitsToCook / meal.yield);
