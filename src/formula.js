@@ -328,23 +328,25 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
       eventMultiplier
     });
 
-    // 4-day clearance cap
+    // Precise clearance targeting — cook exactly what's needed to clear by next group's inventory arrival
+    // Mon/Tue/Wed/Sat = 2 days until next same-group cook hits shelves
+    // Thu/Fri = 3.5 days to cover through Tuesday evening when Monday Group 1 hits shelves
     const totalSalesUnits     = burnOffUnits + carryUnits;
     const totalSalesDays      = burnOffDays + carryDays;
     const dailyRate           = totalSalesDays > 0 && totalSalesUnits > 0 ? totalSalesUnits / totalSalesDays : 0;
-    // Fast movers (150+/day) on Thu/Fri = 3.5 days, slow/medium Thu/Fri = 3 days, Mon/Tue/Wed/Sat = 2 days
-    const isFastMover = dailyRate >= 150;
-    const isWeekendCook = ['Thursday','Friday'].includes(day);
-    const CAP_DAYS = isWeekendCook ? (isFastMover ? 3.5 : 3) : 2;
-    const maxAllowedInventory = dailyRate * CAP_DAYS;
-    const maxUnitsToCook  = dailyRate > 0 ? Math.max(0, maxAllowedInventory - currentInventory) : 999999;
-    const maxBatchesByCap = Math.floor(maxUnitsToCook / meal.yield);
-    const hasDeficit      = result.batches > 0;
-    const rawCapped       = hasDeficit ? Math.min(result.batches, maxBatchesByCap) : 0;
-    // Allow 1 batch if 1 batch keeps total inventory within cap (overrides min 2-batch rule)
-    const oneBatchTotal   = currentInventory + meal.yield;
-    const oneBatchFitsInCap = oneBatchTotal <= maxAllowedInventory;
-    const cappedBatches   = rawCapped > 0 && rawCapped < 2 && hasDeficit
+    const isWeekendCook       = ['Thursday','Friday'].includes(day);
+    const TARGET_DAYS         = isWeekendCook ? 3.5 : 2;
+    // Target inventory = exactly what will sell through by next cook arrival
+    const targetInventory     = dailyRate * TARGET_DAYS;
+    // Units to cook = target - current inventory (never negative)
+    const maxUnitsToCook      = dailyRate > 0 ? Math.max(0, targetInventory - currentInventory) : 999999;
+    const maxBatchesByCap     = Math.floor(maxUnitsToCook / meal.yield);
+    const hasDeficit          = result.batches > 0;
+    const rawCapped           = hasDeficit ? Math.min(result.batches, maxBatchesByCap) : 0;
+    // Allow 1 batch if 1 batch keeps total inventory within target (overrides min 2-batch rule)
+    const oneBatchTotal       = currentInventory + meal.yield;
+    const oneBatchFitsInCap   = oneBatchTotal <= targetInventory;
+    const cappedBatches       = rawCapped > 0 && rawCapped < 2 && hasDeficit
       ? (oneBatchFitsInCap ? 1 : 2)
       : rawCapped;
     const daysToSellThrough   = dailyRate > 0 ? currentInventory / dailyRate : 999;
