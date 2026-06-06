@@ -348,7 +348,7 @@ async function main() {
   // Cache meals data for /meals endpoint
   const today = new Date().toISOString().split('T')[0];
   cachedMealsData = {
-    date: today,
+    date: mealsToday,
     group: groupNumber,
     meals: prepSheet
       .filter(m => (m.batches > 0 && !m.directToAssembly) || (m.directToAssembly && m.exactUnits > 0))
@@ -360,9 +360,9 @@ async function main() {
   };
 
   // Cache meals data for /meals endpoint
-  const today = new Date().toISOString().split('T')[0];
+  const mealsToday2 = new Date().toISOString().split('T')[0];
   cachedMealsData = {
-    date: today,
+    date: mealsToday,
     group: groupNumber,
     meals: prepSheet
       .filter(m => (m.batches > 0 && !m.directToAssembly) || (m.directToAssembly && m.exactUnits > 0))
@@ -447,7 +447,6 @@ http.createServer((req, res) => {
 let cachedMealsData = null;
 
 // Cache for /meals endpoint
-let cachedMealsData = null;
 
 // Run immediately on startup
 main().catch(err => {
