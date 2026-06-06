@@ -746,17 +746,6 @@ const GROUP2_MEALS = [
     sauceStation: "",
     rawMeats: "1/2 Filet Oven"
   },
-  {
-    name: "Sunrise Breakfast",
-    yield: 78,
-    stove: "",
-    oven: "Cube Potatoes",
-    grill: "",
-    flatGrill: "Yellow Eggs w/ Cheese",
-    saladStation: "",
-    sauceStation: "BBQ Sriracha",
-    rawMeats: ""
-  },
 
   {
     name: "Taco Build Quesadilla",
@@ -768,17 +757,6 @@ const GROUP2_MEALS = [
     saladStation: "Mix Taco Build Quesadilla",
     sauceStation: "",
     rawMeats: "Triple Cut Cube"
-  },
-  {
-    name: "Taco Poblano Bowl",
-    yield: 80,
-    stove: "Basmati, Gr. Beef",
-    oven: "",
-    grill: "",
-    flatGrill: "",
-    saladStation: "Red Onion",
-    sauceStation: "",
-    rawMeats: "Cube Chicken"
   },
   {
     name: "Teriyaki Flank Bowl",
