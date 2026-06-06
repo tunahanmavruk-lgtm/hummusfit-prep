@@ -345,6 +345,20 @@ async function main() {
 
   // ── STEP 4: Generate PDF ─────────────────────────────────────────────────
   console.log('📄 STEP 4: Generating prep sheet PDF...\n');
+  // Cache meals data for /meals endpoint
+  const today = new Date().toISOString().split('T')[0];
+  cachedMealsData = {
+    date: today,
+    group: groupNumber,
+    meals: prepSheet
+      .filter(m => (m.batches > 0 && !m.directToAssembly) || (m.directToAssembly && m.exactUnits > 0))
+      .sort((a, b) => b.batches - a.batches)
+      .map(m => ({
+        name: m.name,
+        quantity: m.directToAssembly ? m.exactUnits : m.batches
+      }))
+  };
+
   const pdfBuffer = await generatePdf(prepSheet, groupNumber, dayName, eventName, eventMultiplier);
 
   // ── Save PDF to disk for HTTP serving
@@ -385,6 +399,17 @@ http.createServer((req, res) => {
       res.writeHead(404);
       res.end('No blueprint available yet.');
     }
+  } else if (req.url === '/meals') {
+    if (cachedMealsData) {
+      res.writeHead(200, {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      });
+      res.end(JSON.stringify(cachedMealsData, null, 2));
+    } else {
+      res.writeHead(503, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: 'Meal data not yet generated. Try again after 6PM.' }));
+    }
   } else {
     res.writeHead(404);
     res.end('Not found');
@@ -392,6 +417,9 @@ http.createServer((req, res) => {
 }).listen(PORT, () => {
   console.log(`\n🌐 PDF server running on port ${PORT}`);
 });
+
+// Cache for /meals endpoint
+let cachedMealsData = null;
 
 // Run immediately on startup
 main().catch(err => {
