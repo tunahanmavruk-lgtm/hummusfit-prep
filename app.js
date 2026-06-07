@@ -206,6 +206,8 @@ async function generateClosedPdf() {
 
     console.log('  ✓ Closed notice PDF generated');
 
+    // Save closed PDF so HTTP server serves it at /blueprint
+    fs.writeFileSync(PDF_PATH, pdfBuffer);
     // Upload to Cloudinary so QR code shows the closed notice
     await uploadToCloudinary(pdfBuffer);
     console.log('  ✓ Closed notice live on QR code');
