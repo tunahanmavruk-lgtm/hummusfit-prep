@@ -335,7 +335,8 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
     const totalSalesDays      = burnOffDays + carryDays;
     const dailyRate           = totalSalesDays > 0 && totalSalesUnits > 0 ? totalSalesUnits / totalSalesDays : 0;
     const isWeekendCook       = ['Thursday','Friday'].includes(day);
-    const TARGET_DAYS         = isWeekendCook ? 3.5 : 2;
+    const isSaturday          = day === 'Saturday';
+    const TARGET_DAYS         = isWeekendCook ? 4 : isSaturday ? 4.5 : 2.5;
     // Target inventory = exactly what will sell through by next cook arrival
     const targetInventory     = dailyRate * TARGET_DAYS;
     // Units to cook = target - current inventory (never negative)
