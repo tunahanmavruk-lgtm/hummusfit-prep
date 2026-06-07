@@ -181,7 +181,7 @@ async function generateClosedPdf() {
   <div class="logo-text">Hummus<span>FIT</span></div>
   <div class="divider"></div>
   <div class="closed-text">Kitchen<br><span>Closed</span></div>
-  <div class="sub-text">Saturday — Dark Day</div>
+  <div class="sub-text">Sunday — Dark Day</div>
   <div class="reopen">We reopen Monday 🥙</div>
   <div class="footer">HummusFit Kitchen Automation · myhummusfit.com</div>
 </body>
@@ -214,7 +214,7 @@ async function generateClosedPdf() {
 
     // Send closed notice email
     try {
-      await sendEmail(pdfBuffer, 'Closed', 'Saturday');
+      await sendEmail(pdfBuffer, 'Closed', 'Sunday');
       console.log('  ✓ Closed notice emailed to kitchen team');
     } catch (emailErr) {
       console.error('  ❌ Email failed:', emailErr.message);
