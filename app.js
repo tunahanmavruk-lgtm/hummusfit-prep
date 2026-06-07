@@ -349,21 +349,7 @@ async function main() {
   // Cache meals data for /meals endpoint
   const today = new Date().toISOString().split('T')[0];
   cachedMealsData = {
-    date: mealsToday,
-    group: groupNumber,
-    meals: prepSheet
-      .filter(m => (m.batches > 0 && !m.directToAssembly) || (m.directToAssembly && m.exactUnits > 0))
-      .sort((a, b) => b.batches - a.batches)
-      .map(m => ({
-        name: m.name,
-        quantity: m.directToAssembly ? m.exactUnits : m.batches
-      }))
-  };
-
-  // Cache meals data for /meals endpoint
-  const mealsToday2 = new Date().toISOString().split('T')[0];
-  cachedMealsData = {
-    date: mealsToday,
+    date: new Date().toISOString().split('T')[0],
     group: groupNumber,
     meals: prepSheet
       .filter(m => (m.batches > 0 && !m.directToAssembly) || (m.directToAssembly && m.exactUnits > 0))
