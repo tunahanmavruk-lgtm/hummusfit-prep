@@ -29,7 +29,7 @@ if (fs.existsSync('.env')) {
 const { GROUP1_MEALS, GROUP2_MEALS, DIRECT_TO_ASSEMBLY } = require('./src/mealData');
 const { fetchInventory, fetchSales }                      = require('./src/shopify');
 const { calculateBatches, getDayGroup, getDayName,
-        getEventMultiplier, COOK_SCHEDULE }               = require('./src/formula');
+        getEventMultiplier, getTodayEST, COOK_SCHEDULE }   = require('./src/formula');
 const { generatePdf }                                     = require('./src/generatePdf');
 const { sendEmail }                                       = require('./src/emailer');
 
@@ -237,8 +237,9 @@ async function main() {
     ? (COOK_SCHEDULE[process.env.DAY_OVERRIDE]?.group || null)
     : getDayGroup();
 
-  if (!groupNumber) {
-    console.log(`\n🌙 Tomorrow is Saturday — generating CLOSED notice PDF...\n`);
+  const todayEST = getTodayEST();
+  if (todayEST === 'Sunday' || !groupNumber) {
+    console.log(`\n🌙 Kitchen is closed today — generating CLOSED notice PDF...\n`);
     await generateClosedPdf();
     return;
   }
