@@ -18,9 +18,9 @@
 // carryDays:   days the batch must cover going forward
 const COOK_SCHEDULE = {
   Sunday: {
-    group: 1,
+    group: null,
     burnOffDays: 0,
-    carryDays: 3      // Tue + Wed + Thu
+    carryDays: 0      // Dark day — no cooking
   },
   Monday: {
     group: 1,
