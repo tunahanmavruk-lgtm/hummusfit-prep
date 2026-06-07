@@ -239,9 +239,8 @@ async function main() {
     ? (COOK_SCHEDULE[process.env.DAY_OVERRIDE]?.group || null)
     : getDayGroup();
 
-  const todayEST = getTodayEST();
-  if (todayEST === 'Sunday' || !groupNumber) {
-    console.log(`\n🌙 Kitchen is closed today — generating CLOSED notice PDF...\n`);
+  if (!groupNumber) {
+    console.log(`\n🌙 Tomorrow is a dark day — generating CLOSED notice PDF...\n`);
     await generateClosedPdf();
     return;
   }
