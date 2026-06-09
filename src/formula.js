@@ -363,6 +363,7 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
     // Allow 1 batch if 1 batch keeps total inventory within target (overrides min 2-batch rule)
     const oneBatchTotal       = currentInventory + meal.yield;
     const oneBatchFitsInCap   = oneBatchTotal <= targetInventory;
+    const hasEnoughExisting   = currentInventory >= dailyRate;
     // Priority 1 override: if working inventory is negative, always cook at least 1 batch
     const isPriority1Override = result.isPriority1 && rawCapped === 0;
     const cappedBatches       = isPriority1Override ? 1
