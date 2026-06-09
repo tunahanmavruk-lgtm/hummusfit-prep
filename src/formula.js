@@ -367,8 +367,16 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
     const isPriority1Override = result.isPriority1 && rawCapped === 0;
     const cappedBatches       = isPriority1Override ? 1
       : rawCapped > 0 && rawCapped < 2 && hasDeficit
-      ? (oneBatchFitsInCap ? 1 : 2)
+      ? (oneBatchFitsInCap && hasEnoughExisting ? 1 : 2)
       : rawCapped;
+
+    // Launch override — force minimum batches AFTER cap logic
+    const launchOverride = LAUNCH_OVERRIDES[meal.name];
+    const launchActive   = launchOverride && new Date() <= new Date(launchOverride.until);
+    const finalBatches   = launchActive && cappedBatches < launchOverride.minBatches
+      ? launchOverride.minBatches
+      : cappedBatches;
+
     const daysToSellThrough   = dailyRate > 0 ? currentInventory / dailyRate : 999;
     const shelfLifeRisk       = daysToSellThrough > 4 && currentInventory > 0 && dailyRate > 0;
 
