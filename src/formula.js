@@ -58,7 +58,6 @@ const LEAN_BUFFER = 1.05; // 5% safety multiplier on carry-over target
 
 // Launch overrides — forces minimum batch count for new meals during launch week
 const LAUNCH_OVERRIDES = {
-  "Sunday Crispy Bowl":                { minBatches: 3, until: "2026-06-15" },
   "Crispy Bowl (Chick Fil A)":         { minBatches: 3, until: "2026-06-22" },
   "The Golden Arches Wrap":            { minBatches: 3, until: "2026-07-05" },
   "The Texas Queso Steak Bowl":        { minBatches: 3, until: "2026-07-19" },
