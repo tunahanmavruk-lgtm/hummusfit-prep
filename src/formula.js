@@ -56,6 +56,17 @@ const COOK_SCHEDULE = {
 
 const LEAN_BUFFER = 1.05; // 5% safety multiplier on carry-over target
 
+// Launch overrides — forces minimum batch count for new meals during launch week
+const LAUNCH_OVERRIDES = {
+  "Sunday Crispy Bowl":                { minBatches: 3, until: "2026-06-15" },
+  "Crispy Bowl (Chick Fil A)":         { minBatches: 3, until: "2026-06-22" },
+  "The Golden Arches Wrap":            { minBatches: 3, until: "2026-07-05" },
+  "The Texas Queso Steak Bowl":        { minBatches: 3, until: "2026-07-19" },
+  "The Philly Cheesesteak Quesadilla": { minBatches: 3, until: "2026-08-02" },
+  "Honey Garlic Crispy Chicken Tacos": { minBatches: 3, until: "2026-08-16" },
+  "West Coast Secret Sauce Bowl":      { minBatches: 3, until: "2026-08-30" },
+};
+
 // ── Holiday / Event Dictionary ───────────────────────────────
 // Maps date ranges to demand multipliers.
 // multiplier < 1.0 = dip (cook less)
@@ -342,6 +353,13 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
     // Units to cook = target - current inventory (never negative)
     const maxUnitsToCook      = dailyRate > 0 ? Math.max(0, targetInventory - currentInventory) : 999999;
     const maxBatchesByCap     = Math.floor(maxUnitsToCook / meal.yield);
+    // Launch override — force minimum batches for new meals during launch week
+    const launchOverride = LAUNCH_OVERRIDES[meal.name];
+    const launchActive   = launchOverride && new Date() <= new Date(launchOverride.until);
+    if (launchActive && result.batches < launchOverride.minBatches) {
+      result.batches = launchOverride.minBatches;
+    }
+
     const hasDeficit          = result.batches > 0;
     const rawCapped           = hasDeficit ? Math.min(result.batches, maxBatchesByCap) : 0;
     // Allow 1 batch if 1 batch keeps total inventory within target (overrides min 2-batch rule)
