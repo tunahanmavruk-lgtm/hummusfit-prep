@@ -358,13 +358,6 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
     // Units to cook = target - current inventory (never negative)
     const maxUnitsToCook      = dailyRate > 0 ? Math.max(0, targetInventory - currentInventory) : 999999;
     const maxBatchesByCap     = Math.floor(maxUnitsToCook / meal.yield);
-    // Launch override — force minimum batches for new meals during launch week
-    const launchOverride = LAUNCH_OVERRIDES[meal.name];
-    const launchActive   = launchOverride && new Date() <= new Date(launchOverride.until);
-    if (launchActive && result.batches < launchOverride.minBatches) {
-      result.batches = launchOverride.minBatches;
-    }
-
     const hasDeficit          = result.batches > 0;
     const rawCapped           = hasDeficit ? Math.min(result.batches, maxBatchesByCap) : 0;
     // Allow 1 batch if 1 batch keeps total inventory within target (overrides min 2-batch rule)
@@ -381,7 +374,7 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
 
     return {
       name:             meal.name,
-      batches:          cappedBatches,
+      batches:          finalBatches,
       exactUnits:       result.exactUnits,
       directToAssembly: result.directToAssembly,
       isPriority1:      result.isPriority1,
