@@ -116,7 +116,7 @@ const EVENT_DICTIONARY = [
     name: "Father's Day Sale",
     multiplier: 1.25,
     type: 'annual',
-    month: 6, startDay: 19, endDay: 21
+    month: 6, startDay: 17, endDay: 21
   },
 
   {
