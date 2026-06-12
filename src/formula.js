@@ -357,7 +357,6 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
     const hasDeficit          = result.batches > 0;
     const rawCapped           = hasDeficit ? Math.min(result.batches, maxBatchesByCap) : 0;
     if (meal.name === 'Chipotle Chicken (1lb Competition Approved)') {
-      console.log('DEBUG Chipotle: dailyRate=' + dailyRate.toFixed(1) + ' TARGET_DAYS=' + TARGET_DAYS + ' targetInv=' + targetInventory.toFixed(0) + ' currInv=' + currentInventory + ' maxUnits=' + maxUnitsToCook.toFixed(0) + ' maxBatches=' + maxBatchesByCap + ' result.batches=' + result.batches + ' rawCapped=' + rawCapped);
     }
     // Allow 1 batch if 1 batch keeps total inventory within target (overrides min 2-batch rule)
     const oneBatchTotal       = currentInventory + meal.yield;
