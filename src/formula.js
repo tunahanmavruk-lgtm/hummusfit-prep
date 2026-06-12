@@ -58,12 +58,12 @@ const LEAN_BUFFER = 1.05; // 5% safety multiplier on carry-over target
 
 // Launch overrides — forces minimum batch count for new meals during launch week
 const LAUNCH_OVERRIDES = {
-  "Crispy Bowl (Chick Fil A)":         { minBatches: 3, until: "2026-06-22" },
-  "The Golden Arches Wrap":            { minBatches: 3, until: "2026-07-05" },
-  "The Texas Queso Steak Bowl":        { minBatches: 3, until: "2026-07-19" },
-  "The Philly Cheesesteak Quesadilla": { minBatches: 3, until: "2026-08-02" },
-  "Honey Garlic Crispy Chicken Tacos": { minBatches: 3, until: "2026-08-16" },
-  "West Coast Secret Sauce Bowl":      { minBatches: 3, until: "2026-08-30" },
+  "Crispy Bowl (Chick Fil A)":         { minBatches: 3, from: "2026-06-09", until: "2026-06-22" },
+  "The Golden Arches Wrap":            { minBatches: 3, from: "2026-06-22", until: "2026-07-05" },
+  "The Texas Queso Steak Bowl":        { minBatches: 3, from: "2026-07-07", until: "2026-07-19" },
+  "The Philly Cheesesteak Quesadilla": { minBatches: 3, from: "2026-07-19", until: "2026-08-02" },
+  "Honey Garlic Crispy Chicken Tacos": { minBatches: 3, from: "2026-08-04", until: "2026-08-16" },
+  "West Coast Secret Sauce Bowl":      { minBatches: 3, from: "2026-08-17", until: "2026-08-30" },
 };
 
 // ── Holiday / Event Dictionary ───────────────────────────────
