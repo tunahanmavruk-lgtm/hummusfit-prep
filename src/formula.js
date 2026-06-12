@@ -351,8 +351,8 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
     // Target inventory = exactly what will sell through by next cook arrival
     const targetInventory     = dailyRate * TARGET_DAYS;
     // Units to cook = target - working inventory (accounts for burn-off)
-    const workingInventoryForCap = currentInventory - burnOffUnits;
-    const maxUnitsToCook      = dailyRate > 0 ? Math.max(0, targetInventory - workingInventoryForCap) : 999999;
+
+    const maxUnitsToCook      = dailyRate > 0 ? Math.max(0, targetInventory - currentInventory) : 999999;
     const maxBatchesByCap     = Math.floor(maxUnitsToCook / meal.yield);
     const hasDeficit          = result.batches > 0;
     const rawCapped           = hasDeficit ? Math.min(result.batches, maxBatchesByCap) : 0;
