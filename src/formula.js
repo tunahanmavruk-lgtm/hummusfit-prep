@@ -371,7 +371,7 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
 
     // Launch override — force minimum batches AFTER cap logic
     const launchOverride = LAUNCH_OVERRIDES[meal.name];
-    const launchActive   = launchOverride && new Date() <= new Date(launchOverride.until);
+    const launchActive   = launchOverride && new Date() >= new Date(launchOverride.from) && new Date() <= new Date(launchOverride.until);
     const finalBatches   = launchActive && cappedBatches < launchOverride.minBatches
       ? launchOverride.minBatches
       : cappedBatches;
