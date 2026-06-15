@@ -232,7 +232,10 @@ function calculateBatchesForMeal({
   carryUnits,
   yieldPerBatch,
   directToAssembly = false,
-  eventMultiplier = 1.0
+  eventMultiplier = 1.0,
+  targetDays = 3.5,
+  burnOffDays = 1,
+  carryDays = 2
 }) {
   // Apply event multiplier to both burn-off and carry target
   const adjustedBurnOff = burnOffUnits * eventMultiplier;
@@ -245,8 +248,12 @@ function calculateBatchesForMeal({
   // Per 0/0 Rule: if inventory=0 AND all sales=0, deficit=0, no flag needed
   const isPriority1 = workingInventory <= 0 && (burnOffUnits > 0 || carryUnits > 0);
 
-  // Step 2: Carry-Over Target with 10% Lean Buffer
-  const carryOverTarget = adjustedCarry * LEAN_BUFFER;
+  // Step 2: Carry-Over Target — daily rate × targetDays
+  // More reliable than raw carry sales which get distorted by stockouts
+  const totalSalesUnits = adjustedBurnOff + adjustedCarry;
+  const totalSalesDays  = burnOffDays + carryDays;
+  const dailyRateInner  = totalSalesDays > 0 && totalSalesUnits > 0 ? totalSalesUnits / totalSalesDays : 0;
+  const carryOverTarget = dailyRateInner * targetDays * LEAN_BUFFER;
 
   // Step 3: Unit Deficit
   const unitDeficit = Math.max(0, carryOverTarget - workingInventory);
@@ -330,29 +337,37 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
     const carryUnits       = (sales.carryOverSales || {})[meal.name] || 0;
     const isDTA            = meal.directToAssembly === true;
 
+    // Daily rate and target days — calculated before formula call
+    const totalSalesUnits     = burnOffUnits + carryUnits;
+    const totalSalesDays      = burnOffDays + carryDays;
+    const dailyRate           = totalSalesDays > 0 && totalSalesUnits > 0 ? totalSalesUnits / totalSalesDays : 0;
+    const isThursday          = day === 'Thursday';
+    const isFriday            = day === 'Friday';
+    const isSaturday          = day === 'Saturday';
+    // TARGET_DAYS per cook day:
+    // Mon/Tue/Wed: 3.5 days — next same-group cook arrives ~3.5 days later
+    // Thursday:   5.5 days — covers full weekend through Tuesday
+    // Friday:     4.0 days — covers Sat+Sun+Mon+Tue until Monday cook hits Tuesday
+    // Saturday:   3.0 days — packaged Monday, covers Mon eve through Wed when Tue cook arrives
+    const TARGET_DAYS         = isThursday ? 5.5 : isFriday ? 4.0 : isSaturday ? 3.0 : 3.5;
+    // Target inventory = daily rate × days to cover
+    const targetInventory     = dailyRate * TARGET_DAYS;
+
     const result = calculateBatchesForMeal({
       currentInventory,
       burnOffUnits,
       carryUnits,
       yieldPerBatch: meal.yield,
       directToAssembly: isDTA,
-      eventMultiplier
+      eventMultiplier,
+      targetDays: TARGET_DAYS,
+      burnOffDays,
+      carryDays
     });
 
-    // Precise clearance targeting — cook exactly what's needed to clear by next group's inventory arrival
-    // Mon/Tue/Wed/Sat = 2 days until next same-group cook hits shelves
-    // Thu/Fri = 3.5 days to cover through Tuesday evening when Monday Group 1 hits shelves
-    const totalSalesUnits     = burnOffUnits + carryUnits;
-    const totalSalesDays      = burnOffDays + carryDays;
-    const dailyRate           = totalSalesDays > 0 && totalSalesUnits > 0 ? totalSalesUnits / totalSalesDays : 0;
-    const isThursday          = day === 'Thursday';
-    const isSaturday          = day === 'Saturday';
-    const TARGET_DAYS         = isThursday ? 5.5 : isSaturday ? 4 : 4;
-    // Target inventory = exactly what will sell through by next cook arrival
-    const targetInventory     = dailyRate * TARGET_DAYS;
-    // Units to cook = target - working inventory (accounts for burn-off)
-
-    const maxUnitsToCook      = dailyRate > 0 ? Math.max(0, targetInventory - currentInventory) : 999999;
+    // Cap: units to cook = target - working inventory after burn
+    const workingInvForCap    = Math.max(0, currentInventory - burnOffUnits);
+    const maxUnitsToCook      = dailyRate > 0 ? Math.max(0, targetInventory - workingInvForCap) : 999999;
     const maxBatchesByCap     = Math.floor(maxUnitsToCook / meal.yield);
     const hasDeficit          = result.batches > 0;
     const rawCapped           = hasDeficit ? Math.min(result.batches, maxBatchesByCap) : 0;
