@@ -356,12 +356,11 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
     const maxBatchesByCap     = Math.floor(maxUnitsToCook / meal.yield);
     const hasDeficit          = result.batches > 0;
     const rawCapped           = hasDeficit ? Math.min(result.batches, maxBatchesByCap) : 0;
-    if (meal.name === 'Chipotle Chicken (1lb Competition Approved)') {
-    }
-    // Allow 1 batch if 1 batch keeps total inventory within target (overrides min 2-batch rule)
+    // Only allow 1 batch if existing inventory covers at least 1.5 days of demand
+    // This prevents under-cooking high-velocity meals
     const oneBatchTotal       = currentInventory + meal.yield;
     const oneBatchFitsInCap   = oneBatchTotal <= targetInventory;
-    const hasEnoughExisting   = currentInventory >= dailyRate;
+    const hasEnoughExisting   = currentInventory >= (dailyRate * 1.5);
     // Priority 1 override: if working inventory is negative, always cook at least 1 batch
     const isPriority1Override = result.isPriority1 && rawCapped === 0;
     const cappedBatches       = isPriority1Override ? 1
