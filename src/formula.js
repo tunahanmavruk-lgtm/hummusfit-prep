@@ -54,7 +54,7 @@ const COOK_SCHEDULE = {
   }
 };
 
-const LEAN_BUFFER = 1.05; // 5% safety multiplier on carry-over target
+const LEAN_BUFFER = 1.05; // 20% safety multiplier — temporarily elevated to compensate for stockout week data distortion (revert to 1.05 after June 22)
 
 // Launch overrides — forces minimum batch count for new meals during launch week
 const LAUNCH_OVERRIDES = {
@@ -349,7 +349,7 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
     // Thursday:   5.5 days — covers full weekend through Tuesday
     // Friday:     4.0 days — covers Sat+Sun+Mon+Tue until Monday cook hits Tuesday
     // Saturday:   3.0 days — packaged Monday, covers Mon eve through Wed when Tue cook arrives
-    const TARGET_DAYS         = isThursday ? 5.5 : isFriday ? 4.0 : isSaturday ? 3.0 : 3.5;
+    const TARGET_DAYS         = isThursday ? 5.5 : isFriday ? 4.0 : isSaturday ? 3.0 : 3.5; // temporarily elevated week of June 15 — revert to 5.5/4.0/3.0/3.5 after June 22
     // Target inventory = daily rate × days to cover
     const targetInventory     = dailyRate * TARGET_DAYS;
 
