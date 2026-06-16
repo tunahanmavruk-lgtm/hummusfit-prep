@@ -13,7 +13,7 @@ const puppeteer = require('puppeteer');
 // Logo loaded from Shopify CDN — no large file needed
 const LOGO_B64 = 'https://cdn.shopify.com/s/files/1/0624/7797/3879/files/hummus_fit_new_logo.PNG';
 
-function buildHtml(prepSheet, groupNumber, dayName, eventName = null, eventMultiplier = 1.0) {
+function buildHtml(prepSheet, groupNumber, dayName, eventName = null, eventMultiplier = 1.0, sameDayAlert = false) {
   const qrDataUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://res.cloudinary.com/dtwtlbkqm/image/upload/hummusfit_blueprint_latest.pdf';
   // Show tomorrow's date — this sheet runs the night before the cook day
   const now = new Date();
@@ -62,6 +62,10 @@ function buildHtml(prepSheet, groupNumber, dayName, eventName = null, eventMulti
     ? `<div class="event-bar">⚡ ${eventName} — Demand adjusted to ${(eventMultiplier * 100).toFixed(0)}% of normal</div>`
     : '';
 
+  const sameDayBanner = sameDayAlert
+    ? `<div class="same-day-bar">🚨 SAME-DAY PACKAGING REQUIRED — Package today to prevent stockouts. Do NOT wait until tomorrow.</div>`
+    : '';
+
   return `<!DOCTYPE html>
 <html>
 <head>
@@ -88,6 +92,19 @@ function buildHtml(prepSheet, groupNumber, dayName, eventName = null, eventMulti
     padding: 3px 8px;
     letter-spacing: 1px;
     text-transform: uppercase;
+  }
+
+  /* ── SAME-DAY PACKAGING ALERT ── */
+  .same-day-bar {
+    background: #C0392B;
+    color: white;
+    font-size: 7.5pt;
+    font-weight: 900;
+    text-align: center;
+    padding: 4px 8px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border-bottom: 2px solid #FF0000;
   }
 
   /* ── HEADER ── */
@@ -369,6 +386,7 @@ function buildHtml(prepSheet, groupNumber, dayName, eventName = null, eventMulti
 <body>
 
 ${eventBanner}
+  ${sameDayBanner}
 
 <!-- HEADER -->
 <div class="header-bar">
@@ -428,7 +446,7 @@ ${eventBanner}
 </html>`;
 }
 
-async function generatePdf(prepSheet, groupNumber, dayName, eventName = null, eventMultiplier = 1.0) {
+async function generatePdf(prepSheet, groupNumber, dayName, eventName = null, eventMultiplier = 1.0, sameDayAlert = false) {
   console.log('Generating PDF...');
 
   const browser = await puppeteer.launch({
@@ -439,7 +457,7 @@ async function generatePdf(prepSheet, groupNumber, dayName, eventName = null, ev
   try {
     const page = await browser.newPage();
 
-    const html = buildHtml(prepSheet, groupNumber, dayName, eventName, eventMultiplier);
+    const html = buildHtml(prepSheet, groupNumber, dayName, eventName, eventMultiplier, sameDayAlert);
 
     // Use fixed viewport matching landscape letter size
     await page.setViewport({ width: 1056, height: 816 });

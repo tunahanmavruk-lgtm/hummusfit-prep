@@ -361,7 +361,21 @@ async function main() {
       }))
   };
 
-  const pdfBuffer = await generatePdf(prepSheet, groupNumber, dayName, eventName, eventMultiplier);
+  // Same-Day Packaging Alert — fires when 5+ meals have less than 1 day of stock
+  const atRiskMeals = prepSheet.filter(m => {
+    const debug = m._debug || {};
+    const currInv = Number(debug.currentInventory) || 0;
+    const totalSales = (Number(debug.burnOffUnits) || 0) + (Number(debug.carryUnits) || 0);
+    const totalDays = (schedule.burnOffDays || 1) + (schedule.carryDays || 2);
+    const dailyRate = totalDays > 0 && totalSales > 0 ? totalSales / totalDays : 0;
+    return dailyRate > 0 && currInv < dailyRate && m.batches > 0;
+  });
+  const sameDayAlert = atRiskMeals.length >= 5;
+  if (sameDayAlert) {
+    console.log('\n🚨 SAME-DAY PACKAGING ALERT: ' + atRiskMeals.length + ' meals under 1 day of stock');
+  }
+
+  const pdfBuffer = await generatePdf(prepSheet, groupNumber, dayName, eventName, eventMultiplier, sameDayAlert);
 
   // ── Save PDF to disk for HTTP serving
   fs.writeFileSync(PDF_PATH, pdfBuffer);
