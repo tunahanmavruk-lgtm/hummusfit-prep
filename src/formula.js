@@ -349,7 +349,16 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
     // Thursday:   5.5 days — covers full weekend through Tuesday
     // Friday:     4.0 days — covers Sat+Sun+Mon+Tue until Monday cook hits Tuesday
     // Saturday:   3.0 days — packaged Monday, covers Mon eve through Wed when Tue cook arrives
-    const TARGET_DAYS         = isThursday ? 5.5 : isFriday ? 4.0 : isSaturday ? 3.0 : 3.5; // temporarily elevated week of June 15 — revert to 5.5/4.0/3.0/3.5 after June 22
+    // TARGET_DAYS = exact days food must last until next same-group cook is packaged & on shelves
+    // Monday:   3.5 days — Mon cook -> Tue packaged -> Tue PM HQ -> must last until Wed cook arrives Thu PM
+    // Tuesday:  4.5 days — Tue cook -> Wed packaged -> Wed PM HQ -> must last until Thu cook arrives Fri PM
+    // Wednesday:3.5 days — Wed cook -> Thu packaged -> Thu PM HQ -> must last until Fri cook arrives Sat PM
+    // Thursday: 5.5 days — Thu cook -> Fri packaged -> Fri PM HQ -> must last until Mon cook arrives Tue PM (covers full weekend)
+    // Friday:   4.0 days — Fri cook -> Sat packaged -> Sat PM HQ -> must last until Mon cook arrives Tue PM
+    // Saturday: 3.0 days — Sat cook -> Mon packaged -> Mon PM HQ -> must last until Tue cook arrives Wed PM
+    const isTuesday           = day === 'Tuesday';
+    const isWednesday         = day === 'Wednesday';
+    const TARGET_DAYS         = isThursday ? 5.5 : isFriday ? 4.0 : isSaturday ? 3.0 : isTuesday ? 4.5 : isWednesday ? 3.5 : 3.5;
     // Target inventory = daily rate × days to cover
     const targetInventory     = dailyRate * TARGET_DAYS;
 
