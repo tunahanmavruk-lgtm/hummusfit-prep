@@ -360,7 +360,6 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
     const isWednesday         = day === 'Wednesday';
     const TARGET_DAYS         = isThursday ? 5.5 : isFriday ? 4.0 : isSaturday ? 3.0 : isTuesday ? 4.5 : isWednesday ? 3.5 : 3.5;
     // Target inventory = daily rate × days to cover
-    const targetInventory     = dailyRate * TARGET_DAYS;
 
     const result = calculateBatchesForMeal({
       currentInventory,
@@ -375,16 +374,19 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
     });
 
     // Cap: units to cook = target - working inventory after burn
+    // Must use eventMultiplier so cap matches formula's adjusted demand
+    const adjustedDailyRate   = dailyRate * eventMultiplier;
+    const adjustedTargetInv   = adjustedDailyRate * TARGET_DAYS;
     const workingInvForCap    = Math.max(0, currentInventory - burnOffUnits);
-    const maxUnitsToCook      = dailyRate > 0 ? Math.max(0, targetInventory - workingInvForCap) : 999999;
+    const maxUnitsToCook      = adjustedDailyRate > 0 ? Math.max(0, adjustedTargetInv - workingInvForCap) : 999999;
     const maxBatchesByCap     = Math.floor(maxUnitsToCook / meal.yield);
     const hasDeficit          = result.batches > 0;
     const rawCapped           = hasDeficit ? Math.min(result.batches, maxBatchesByCap) : 0;
     // Only allow 1 batch if existing inventory covers at least 1.5 days of demand
     // This prevents under-cooking high-velocity meals
     const oneBatchTotal       = currentInventory + meal.yield;
-    const oneBatchFitsInCap   = oneBatchTotal <= targetInventory;
-    const hasEnoughExisting   = currentInventory >= (dailyRate * 1.5);
+    const oneBatchFitsInCap   = oneBatchTotal <= adjustedTargetInv;
+    const hasEnoughExisting   = currentInventory >= (adjustedDailyRate * 1.5);
     // Priority 1 override: if working inventory is negative, always cook at least 1 batch
     const isPriority1Override = result.isPriority1 && rawCapped === 0;
     const cappedBatches       = isPriority1Override ? 1
