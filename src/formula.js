@@ -358,7 +358,7 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
     // Saturday: 3.0 days — Sat cook -> Mon packaged -> Mon PM HQ -> must last until Tue cook arrives Wed PM
     const isTuesday           = day === 'Tuesday';
     const isWednesday         = day === 'Wednesday';
-    const TARGET_DAYS         = isThursday ? 5.5 : isFriday ? 4.0 : isSaturday ? 3.0 : isTuesday ? 4.5 : isWednesday ? 3.5 : 3.5;
+    const TARGET_DAYS         = isThursday ? 5.5 : isFriday ? 4.0 : isSaturday ? 3.0 : isTuesday ? 3.5 : isWednesday ? 3.5 : 3.5;
     // Target inventory = daily rate × days to cover
 
     const result = calculateBatchesForMeal({
