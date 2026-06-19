@@ -133,17 +133,7 @@ const GROUP1_MEALS = [
     sauceStation: "",
     rawMeats: "",
   },
-  {
-    name: "Chicken Taco Bowl",
-    yield: 80,
-    stove: "Brown Rice, Taco Pulled Chicken",
-    oven: "",
-    grill: "",
-    flatGrill: "",
-    saladStation: "Red Bean Corn Salad",
-    sauceStation: "",
-    rawMeats: "",
-  },
+
   {
     name: "Chipotle Chicken (1lb Competition Approved)",
     yield: 25,
@@ -343,17 +333,7 @@ const GROUP1_MEALS = [
     sauceStation: "",
     rawMeats: "",
   },
-  {
-    name: "Nacho Average Bowl",
-    yield: 71,
-    stove: "Ground Beef",
-    oven: "Sweet Potato Fries",
-    grill: "",
-    flatGrill: "",
-    saladStation: "",
-    sauceStation: "",
-    rawMeats: "",
-  },
+
   {
     name: "Nacho Average Vegan Bowl",
     isVegan: true,
@@ -388,17 +368,7 @@ const GROUP1_MEALS = [
     sauceStation: "",
     rawMeats: "1/2 Filet Oven",
   },
-  {
-    name: "Southwest Chicken Quesadilla",
-    yield: 80,
-    stove: "Pulled Chicken",
-    oven: "",
-    grill: "",
-    flatGrill: "",
-    saladStation: "Quesadilla Veggies",
-    sauceStation: "",
-    rawMeats: "",
-  },
+
   {
     name: "Spicy Buffalo Wrap",
     yield: 73,
@@ -478,9 +448,64 @@ const GROUP1_MEALS = [
     sauceStation: "",
     rawMeats: "",
   },
+  {
+    name: "Low Carb Keto Cheeseburger Bowl",
+    yield: 80,
+    stove: "Ground Beef",
+    oven: "",
+    grill: "",
+    flatGrill: "",
+    saladStation: "Onion/Pickle",
+    sauceStation: "",
+    rawMeats: "",
+  },
+  {
+    name: "TexMex Potato Hash",
+    yield: 84,
+    stove: "Ground Beef",
+    oven: "Cube Seasoned Potatoes",
+    grill: "",
+    flatGrill: "",
+    saladStation: "Texas Hash Salad",
+    sauceStation: "",
+    rawMeats: "",
+  },
 ];
 
 const GROUP2_MEALS = [
+  {
+    name: "Chicken Taco Bowl",
+    yield: 80,
+    stove: "Brown Rice, Taco Pulled Chicken",
+    oven: "",
+    grill: "",
+    flatGrill: "",
+    saladStation: "Red Bean Corn Salad",
+    sauceStation: "",
+    rawMeats: "",
+  },
+  {
+    name: "Nacho Average Bowl",
+    yield: 71,
+    stove: "Ground Beef",
+    oven: "Sweet Potato Fries",
+    grill: "",
+    flatGrill: "",
+    saladStation: "",
+    sauceStation: "",
+    rawMeats: "",
+  },
+  {
+    name: "Southwest Chicken Quesadilla",
+    yield: 80,
+    stove: "Pulled Chicken",
+    oven: "",
+    grill: "",
+    flatGrill: "",
+    saladStation: "Quesadilla Veggies",
+    sauceStation: "",
+    rawMeats: "",
+  },
   {
     name: "6-Guys Patty Melt",
     yield: 102,
@@ -690,17 +715,7 @@ const GROUP2_MEALS = [
     sauceStation: "",
     rawMeats: "Pesto Steak"
   },
-  {
-    name: "Low Carb Keto Cheeseburger Bowl",
-    yield: 80,
-    stove: "Ground Beef",
-    oven: "",
-    grill: "",
-    flatGrill: "",
-    saladStation: "Onion/Pickle",
-    sauceStation: "",
-    rawMeats: ""
-  },
+
 
   {
     name: "MsWendy Buff Nuggets",
@@ -769,17 +784,7 @@ const GROUP2_MEALS = [
     sauceStation: "",
     rawMeats: ""
   },
-  {
-    name: "TexMex Potato Hash",
-    yield: 84,
-    stove: "Ground Beef",
-    oven: "Cube Seasoned Potatoes",
-    grill: "",
-    flatGrill: "",
-    saladStation: "",
-    sauceStation: "",
-    rawMeats: ""
-  },
+
   {
     name: "The Clean Bulk Pasta Bowl",
     yield: 32,
