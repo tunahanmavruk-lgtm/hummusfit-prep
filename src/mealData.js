@@ -34,17 +34,7 @@ const GROUP1_MEALS = [
     sauceStation: "",
     rawMeats: "1/3 Chicken Breast",
   },
-  {
-    name: "Baked Herb Chicken and Potatoes",
-    yield: 75,
-    stove: "",
-    oven: "Chicken, Green Beans, Potatoes",
-    grill: "",
-    flatGrill: "",
-    saladStation: "",
-    sauceStation: "",
-    rawMeats: "1/2 Filet Oven",
-  },
+
   {
     name: "Baked Herbed Tilapia (1lb Competition Approved)",
     yield: 6,
