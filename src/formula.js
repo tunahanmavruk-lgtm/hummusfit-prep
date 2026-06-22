@@ -442,6 +442,21 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
     return b.batches - a.batches;
   });
 
+  // Global inventory cap enforcement — prevent total projected inventory from exceeding hard cap
+  const GLOBAL_INVENTORY_CAP = 14000;
+  const totalCurrentInventory = prepSheet.reduce((sum, m) => sum + (m._debug?.currentInventory || 0), 0);
+  const totalUnitsToCook = () => prepSheet.reduce((sum, m) => sum + m.batches * (m._debug?.yield || 0), 0);
+
+  if (totalCurrentInventory + totalUnitsToCook() > GLOBAL_INVENTORY_CAP) {
+    // Cut batches from most overstocked meals first (highest daysToSellThrough)
+    const byOverstock = [...prepSheet].sort((a, b) => b.daysToSellThrough - a.daysToSellThrough);
+    while (totalCurrentInventory + totalUnitsToCook() > GLOBAL_INVENTORY_CAP) {
+      const candidate = byOverstock.find(m => m.batches > 0);
+      if (!candidate) break;
+      candidate.batches -= 1;
+    }
+  }
+
   return prepSheet;
 }
 
