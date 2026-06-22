@@ -442,17 +442,43 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
     return b.batches - a.batches;
   });
 
-  // Global inventory cap enforcement — prevent total projected inventory from exceeding hard cap
-  const GLOBAL_INVENTORY_CAP = 14000;
+  // Global inventory cap enforcement — hard ceiling of 16,000 units
+  // Floor protection: never cut a meal below 1.5x its daily burn rate
+  // Fast movers are protected first; slow movers get cut first and hardest
+  const GLOBAL_INVENTORY_CAP = 16000;
+  const MINIMUM_DAYS_FLOOR   = 1.5;
+
   const totalCurrentInventory = prepSheet.reduce((sum, m) => sum + (m._debug?.currentInventory || 0), 0);
-  const totalUnitsToCook = () => prepSheet.reduce((sum, m) => sum + m.batches * (m._debug?.yield || 0), 0);
+  const totalUnitsToCook      = () => prepSheet.reduce((sum, m) => sum + m.batches * (m._debug?.yield || 0), 0);
 
   if (totalCurrentInventory + totalUnitsToCook() > GLOBAL_INVENTORY_CAP) {
-    // Cut batches from most overstocked meals first (highest daysToSellThrough)
+    // Sort most overstocked first (highest daysToSellThrough = slowest mover)
     const byOverstock = [...prepSheet].sort((a, b) => b.daysToSellThrough - a.daysToSellThrough);
+
+    let iterations = 0;
     while (totalCurrentInventory + totalUnitsToCook() > GLOBAL_INVENTORY_CAP) {
-      const candidate = byOverstock.find(m => m.batches > 0);
-      if (!candidate) break;
+      if (++iterations > 2000) break; // Safety valve
+
+      const candidate = byOverstock.find(m => {
+        if (m.batches <= 0) return false;
+        // Compute this meal's daily burn rate from existing data
+        const currentInv  = m._debug?.currentInventory || 0;
+        const yieldPer    = m._debug?.yield || 0;
+        const dailyRate   = (m.daysToSellThrough > 0 && m.daysToSellThrough < 999)
+          ? currentInv / m.daysToSellThrough
+          : 0;
+        // Projected inventory after cutting one batch
+        const afterCut    = currentInv + (m.batches - 1) * yieldPer;
+        const minSafe     = dailyRate * MINIMUM_DAYS_FLOOR;
+        // Only cut if projected inventory stays above the floor
+        return afterCut >= minSafe;
+      });
+
+      if (!candidate) {
+        // All remaining meals are at their floor — cannot cut further without stockout risk
+        console.warn('⚠️  CAP WARNING: 16,000 unit ceiling cannot be satisfied without cutting into minimum safe stock. Review slow-moving SKUs manually.');
+        break;
+      }
       candidate.batches -= 1;
     }
   }
