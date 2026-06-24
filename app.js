@@ -31,6 +31,7 @@ const { fetchInventory, fetchSales }                      = require('./src/shopi
 const { calculateBatches, getDayGroup, getDayName,
         getEventMultiplier, getTodayEST, COOK_SCHEDULE }   = require('./src/formula');
 const { generatePdf }                                     = require('./src/generatePdf');
+const { syncToSheets } = require('./src/sheetsSync');
 const { sendEmail }                                       = require('./src/emailer');
 
 const http = require('http');
@@ -396,6 +397,14 @@ async function main() {
   // Upload to Cloudinary for QR code access
   console.log('☁️  STEP 6: Uploading to Cloudinary for QR access...');
   await uploadToCloudinary(pdfBuffer);
+  // ── STEP 7: Sync to Google Sheets KDS ─────────────────────
+  try {
+    console.log('\n📊 STEP 7: Syncing to Google Sheets KDS...');
+    const sheetUrl = await syncToSheets(prepSheet, groupNumber, dayName, eventName);
+    console.log(`  ✓ KDS sheet live: ${sheetUrl}`);
+  } catch (sheetErr) {
+    console.error('  ⚠️  Sheets sync failed (non-fatal):', sheetErr.message);
+  }
   }
 }
 
