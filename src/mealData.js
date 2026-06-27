@@ -810,7 +810,7 @@ const GROUP2_MEALS = [
     rawMeats: "Vegan Beef",
   },
   {
-    name: "Closed on Sunday Crispy Chicken Bowl",
+    name: "\"Closed on Sunday\" Crispy Chicken Bowl",
     yield: 70,
     stove: "",
     oven: "Russet Potato Wedges, Chicken Tenders",
