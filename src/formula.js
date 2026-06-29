@@ -341,6 +341,7 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
   const rampYear         = holidayRampDate.getFullYear();
 
   const HOLIDAY_TARGET_DAYS_MAP = {
+    '2026-6-29': { mon: 2.5 },
     '2026-6-30': { mon: 2.5 },
     '2026-7-1':  { tue: 3.0 },
     '2026-7-2':  { wed: 3.5 },
