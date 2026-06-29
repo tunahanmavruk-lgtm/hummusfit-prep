@@ -473,16 +473,6 @@ main().catch(err => {
   console.error(err.stack);
 });
 
-// Manual trigger endpoint — hit POST /run-now to generate a fresh blueprint immediately
-app.post('/run-now', (req, res) => {
-  console.log('\n🔄 Manual trigger — running main()...');
-  res.json({ status: 'triggered', message: 'Blueprint generation started — check /blueprint in ~60 seconds' });
-  main().catch(err => {
-    console.error('\n❌ RUN-NOW ERROR:', err.message);
-    console.error(err.stack);
-  });
-});
-
 // Schedule daily at 1AM UTC (9PM EDT) Sunday–Friday (skips Saturday — no Sunday cook)
 cron.schedule('0 1 * * 0-5', () => {
   console.log('\n⏰ Cron triggered — running main()...');
