@@ -354,8 +354,8 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
   const HOLIDAY_CAP = rampEntry?.cap || null;
 
   if (rampEntry) {
-    console.log(`  🎆 JULY 4TH RAMP ACTIVE (\${rampKey}): TARGET_DAYS and/or cap overridden`);
-    if (HOLIDAY_CAP) console.log(`  🎆 Cap raised to \${HOLIDAY_CAP} for holiday ramp`);
+    console.log(`  🎆 JULY 4TH RAMP ACTIVE (${rampKey}): TARGET_DAYS and/or cap overridden`);
+    if (HOLIDAY_CAP) console.log(`  🎆 Cap raised to ${HOLIDAY_CAP} for holiday ramp`);
   }
   // ── END JULY 4TH HOLIDAY RAMP ──────────────────────────
 
