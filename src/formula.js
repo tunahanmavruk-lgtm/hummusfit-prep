@@ -369,6 +369,7 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
     const totalSalesUnits     = burnOffUnits + carryUnits;
     const totalSalesDays      = burnOffDays + carryDays;
     const dailyRate           = totalSalesDays > 0 && totalSalesUnits > 0 ? totalSalesUnits / totalSalesDays : 0;
+    const isMonday            = day === 'Monday';
     const isThursday          = day === 'Thursday';
     const isFriday            = day === 'Friday';
     const isSaturday          = day === 'Saturday';
