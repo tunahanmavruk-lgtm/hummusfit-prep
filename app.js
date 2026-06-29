@@ -446,6 +446,14 @@ http.createServer((req, res) => {
       res.writeHead(503, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({ error: 'Meal data not yet generated. Try again after 6PM.' }));
     }
+  } else if (req.method === 'POST' && req.url === '/run-now') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ status: 'triggered', message: 'Blueprint generation started — check /blueprint in ~60 seconds' }));
+    console.log('\n🔄 Manual /run-now triggered — running main()...');
+    main().catch(err => {
+      console.error('\n❌ RUN-NOW ERROR:', err.message);
+      console.error(err.stack);
+    });
   } else {
     res.writeHead(404);
     res.end('Not found');
