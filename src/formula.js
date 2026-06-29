@@ -331,6 +331,33 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
     console.log(`\n🎉 EVENT DETECTED: ${eventName} — Applying ${(eventMultiplier * 100).toFixed(0)}% demand multiplier\n`);
   }
 
+  // ── JULY 4TH HOLIDAY RAMP ─────────────────────────────────
+  // Spreads holiday load across Mon June 30 – Fri July 4
+  // Kitchen closed Sat July 5 + Sun July 6
+  // Full auto-revert Monday July 7
+  const holidayRampDate  = getTodayEST();
+  const rampMonth        = holidayRampDate.getMonth() + 1;
+  const rampDay          = holidayRampDate.getDate();
+  const rampYear         = holidayRampDate.getFullYear();
+
+  const HOLIDAY_TARGET_DAYS_MAP = {
+    '2026-6-30': { mon: 2.5 },
+    '2026-7-1':  { tue: 3.0 },
+    '2026-7-2':  { wed: 3.5 },
+    '2026-7-3':  { thu: 3.5, cap: 18000 },
+    '2026-7-4':  { fri: 3.0, cap: 18000 },
+  };
+
+  const rampKey    = \`\${rampYear}-\${rampMonth}-\${rampDay}\`;
+  const rampEntry  = HOLIDAY_TARGET_DAYS_MAP[rampKey] || null;
+  const HOLIDAY_CAP = rampEntry?.cap || null;
+
+  if (rampEntry) {
+    console.log(\`  🎆 JULY 4TH RAMP ACTIVE (\${rampKey}): TARGET_DAYS and/or cap overridden\`);
+    if (HOLIDAY_CAP) console.log(\`  🎆 Cap raised to \${HOLIDAY_CAP} for holiday ramp\`);
+  }
+  // ── END JULY 4TH HOLIDAY RAMP ──────────────────────────
+
   const prepSheet = meals.map(meal => {
     const currentInventory = inventory[meal.name]              || 0;
     const burnOffUnits     = (sales.burnOffSales  || {})[meal.name] || 0;
@@ -358,7 +385,19 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
     // Saturday: 3.0 days — Sat cook -> Mon packaged -> Mon PM HQ -> must last until Tue cook arrives Wed PM
     const isTuesday           = day === 'Tuesday';
     const isWednesday         = day === 'Wednesday';
-    const TARGET_DAYS         = isThursday ? 3.5 : isFriday ? 2.0 : isSaturday ? 2.0 : isTuesday ? 2.0 : isWednesday ? 2.0 : 2.0;
+
+    // Apply July 4th holiday ramp override if active for today's cook day
+    const holidayOverride = rampEntry
+      ? (isMonday    && rampEntry.mon != null ? rampEntry.mon
+       : isTuesday   && rampEntry.tue != null ? rampEntry.tue
+       : isWednesday && rampEntry.wed != null ? rampEntry.wed
+       : isThursday  && rampEntry.thu != null ? rampEntry.thu
+       : isFriday    && rampEntry.fri != null ? rampEntry.fri
+       : null)
+      : null;
+    const TARGET_DAYS = holidayOverride !== null ? holidayOverride
+      : isThursday ? 3.5 : isFriday ? 2.0 : isSaturday ? 2.0 : isTuesday ? 2.0 : isWednesday ? 2.0 : 2.0;
+
     // Target inventory = daily rate × days to cover
 
     const result = calculateBatchesForMeal({
@@ -445,7 +484,7 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
   // Global inventory cap enforcement — hard ceiling of 16,000 units
   // Floor protection: never cut a meal below 1.5x its daily burn rate
   // Fast movers are protected first; slow movers get cut first and hardest
-  const GLOBAL_INVENTORY_CAP = 16000;
+  const GLOBAL_INVENTORY_CAP = (HOLIDAY_CAP !== null && HOLIDAY_CAP !== undefined) ? HOLIDAY_CAP : 16000;
   const MINIMUM_DAYS_FLOOR   = 1.5;
 
   const totalCurrentInventory = prepSheet.reduce((sum, m) => sum + (m._debug?.currentInventory || 0), 0);
