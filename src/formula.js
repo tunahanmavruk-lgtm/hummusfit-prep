@@ -335,7 +335,7 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
   // Spreads holiday load across Mon June 30 – Fri July 4
   // Kitchen closed Sat July 5 + Sun July 6
   // Full auto-revert Monday July 7
-  const holidayRampDate  = getTodayEST();
+  const holidayRampDate  = new Date();
   const rampMonth        = holidayRampDate.getMonth() + 1;
   const rampDay          = holidayRampDate.getDate();
   const rampYear         = holidayRampDate.getFullYear();
