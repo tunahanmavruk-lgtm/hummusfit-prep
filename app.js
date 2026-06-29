@@ -465,8 +465,8 @@ main().catch(err => {
   console.error(err.stack);
 });
 
-// Schedule daily at 11PM UTC (6PM EST) every day
-cron.schedule('0 22 * * *', () => {
+// Schedule daily at 1AM UTC (9PM EDT) Sunday–Friday (skips Saturday — no Sunday cook)
+cron.schedule('0 1 * * 0-5', () => {
   console.log('\n⏰ Cron triggered — running main()...');
   main().catch(err => {
     console.error('\n❌ CRON ERROR:', err.message);
@@ -474,4 +474,4 @@ cron.schedule('0 22 * * *', () => {
   });
 });
 
-console.log('\n⏳ Server alive. Next run at 10PM UTC (6PM EDT).');
+console.log('\n⏳ Server alive. Next run at 1AM UTC (9PM EDT).');
