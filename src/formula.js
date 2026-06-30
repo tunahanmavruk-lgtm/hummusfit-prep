@@ -335,8 +335,10 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
   // Spreads holiday load across Mon June 30 – Fri July 4
   // Kitchen closed Sat July 5 + Sun July 6
   // Full auto-revert Monday July 7
-  // Use EST date for holiday ramp key — prevents UTC midnight causing wrong-day ramp
-  const _estDateStr  = new Date().toLocaleDateString('en-US', { timeZone: 'America/New_York', year: 'numeric', month: 'numeric', day: 'numeric' });
+  // Use TOMORROW's EST date for holiday ramp key — ramp targets the cook day, not today
+  const _tomorrow    = new Date();
+  _tomorrow.setDate(_tomorrow.getDate() + 1);
+  const _estDateStr  = _tomorrow.toLocaleDateString('en-US', { timeZone: 'America/New_York', year: 'numeric', month: 'numeric', day: 'numeric' });
   const _estParts    = _estDateStr.split('/');
   const rampMonth    = parseInt(_estParts[0], 10);
   const rampDay      = parseInt(_estParts[1], 10);
