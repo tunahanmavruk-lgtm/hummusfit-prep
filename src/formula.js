@@ -345,10 +345,10 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
   const HOLIDAY_TARGET_DAYS_MAP = {
     '2026-6-29': { mon: 2.5 },
     '2026-6-30': { mon: 2.5 },
-    '2026-7-1':  { tue: 3.0 },
-    '2026-7-2':  { wed: 3.5 },
-    '2026-7-3':  { thu: 3.5, cap: 18000 },
-    '2026-7-4':  { fri: 3.0, cap: 18000 },
+    '2026-7-1':  { tue: 3.5, cap: 20000 },
+    '2026-7-2':  { wed: 3.5, cap: 20000 },
+    '2026-7-3':  { thu: 2.5 },
+    '2026-7-4':  { fri: 3.0, cap: 20000 },
   };
 
   const rampKey    = `${rampYear}-${rampMonth}-${rampDay}`;
