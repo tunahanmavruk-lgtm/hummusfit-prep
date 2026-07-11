@@ -63,6 +63,7 @@ const LAUNCH_OVERRIDES = {
   "The Texas Queso Steak Bowl":        { minBatches: 3, from: "2026-07-07", until: "2026-07-19" },
   "The Philly Cheesesteak Quesadilla": { minBatches: 3, from: "2026-07-19", until: "2026-08-02" },
   "Honey Garlic Crispy Chicken Tacos": { minBatches: 3, from: "2026-08-04", until: "2099-12-31" },
+  "The Golden Arches Wrap":            { minBatches: 3, from: "2026-07-11", until: "2026-07-31" },
   "West Coast Secret Sauce Bowl":      { minBatches: 3, from: "2026-08-17", until: "2026-08-30" },
 };
 
