@@ -352,7 +352,7 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
     '2026-7-8':  { mon: 3.0, tue: 3.5, wed: 4.0, thu: 4.0, fri: 5.0, sat: 5.0, cap: 20000 },
     '2026-7-9':  { mon: 3.0, tue: 3.5, wed: 4.0, thu: 5.5, fri: 5.0, sat: 3.0, cap: 22000 },
     '2026-7-10': { mon: 3.0, tue: 3.5, wed: 4.0, thu: 4.0, fri: 5.0, sat: 5.0, cap: 20000 },
-    '2026-7-11': { mon: 3.0, tue: 3.5, wed: 4.0, thu: 4.0, fri: 5.0, sat: 5.0, cap: 20000 },
+    '2026-7-11': { mon: 3.0, tue: 3.5, wed: 4.0, thu: 4.0, fri: 2.5, sat: 2.5, cap: 17000 },
     '2026-7-12': { mon: 3.0, tue: 3.5, wed: 4.0, thu: 4.0, fri: 5.0, sat: 2.5, cap: 17000 },
   };
 
