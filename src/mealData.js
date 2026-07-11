@@ -438,17 +438,7 @@ const GROUP1_MEALS = [
     sauceStation: "",
     rawMeats: "",
   },
-  {
-    name: "Low Carb Keto Cheeseburger Bowl",
-    yield: 80,
-    stove: "Ground Beef",
-    oven: "",
-    grill: "",
-    flatGrill: "",
-    saladStation: "Onion/Pickle",
-    sauceStation: "",
-    rawMeats: "",
-  },
+
   {
     name: "TexMex Potato Hash",
     yield: 84,
@@ -457,20 +447,6 @@ const GROUP1_MEALS = [
     grill: "",
     flatGrill: "",
     saladStation: "Texas Hash Salad",
-    sauceStation: "",
-    rawMeats: "",
-  },
-];
-
-const GROUP2_MEALS = [
-  {
-    name: "Chicken Taco Bowl",
-    yield: 80,
-    stove: "Brown Rice, Taco Pulled Chicken",
-    oven: "",
-    grill: "",
-    flatGrill: "",
-    saladStation: "Red Bean Corn Salad",
     sauceStation: "",
     rawMeats: "",
   },
@@ -496,6 +472,67 @@ const GROUP2_MEALS = [
     sauceStation: "",
     rawMeats: "",
   },
+
+  {
+    name: "Strongsville Chicken Ranch Fold",
+    yield: 88,
+    stove: "",
+    oven: "Ranch Chicken",
+    grill: "",
+    flatGrill: "",
+    saladStation: "Mix Ranch Fold",
+    sauceStation: "",
+    rawMeats: "1/2 Filet Oven"
+  },
+  {
+    name: "Taco Build Quesadilla",
+    yield: 104,
+    stove: "",
+    oven: "",
+    grill: "",
+    flatGrill: "Taco Build Chicken",
+    saladStation: "Mix Taco Build Quesadilla",
+    sauceStation: "",
+    rawMeats: "Triple Cut Cube"
+  },
+  {
+    name: "Cheeseburger Bowl",
+    yield: 93,
+    stove: "Basmati, Gr. Beef",
+    oven: "",
+    grill: "",
+    flatGrill: "",
+    saladStation: "Onion/Pickle",
+    sauceStation: "",
+    rawMeats: "",
+  },
+];
+
+const GROUP2_MEALS = [
+  {
+    name: "Low Carb Keto Cheeseburger Bowl",
+    yield: 80,
+    stove: "Ground Beef",
+    oven: "",
+    grill: "",
+    flatGrill: "",
+    saladStation: "Onion/Pickle",
+    sauceStation: "",
+    rawMeats: "",
+  },
+  {
+    name: "Chicken Taco Bowl",
+    yield: 80,
+    stove: "Brown Rice, Taco Pulled Chicken",
+    oven: "",
+    grill: "",
+    flatGrill: "",
+    saladStation: "Red Bean Corn Salad",
+    sauceStation: "",
+    rawMeats: "",
+  },
+
+
   {
     name: "6-Guys Patty Melt",
     yield: 102,
@@ -562,17 +599,7 @@ const GROUP2_MEALS = [
     sauceStation: "",
     rawMeats: "Cube Chicken"
   },
-  {
-    name: "Cheeseburger Bowl",
-    yield: 93,
-    stove: "Basmati, Gr. Beef",
-    oven: "",
-    grill: "",
-    flatGrill: "",
-    saladStation: "Onion/Pickle",
-    sauceStation: "",
-    rawMeats: ""
-  },
+
   {
     name: "Chicken Stir Fry",
     yield: 80,
@@ -740,29 +767,9 @@ const GROUP2_MEALS = [
     sauceStation: "",
     rawMeats: ""
   },
-  {
-    name: "Strongsville Chicken Ranch Fold",
-    yield: 88,
-    stove: "",
-    oven: "Ranch Chicken",
-    grill: "",
-    flatGrill: "",
-    saladStation: "Mix Ranch Fold",
-    sauceStation: "",
-    rawMeats: "1/2 Filet Oven"
-  },
 
-  {
-    name: "Taco Build Quesadilla",
-    yield: 104,
-    stove: "",
-    oven: "",
-    grill: "",
-    flatGrill: "Taco Build Chicken",
-    saladStation: "Mix Taco Build Quesadilla",
-    sauceStation: "",
-    rawMeats: "Triple Cut Cube"
-  },
+
+
   {
     name: "Teriyaki Flank Bowl",
     yield: 80,
