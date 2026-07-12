@@ -497,13 +497,15 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
   // Global inventory cap enforcement — hard ceiling of 16,000 units
   // Floor protection: never cut a meal below 1.5x its daily burn rate
   // Fast movers are protected first; slow movers get cut first and hardest
+  // During recovery ramp, disable global cap enforcement so individual meal targets are met
+  const RECOVERY_MODE = rampEntry !== null;
   const GLOBAL_INVENTORY_CAP = (HOLIDAY_CAP !== null && HOLIDAY_CAP !== undefined) ? HOLIDAY_CAP : 16000;
   const MINIMUM_DAYS_FLOOR   = 1.5;
 
   const totalCurrentInventory = prepSheet.reduce((sum, m) => sum + (m._debug?.currentInventory || 0), 0);
   const totalUnitsToCook      = () => prepSheet.reduce((sum, m) => sum + m.batches * (m._debug?.yield || 0), 0);
 
-  if (totalCurrentInventory + totalUnitsToCook() > GLOBAL_INVENTORY_CAP) {
+  if (!RECOVERY_MODE && totalCurrentInventory + totalUnitsToCook() > GLOBAL_INVENTORY_CAP) {
     // Sort most overstocked first (highest daysToSellThrough = slowest mover)
     const byOverstock = [...prepSheet].sort((a, b) => b.daysToSellThrough - a.daysToSellThrough);
 
