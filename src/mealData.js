@@ -828,7 +828,7 @@ const GROUP2_MEALS = [
     rawMeats: "",
   },
   {
-    name: "The Golden Arches Wrap",
+    name: "The Arches Mac Daddy Wrap",
     yield: 70,
     stove: "Ground Beef",
     oven: "",
