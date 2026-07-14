@@ -61,7 +61,7 @@ const LAUNCH_OVERRIDES = {
 
 
   "The Texas Queso Steak Bowl":        { minBatches: 3, from: "2026-07-07", until: "2026-07-19" },
-  "The Philly Cheesesteak Quesadilla": { minBatches: 3, from: "2026-07-19", until: "2026-08-02" },
+  "The Philly Cheesesteak Quesadilla": { minBatches: 3, from: "2026-07-19", until: "2099-12-31" },
   "Honey Garlic Crispy Chicken Tacos": { minBatches: 3, from: "2026-08-04", until: "2099-12-31" },
   "The Arches Mac Daddy Wrap":         { minBatches: 3, from: "2026-07-11", until: "2099-12-31" },
 
@@ -87,7 +87,7 @@ const LAUNCH_OVERRIDES = {
   "Taco Build Quesadilla":             { minBatches: 2, from: "2026-07-13", until: "2026-07-21" },
   "6-Guys Patty Melt":                 { minBatches: 2, from: "2026-07-13", until: "2026-07-21" },
   // ── END TEMPORARY STOCKOUT RECOVERY OVERRIDES ──
-  "West Coast Secret Sauce Bowl":      { minBatches: 3, from: "2026-08-17", until: "2026-08-30" },
+  "West Coast Secret Sauce Bowl":      { minBatches: 3, from: "2026-08-17", until: "2099-12-31" },
 };
 
 // ── Holiday / Event Dictionary ───────────────────────────────
