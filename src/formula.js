@@ -63,7 +63,30 @@ const LAUNCH_OVERRIDES = {
   "The Texas Queso Steak Bowl":        { minBatches: 3, from: "2026-07-07", until: "2026-07-19" },
   "The Philly Cheesesteak Quesadilla": { minBatches: 3, from: "2026-07-19", until: "2026-08-02" },
   "Honey Garlic Crispy Chicken Tacos": { minBatches: 3, from: "2026-08-04", until: "2099-12-31" },
-  "The Golden Arches Wrap":            { minBatches: 3, from: "2026-07-11", until: "2026-07-31" },
+  "The Arches Mac Daddy Wrap":         { minBatches: 3, from: "2026-07-11", until: "2099-12-31" },
+
+  // ── TEMPORARY STOCKOUT RECOVERY OVERRIDES (expires 2026-07-21) ──
+  // These force minimum batches for meals caught in the death spiral
+  // (0 inventory + 0 recent sales = formula outputs 0 batches)
+  "Arnold 2022 Bowl":                  { minBatches: 2, from: "2026-07-13", until: "2026-07-21" },
+  "BBQ Chicken Mac Bowl":              { minBatches: 2, from: "2026-07-13", until: "2026-07-21" },
+  "Breakfast Burrito":                 { minBatches: 2, from: "2026-07-13", until: "2026-07-21" },
+  "Buffalo Crispy Chicken Wrap":       { minBatches: 2, from: "2026-07-13", until: "2026-07-21" },
+  "Buffalo Mac N Chicken":             { minBatches: 2, from: "2026-07-13", until: "2026-07-21" },
+  "Cheeseburger Bowl":                 { minBatches: 2, from: "2026-07-13", until: "2026-07-21" },
+  "Chicken Mushroom Pot Stickers":     { minBatches: 2, from: "2026-07-13", until: "2026-07-21" },
+  "Chicken Stir Fry":                  { minBatches: 2, from: "2026-07-13", until: "2026-07-21" },
+  "Chicken Taco Bowl":                 { minBatches: 2, from: "2026-07-13", until: "2026-07-21" },
+  "Closed on Sunday Crispy Chicken Bowl": { minBatches: 3, from: "2026-07-13", until: "2026-07-21" },
+  "Fit Ala Vodka With Chicken":        { minBatches: 2, from: "2026-07-13", until: "2026-07-21" },
+  "Lo Mein Teriyaki Steak":            { minBatches: 2, from: "2026-07-13", until: "2026-07-21" },
+  "MsWendy Buff Nuggets":              { minBatches: 2, from: "2026-07-13", until: "2026-07-21" },
+  "Pineapple Teriyaki Meatballs":      { minBatches: 2, from: "2026-07-13", until: "2026-07-21" },
+  "Soho Steak Bowl":                   { minBatches: 2, from: "2026-07-13", until: "2026-07-21" },
+  "Southwest Chicken Quesadilla":      { minBatches: 2, from: "2026-07-13", until: "2026-07-21" },
+  "Taco Build Quesadilla":             { minBatches: 2, from: "2026-07-13", until: "2026-07-21" },
+  "6-Guys Patty Melt":                 { minBatches: 2, from: "2026-07-13", until: "2026-07-21" },
+  // ── END TEMPORARY STOCKOUT RECOVERY OVERRIDES ──
   "West Coast Secret Sauce Bowl":      { minBatches: 3, from: "2026-08-17", until: "2026-08-30" },
 };
 
@@ -247,7 +270,12 @@ function calculateBatchesForMeal({
 
   // Priority 1 Flag: working inventory <= 0 AND there is actual demand
   // Per 0/0 Rule: if inventory=0 AND all sales=0, deficit=0, no flag needed
-  const isPriority1 = workingInventory <= 0 && (burnOffUnits > 0 || carryUnits > 0);
+  // Death spiral detection: if inventory = 0 AND recent sales = 0
+  // but meal has historically sold (totalSalesUnits > 0 over longer window),
+  // treat as Priority 1 to prevent permanent stockout
+  const hasRecentDemand  = burnOffUnits > 0 || carryUnits > 0;
+  const isDeathSpiral    = currentInventory <= 0 && !hasRecentDemand;
+  const isPriority1      = workingInventory <= 0 && (hasRecentDemand || isDeathSpiral);
 
   // Step 2: Carry-Over Target — daily rate × targetDays
   // More reliable than raw carry sales which get distorted by stockouts
@@ -433,7 +461,8 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
     const maxUnitsToCook      = adjustedDailyRate > 0 ? Math.max(0, adjustedTargetInv - workingInvForCap) : 999999;
     const maxBatchesByCap     = Math.floor(maxUnitsToCook / meal.yield);
     const hasDeficit          = result.batches > 0;
-    const rawCapped           = hasDeficit ? Math.min(result.batches, maxBatchesByCap) : 0;
+    const rawCapped           = hasDeficit ? Math.min(result.batches, maxBatchesByCap)
+                              : (result.isDeathSpiral ? 2 : 0);
     // Only allow 1 batch if existing inventory covers at least 1.5 days of demand
     // This prevents under-cooking high-velocity meals
     const oneBatchTotal       = currentInventory + meal.yield;
@@ -462,6 +491,7 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
       exactUnits:       result.exactUnits,
       directToAssembly: result.directToAssembly,
       isPriority1:      result.isPriority1,
+      isDeathSpiral:    result.isDeathSpiral,
       isOverstocked:    result.isOverstocked,
       overstockUnits:   result.overstockUnits,
       shelfLifeRisk,
