@@ -24,33 +24,33 @@ const COOK_SCHEDULE = {
   },
   Monday: {
     group: 1,
-    burnOffDays: 1,
-    carryDays: 2      // Tue + Wed
+    burnOffDays: 1,   // Mon (food live Mon PM same day)
+    carryDays: 2      // Tue + Wed until Wed cook lands
   },
   Tuesday: {
     group: 2,
-    burnOffDays: 2,   // Tue + Wed (food not live until Wed 5PM)
-    carryDays: 2      // Thu + Fri
+    burnOffDays: 1,   // Tue (food live Tue PM same day)
+    carryDays: 2      // Wed + Thu until Thu cook lands
   },
   Wednesday: {
     group: 1,
-    burnOffDays: 2,   // Wed + Thu (food not live until Thu 5PM)
-    carryDays: 2      // Fri + Sat
+    burnOffDays: 1,   // Wed (food live Wed PM same day)
+    carryDays: 2      // Thu + Fri until Fri cook lands
   },
   Thursday: {
     group: 2,
-    burnOffDays: 2,   // Thu + Fri (food not live until Fri 5PM)
-    carryDays: 2      // Sat + Sun
+    burnOffDays: 1,   // Thu (food live Thu PM same day)
+    carryDays: 3      // Fri + Sat + Sun until Mon cook lands
   },
   Friday: {
     group: 1,
-    burnOffDays: 2,   // Fri + Sat (food not live until Sat 5PM)
-    carryDays: 3      // Sun + Mon + Tue
+    burnOffDays: 1,   // Fri (food live Fri PM same day)
+    carryDays: 3      // Sat + Sun + Mon until Tue cook lands
   },
   Saturday: {
     group: 2,
-    burnOffDays: 2,   // Sat + Sun (food not live until Mon 5PM)
-    carryDays: 3      // Mon + Tue + Wed
+    burnOffDays: 1,   // Sat (food live Sat PM same day)
+    carryDays: 3      // Sun + Mon + Tue until Wed cook lands
   }
 };
 
