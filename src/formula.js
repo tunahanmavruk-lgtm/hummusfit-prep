@@ -282,7 +282,11 @@ function calculateBatchesForMeal({
   const totalSalesUnits = adjustedBurnOff + adjustedCarry;
   const totalSalesDays  = burnOffDays + carryDays;
   const dailyRateInner  = totalSalesDays > 0 && totalSalesUnits > 0 ? totalSalesUnits / totalSalesDays : 0;
-  const carryOverTarget = dailyRateInner * targetDays * LEAN_BUFFER;
+  // Dynamic buffer based on velocity
+  // Fast movers (120+ units/day): 1.15 buffer — stockout prevention on top sellers
+  // Slow movers (<120 units/day): 1.05 buffer — prevents sitting too long on shelf
+  const DYNAMIC_BUFFER  = dailyRateInner >= 120 ? 1.15 : LEAN_BUFFER;
+  const carryOverTarget = dailyRateInner * targetDays * DYNAMIC_BUFFER;
 
   // Step 3: Unit Deficit
   const unitDeficit = Math.max(0, carryOverTarget - workingInventory);
