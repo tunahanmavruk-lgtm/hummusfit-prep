@@ -385,11 +385,11 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
     '2026-7-12': { mon: 3.0, tue: 3.5, wed: 4.0, thu: 4.0, fri: 5.0, sat: 2.5, cap: 17000 },
     '2026-7-13': { mon: 3.0, tue: 3.5, wed: 3.5, thu: 5.0, fri: 4.0, sat: 3.0, cap: 20000 },
     '2026-7-14': { mon: 3.0, tue: 3.5, wed: 3.5, thu: 5.0, fri: 4.0, sat: 3.0, cap: 20000 },
-    '2026-7-15': { mon: 3.0, tue: 3.5, wed: 5.0, thu: 3.5, fri: 3.5, sat: 3.0, cap: 22000 },
-    '2026-7-16': { mon: 3.0, tue: 3.0, wed: 3.0, thu: 3.5, fri: 3.5, sat: 3.0, cap: 22000 },
-    '2026-7-17': { mon: 3.0, tue: 3.0, wed: 3.0, thu: 3.5, fri: 3.5, sat: 3.0, cap: 22000 },
-    '2026-7-18': { mon: 3.0, tue: 3.0, wed: 3.0, thu: 3.5, fri: 3.5, sat: 3.0, cap: 22000 },
-    '2026-7-19': { mon: 3.0, tue: 3.0, wed: 3.0, thu: 3.5, fri: 3.5, sat: 3.0, cap: 22000 },
+    '2026-7-15': { mon: 3.0, tue: 3.5, wed: 3.5, thu: 5.5, fri: 3.5, sat: 3.0, cap: 22000 },
+    '2026-7-16': { mon: 3.0, tue: 3.0, wed: 3.0, thu: 3.0, fri: 3.0, sat: 3.0, cap: 22000 },
+    '2026-7-17': { mon: 3.0, tue: 3.0, wed: 3.0, thu: 3.0, fri: 3.0, sat: 3.0, cap: 22000 },
+    '2026-7-18': { mon: 3.0, tue: 3.0, wed: 3.0, thu: 3.0, fri: 3.0, sat: 3.0, cap: 22000 },
+    '2026-7-19': { mon: 3.0, tue: 3.0, wed: 3.0, thu: 3.0, fri: 3.0, sat: 3.0, cap: 22000 },
   };
 
   // ── LEVELED RECOVERY PLAN Jul 16-19 ──────────────────────
