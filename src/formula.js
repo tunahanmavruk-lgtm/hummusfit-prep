@@ -63,7 +63,7 @@ const LAUNCH_OVERRIDES = {
   "The Texas Queso Steak Bowl":        { minBatches: 3, from: "2026-07-07", until: "2026-07-19" },
   "The Philly Cheesesteak Quesadilla": { minBatches: 3, from: "2026-07-19", until: "2099-12-31" },
   "Honey Garlic Crispy Chicken Tacos": { minBatches: 3, from: "2026-08-04", until: "2099-12-31" },
-  "The Arches Mac Daddy Wrap":         { minBatches: 3, from: "2026-07-11", until: "2099-12-31" },
+  "The Arches Mac Daddy Wrap":         { minBatches: 2, maxBatches: 4, from: "2026-07-11", until: "2099-12-31" },
 
   // ── TEMPORARY STOCKOUT RECOVERY OVERRIDES (expires 2026-07-21) ──
   // These force minimum batches for meals caught in the death spiral
@@ -491,9 +491,12 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
     // Launch override — force minimum batches AFTER cap logic
     const launchOverride = LAUNCH_OVERRIDES[meal.name];
     const launchActive   = launchOverride && new Date() >= new Date(launchOverride.from) && new Date() <= new Date(launchOverride.until);
-    const finalBatches   = launchActive && cappedBatches < launchOverride.minBatches
+    const afterMin       = launchActive && cappedBatches < launchOverride.minBatches
       ? launchOverride.minBatches
       : cappedBatches;
+    const finalBatches   = launchActive && launchOverride.maxBatches && afterMin > launchOverride.maxBatches
+      ? launchOverride.maxBatches
+      : afterMin;
 
     const daysToSellThrough   = dailyRate > 0 ? currentInventory / dailyRate : 999;
     const shelfLifeRisk       = daysToSellThrough > 4 && currentInventory > 0 && dailyRate > 0;
