@@ -57,8 +57,8 @@ const CARRY_CONFIG = {
   Monday:    ['Tuesday','Wednesday'],
   Tuesday:   ['Thursday','Friday'],
   Wednesday: ['Friday','Saturday'],
-  Thursday:  ['Saturday','Sunday'],
-  Friday:    ['Sunday','Monday','Tuesday'],
+  Thursday:  ['Wednesday','Thursday','Friday'],  // Fri/Sat/Sun distorted by holidays/dark days — use Wed+Thu+Fri instead
+  Friday:    ['Wednesday','Thursday','Friday'],   // Sun/Mon/Tue — use midweek for accuracy
   Saturday:  ['Monday','Tuesday','Wednesday']
 };
 
