@@ -488,12 +488,22 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
       ? (oneBatchFitsInCap && hasEnoughExisting ? 1 : 2)
       : rawCapped;
 
+    // ── Shelf life cap — never cook more than 4 days of demand ──
+    // Prevents overstock and waste on perishable products
+    // Exception: Priority 1 meals (0 inventory) always get at least 2 batches
+    const MAX_SHELF_DAYS      = 4;
+    const maxUnitsByShelfLife = adjustedDailyRate > 0 ? Math.floor(adjustedDailyRate * MAX_SHELF_DAYS) : 999999;
+    const maxBatchesByShelf   = adjustedDailyRate > 0 ? Math.floor(maxUnitsByShelfLife / meal.yield) : 999999;
+    const shelfCapped         = result.isPriority1
+      ? cappedBatches  // don't cap Priority 1 — they need recovery stock
+      : Math.min(cappedBatches, Math.max(maxBatchesByShelf, 1));
+
     // Launch override — force minimum batches AFTER cap logic
     const launchOverride = LAUNCH_OVERRIDES[meal.name];
     const launchActive   = launchOverride && new Date() >= new Date(launchOverride.from) && new Date() <= new Date(launchOverride.until);
-    const afterMin       = launchActive && cappedBatches < launchOverride.minBatches
+    const afterMin       = launchActive && shelfCapped < launchOverride.minBatches
       ? launchOverride.minBatches
-      : cappedBatches;
+      : shelfCapped;
     const finalBatches   = launchActive && launchOverride.maxBatches && afterMin > launchOverride.maxBatches
       ? launchOverride.maxBatches
       : afterMin;
