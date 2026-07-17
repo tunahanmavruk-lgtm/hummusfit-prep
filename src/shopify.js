@@ -48,7 +48,7 @@ const BURN_OFF_CONFIG = {
   Wednesday: { days: ['Wednesday','Thursday'], hardcoded: false },
   Thursday:  { days: ['Thursday','Friday'],    hardcoded: false },
   Friday:    { days: ['Friday','Saturday'],   hardcoded: false },
-  Saturday:  { days: ['Saturday','Sunday'],   hardcoded: false }
+  Saturday:  { days: ['Wednesday','Thursday'], hardcoded: false }  // Sat/Sun distorted by holidays — use midweek
 };
 
 // ── Exact 1-week carry-over target day config ─────────────────
