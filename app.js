@@ -539,7 +539,7 @@ function buildIntelligenceHTML(data) {
       </div>
       <div class="card-stats">
         <span class="stat-pill">📦 ${m.currentInventory} on hand</span>
-        <span class="stat-pill">🔥 ${m.dailyRate.toFixed(0)}/day burn</span>
+        <span class="stat-pill">🔥 ${m.dailyRate.toFixed(0)} units sold/day</span>
         <span class="stat-pill">📅 ${m.daysOfStock} days left</span>
         <span class="stat-pill">🎯 ${m.carryTarget} unit target</span>
         <span class="stat-pill">📉 ${m.deficit} deficit</span>
@@ -562,7 +562,7 @@ function buildIntelligenceHTML(data) {
       </div>
       <div class="card-stats">
         <span class="stat-pill" style="opacity:.6">📦 ${m.currentInventory} on hand</span>
-        <span class="stat-pill" style="opacity:.6">🔥 ${m.dailyRate.toFixed(0)}/day burn</span>
+        <span class="stat-pill" style="opacity:.6">🔥 ${m.dailyRate.toFixed(0)} units sold/day</span>
         <span class="stat-pill" style="opacity:.6">📅 ${m.daysOfStock} days left</span>
       </div>
     </div>
