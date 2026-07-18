@@ -781,11 +781,14 @@ let cachedIntelligence = null;
 
 // Cache for /meals endpoint
 
-// Run immediately on startup
-main().catch(err => {
-  console.error('\n❌ FATAL ERROR:', err.message);
-  console.error(err.stack);
-});
+// Run after short delay on startup — gives server time to bind port first
+// This prevents Railway 502 during health checks on fresh deploy
+setTimeout(() => {
+  main().catch(err => {
+    console.error('\n❌ FATAL ERROR:', err.message);
+    console.error(err.stack);
+  });
+}, 3000); // 3 second delay — server is fully up before blueprint runs
 
 // Schedule daily at 1AM UTC (9PM EDT) Sunday–Friday (skips Saturday — no Sunday cook)
 cron.schedule('0 1 * * 0-5', () => {
