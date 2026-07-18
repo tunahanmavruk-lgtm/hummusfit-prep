@@ -188,35 +188,10 @@ async function generateClosedPdf() {
 </body>
 </html>`;
 
-  // Find chromium executable — search multiple locations
-  const { execSync: _exec } = require('child_process');
-  let chromiumPath = process.env.PUPPETEER_EXECUTABLE_PATH;
-  if (!chromiumPath) {
-    const candidates = [
-      '/usr/bin/chromium',
-      '/usr/bin/chromium-browser', 
-      '/usr/bin/google-chrome',
-      '/usr/bin/google-chrome-stable',
-      '/snap/bin/chromium',
-    ];
-    // Try to find via which command
-    try {
-      const found = _exec('find / -name "chromium" -o -name "chromium-browser" -o -name "google-chrome" 2>/dev/null | grep -v node_modules | head -3').toString().trim();
-      console.log('[puppeteer] Found browsers:', found);
-      if (found) chromiumPath = found.split('\n')[0];
-    } catch(e) {
-      console.log('[puppeteer] find failed:', e.message);
-    }
-  }
-  console.log('[puppeteer] Using executablePath:', chromiumPath || 'puppeteer default');
-
-  const launchOptions = {
+  const browser = await puppeteer.launch({
     headless: true,
     args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage', '--disable-gpu']
-  };
-  if (chromiumPath) launchOptions.executablePath = chromiumPath;
-
-  const browser = await puppeteer.launch(launchOptions);
+  });
 
   try {
     const page = await browser.newPage();
