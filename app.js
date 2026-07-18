@@ -351,6 +351,71 @@ async function main() {
   console.log('📄 STEP 4: Generating prep sheet PDF...\n');
   // Cache meals data for /meals endpoint
   const today = new Date().toISOString().split('T')[0];
+  // Rich intelligence cache for Formula Intelligence dashboard
+  cachedIntelligence = {
+    date:      new Date().toISOString().split('T')[0],
+    generatedAt: new Date().toISOString(),
+    group:     groupNumber,
+    cookDay:   dayName,
+    totalBatches: prepSheet.filter(m => m.batches > 0).reduce((s,m) => s+m.batches, 0),
+    meals: prepSheet.map(m => {
+      const d = m._debug || {};
+      const inv = Number(d.currentInventory) || 0;
+      const daily = Number(d.dailyRate) || 0;
+      const daysOfStock = daily > 0 ? (inv / daily).toFixed(1) : '∞';
+      const carryTarget = Number(d.carryOverTarget) || 0;
+      const deficit = Number(d.unitDeficit) || 0;
+      const burnOff = Number(d.burnOff) || 0;
+      const workingInv = Number(d.workingInventory) || 0;
+      const carryDays = Number(d.carryDays) || 0;
+      const burnOffDays = Number(d.burnOffDays) || 0;
+
+      // Plain English reason
+      let reason = '';
+      let status = '';
+      if (m.isPriority1 && inv === 0) {
+        reason = `Completely out of stock — must cook today to have food available tomorrow PM`;
+        status = 'critical';
+      } else if (m.isPriority1 && inv < daily) {
+        reason = `Only ${inv} units left — less than 1 day of supply. Will stock out before tomorrow's packaging lands`;
+        status = 'critical';
+      } else if (m.isPriority1) {
+        reason = `Below minimum stock floor — need at least ${carryTarget.toFixed(0)} units on hand`;
+        status = 'urgent';
+      } else if (m.batches === 0 && daily === 0) {
+        reason = `No sales data — may be a slow mover or recently stocked. Skipping to avoid expiry waste`;
+        status = 'skip';
+      } else if (m.batches === 0) {
+        reason = `Well stocked — ${inv} units on hand = ${daysOfStock} days of supply. No need to cook today`;
+        status = 'stocked';
+      } else {
+        const nextLanding = dayName === 'Monday' ? 'Tuesday PM' : dayName === 'Tuesday' ? 'Wednesday PM' : dayName === 'Wednesday' ? 'Thursday PM' : dayName === 'Thursday' ? 'Friday PM' : dayName === 'Friday' ? 'Saturday PM' : 'Monday PM';
+        const coverUntil = dayName === 'Monday' ? 'Wednesday PM' : dayName === 'Tuesday' ? 'Thursday PM' : dayName === 'Wednesday' ? 'Friday PM' : dayName === 'Thursday' ? 'Monday PM' : dayName === 'Friday' ? 'Tuesday PM' : 'Wednesday PM';
+        reason = `Has ${inv} units (${daysOfStock} days). Burns ${daily.toFixed(0)}/day. Cooking ${m.batches} batches → packages ${nextLanding} → must cover until ${coverUntil}`;
+        status = m.batches >= 8 ? 'heavy' : 'normal';
+      }
+
+      return {
+        name: m.name,
+        batches: m.batches,
+        isPriority1: m.isPriority1,
+        isDeathSpiral: m.isDeathSpiral,
+        currentInventory: inv,
+        dailyRate: daily,
+        daysOfStock,
+        burnOffDays,
+        burnOff,
+        workingInventory: workingInv,
+        carryDays,
+        carryTarget: carryTarget.toFixed(0),
+        deficit: deficit.toFixed(0),
+        reason,
+        status,
+        yield: d.yield || 0,
+      };
+    })
+  };
+
   cachedMealsData = {
     date: new Date().toISOString().split('T')[0],
     group: groupNumber,
@@ -409,6 +474,219 @@ async function main() {
   }
 }
 
+
+// ── Formula Intelligence Dashboard HTML ──────────────────────
+function buildIntelligenceHTML(data) {
+  if (!data) return `<!DOCTYPE html><html><body style="background:#111;color:#fff;font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0"><div style="text-align:center"><div style="font-size:64px">🌙</div><div style="font-size:24px;margin-top:16px">No blueprint yet — check back after 9PM</div></div></body></html>`;
+
+  const cookDay = data.cookDay || '';
+  const group = data.group || '';
+  const date = data.date || '';
+  const totalBatches = data.totalBatches || 0;
+  const meals = data.meals || [];
+
+  const cooking = meals.filter(m => m.batches > 0).sort((a,b) => b.batches - a.batches);
+  const skipped = meals.filter(m => m.batches === 0).sort((a,b) => b.currentInventory - a.currentInventory);
+  const critical = meals.filter(m => m.isPriority1);
+
+  // Cook day explanation
+  const cookDayExplanations = {
+    Monday:    { packages: 'Tuesday PM', covers: 'Tuesday + Wednesday', next: 'Wednesday cook lands Thursday PM', days: 2 },
+    Tuesday:   { packages: 'Wednesday PM', covers: 'Wednesday + Thursday', next: 'Thursday cook lands Friday PM', days: 2 },
+    Wednesday: { packages: 'Thursday PM', covers: 'Thursday + Friday', next: 'Friday cook lands Saturday PM', days: 2 },
+    Thursday:  { packages: 'Friday PM', covers: 'Friday + Saturday + Sunday', next: 'Saturday cook lands Monday PM', days: 3 },
+    Friday:    { packages: 'Saturday PM', covers: 'Saturday + Sunday + Monday', next: 'Monday cook lands Tuesday PM', days: 3 },
+    Saturday:  { packages: 'Monday PM', covers: 'Monday + Tuesday + Wednesday', next: 'Tuesday cook lands Wednesday PM', days: 3 },
+  };
+  const dayInfo = cookDayExplanations[cookDay] || {};
+
+  const statusColor = {
+    critical: '#ff4d4d',
+    urgent: '#ff8c00',
+    heavy: '#f5c542',
+    normal: '#4cd964',
+    stocked: '#555',
+    skip: '#444',
+  };
+
+  const statusLabel = {
+    critical: '🚨 COOK NOW',
+    urgent: '🔴 PRIORITY',
+    heavy: '🟡 HIGH DEMAND',
+    normal: '🟢 COOKING',
+    stocked: '✅ SKIP — WELL STOCKED',
+    skip: '⚫ SKIP — NO DATA',
+  };
+
+  const cookingCards = cooking.map(m => `
+    <div class="card" style="border-left:4px solid ${statusColor[m.status] || '#4cd964'}">
+      <div class="card-top">
+        <div>
+          <div class="card-name">${m.name}</div>
+          <div class="card-status" style="color:${statusColor[m.status] || '#4cd964'}">${statusLabel[m.status] || '🟢 COOKING'}</div>
+        </div>
+        <div class="card-batches" style="color:${statusColor[m.status] || '#4cd964'}">${m.batches}</div>
+      </div>
+      <div class="card-reason">${m.reason}</div>
+      <div class="card-stats">
+        <span class="stat-pill">📦 ${m.currentInventory} on hand</span>
+        <span class="stat-pill">🔥 ${m.dailyRate.toFixed(0)}/day burn</span>
+        <span class="stat-pill">📅 ${m.daysOfStock} days left</span>
+        <span class="stat-pill">🎯 ${m.carryTarget} unit target</span>
+        <span class="stat-pill">📉 ${m.deficit} deficit</span>
+      </div>
+    </div>
+  `).join('');
+
+  const skippedCards = skipped.map(m => `
+    <div class="card card-skip">
+      <div class="card-top">
+        <div>
+          <div class="card-name">${m.name}</div>
+          <div class="card-status" style="color:#555">${statusLabel[m.status] || '✅ SKIP'}</div>
+        </div>
+        <div class="card-batches" style="color:#444">0</div>
+      </div>
+      <div class="card-reason" style="color:#555">${m.reason}</div>
+      <div class="card-stats">
+        <span class="stat-pill" style="opacity:.5">📦 ${m.currentInventory} on hand</span>
+        <span class="stat-pill" style="opacity:.5">🔥 ${m.dailyRate.toFixed(0)}/day burn</span>
+        <span class="stat-pill" style="opacity:.5">📅 ${m.daysOfStock} days left</span>
+      </div>
+    </div>
+  `).join('');
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HummusFit — Formula Intelligence</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0a0a0a;color:#f0f0f0;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;min-height:100vh}
+.header{background:#111;border-bottom:3px solid #F89F1B;padding:20px 40px;display:flex;align-items:center;justify-content:space-between}
+.header-left h1{font-size:26px;font-weight:800;color:#F89F1B;text-transform:uppercase;letter-spacing:.08em}
+.header-left p{font-size:13px;color:#666;font-weight:500;margin-top:4px;letter-spacing:.05em;text-transform:uppercase}
+.clock{font-size:22px;color:#555;font-variant-numeric:tabular-nums}
+.explainer{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 40px}
+.explainer h2{font-size:16px;font-weight:700;color:#F89F1B;text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px}
+.explainer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.explain-box{background:#1a1a1a;border-radius:10px;padding:14px 16px;border:1px solid #222}
+.explain-box .label{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#555;margin-bottom:6px}
+.explain-box .value{font-size:15px;font-weight:700;color:#f0f0f0}
+.explain-box .sub{font-size:12px;color:#666;margin-top:4px;line-height:1.4}
+.stats-bar{display:flex;background:#111;border-bottom:1px solid #1e1e1e}
+.stat-box{flex:1;padding:16px 20px;text-align:center;border-right:1px solid #1e1e1e}
+.stat-box:last-child{border-right:none}
+.stat-num{font-size:42px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums}
+.stat-label{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#555;margin-top:4px}
+.section{padding:24px 40px}
+.section-title{font-size:14px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#555;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.section-title span{font-size:20px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.card{background:#161616;border-radius:12px;padding:18px;border:1px solid #222}
+.card-skip{opacity:.5}
+.card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
+.card-name{font-size:16px;font-weight:700;line-height:1.2;color:#fff;margin-bottom:4px}
+.card-status{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.card-batches{font-size:38px;font-weight:800;font-variant-numeric:tabular-nums;flex-shrink:0;margin-left:12px}
+.card-reason{font-size:13px;color:#999;line-height:1.5;margin-bottom:12px;padding:10px;background:#0d0d0d;border-radius:8px;border-left:3px solid #222}
+.card-stats{display:flex;flex-wrap:wrap;gap:6px}
+.stat-pill{font-size:11px;padding:3px 8px;background:#1e1e1e;border-radius:5px;color:#777;border:1px solid #2a2a2a}
+.refresh-bar{position:fixed;bottom:0;left:0;right:0;height:3px;background:#1a1a1a}
+.refresh-fill{height:100%;background:#F89F1B;width:0%;transition:width .1s linear}
+.last-sync{position:fixed;bottom:6px;right:20px;font-size:11px;color:#333}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <h1>🥙 Formula Intelligence</h1>
+    <p>Group ${group} · ${cookDay} ${date} · Next-Day Packaging</p>
+  </div>
+  <div class="clock" id="clock">--:--</div>
+</div>
+
+<div class="explainer">
+  <h2>📖 How Today's List Was Built</h2>
+  <div class="explainer-grid">
+    <div class="explain-box">
+      <div class="label">Cook Day</div>
+      <div class="value">${cookDay}</div>
+      <div class="sub">Group ${group} meals cook today in the kitchen</div>
+    </div>
+    <div class="explain-box">
+      <div class="label">Packages</div>
+      <div class="value">${dayInfo.packages || '—'}</div>
+      <div class="sub">Food is packaged the next day and added to Shopify</div>
+    </div>
+    <div class="explain-box">
+      <div class="label">Must Cover</div>
+      <div class="value">${dayInfo.covers || '—'}</div>
+      <div class="sub">${dayInfo.days || 0} days of customer demand before next cook lands</div>
+    </div>
+    <div class="explain-box">
+      <div class="label">Next Restock</div>
+      <div class="value" style="font-size:13px">${dayInfo.next || '—'}</div>
+      <div class="sub">When the next Group ${group} cook hits Shopify shelves</div>
+    </div>
+  </div>
+</div>
+
+<div class="stats-bar">
+  <div class="stat-box">
+    <div class="stat-num" style="color:#F89F1B">${totalBatches}</div>
+    <div class="stat-label">Total Batches Today</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-num" style="color:#ff4d4d">${critical.length}</div>
+    <div class="stat-label">🚨 Critical — Out of Stock</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-num" style="color:#4cd964">${cooking.length}</div>
+    <div class="stat-label">Meals Cooking Today</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-num" style="color:#555">${skipped.length}</div>
+    <div class="stat-label">Meals Skipped — Well Stocked</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title"><span>🍳</span> COOKING TODAY — ${cooking.length} MEALS (${totalBatches} BATCHES)</div>
+  <div class="cards">${cookingCards}</div>
+</div>
+
+<div class="section">
+  <div class="section-title"><span>✅</span> SKIPPED TODAY — ALREADY WELL STOCKED (${skipped.length} MEALS)</div>
+  <div class="cards">${skippedCards}</div>
+</div>
+
+<div class="last-sync" id="last-sync">Last updated: ${new Date(data.generatedAt || Date.now()).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',hour12:true,timeZone:'America/New_York'})}</div>
+<div class="refresh-bar"><div class="refresh-fill" id="refresh-fill"></div></div>
+
+<script>
+function updateClock(){
+  document.getElementById('clock').textContent = new Date().toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',second:'2-digit',hour12:true,timeZone:'America/New_York'});
+}
+updateClock();setInterval(updateClock,1000);
+
+const REFRESH_MS = 60000;
+let fillInterval;
+function startBar(){
+  const fill = document.getElementById('refresh-fill');
+  let elapsed = 0; clearInterval(fillInterval); fill.style.width='0%';
+  fillInterval = setInterval(()=>{ elapsed+=100; fill.style.width=Math.min((elapsed/REFRESH_MS)*100,100)+'%'; },100);
+}
+startBar();
+setInterval(()=>{ window.location.reload(); }, REFRESH_MS);
+</script>
+</body>
+</html>`;
+}
+
 // ── HTTP SERVER — serves latest PDF at /blueprint ───────────
 const PORT = process.env.PORT || 3000;
 http.createServer((req, res) => {
@@ -429,6 +707,14 @@ http.createServer((req, res) => {
       res.writeHead(404);
       res.end('No blueprint available yet.');
     }
+  } else if (req.url === '/api/intelligence') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify(cachedIntelligence || { error: 'No blueprint generated yet — check back after 9PM' }));
+
+  } else if (req.url === '/intelligence') {
+    res.writeHead(200, { 'Content-Type': 'text/html' });
+    res.end(buildIntelligenceHTML(cachedIntelligence));
+
   } else if (req.url === '/meals') {
     if (cachedMealsData) {
       res.writeHead(200, {
@@ -469,6 +755,7 @@ http.createServer((req, res) => {
 
 // Cache for /meals endpoint
 let cachedMealsData = null;
+let cachedIntelligence = null;
 
 // Cache for /meals endpoint
 
