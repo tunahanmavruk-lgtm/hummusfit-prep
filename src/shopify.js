@@ -42,24 +42,24 @@ const DAY_INDEX = {
 
 // ── Exact 1-week burn-off day config ─────────────────────────
 const BURN_OFF_CONFIG = {
-  Sunday:    { days: [],                      hardcoded: true  },
-  Monday:    { days: ['Monday'],              hardcoded: false },
-  Tuesday:   { days: ['Tuesday','Wednesday'],  hardcoded: false },
-  Wednesday: { days: ['Wednesday','Thursday'], hardcoded: false },
-  Thursday:  { days: ['Thursday','Friday'],    hardcoded: false },
-  Friday:    { days: ['Friday','Saturday'],   hardcoded: false },
-  Saturday:  { days: ['Wednesday','Thursday'], hardcoded: false }  // Sat/Sun distorted by holidays — use midweek
+  Sunday:    { days: [],            hardcoded: true  },
+  Monday:    { days: ['Monday'],    hardcoded: false },  // Mon burns before Tue PM landing
+  Tuesday:   { days: ['Tuesday'],   hardcoded: false },  // Tue burns before Wed PM landing
+  Wednesday: { days: ['Wednesday'], hardcoded: false },  // Wed burns before Thu PM landing
+  Thursday:  { days: ['Thursday'],  hardcoded: false },  // Thu burns before Fri PM landing
+  Friday:    { days: ['Friday'],    hardcoded: false },  // Fri burns before Sat PM landing
+  Saturday:  { days: ['Saturday','Sunday'], hardcoded: false }  // Sat+Sun burn before Mon PM landing
 };
 
 // ── Exact 1-week carry-over target day config ─────────────────
 const CARRY_CONFIG = {
-  Sunday:    ['Tuesday','Wednesday','Thursday'],
-  Monday:    ['Tuesday','Wednesday'],
-  Tuesday:   ['Thursday','Friday'],
-  Wednesday: ['Friday','Saturday'],
-  Thursday:  ['Wednesday','Thursday','Friday'],  // Fri/Sat/Sun distorted by holidays/dark days — use Wed+Thu+Fri instead
-  Friday:    ['Wednesday','Thursday','Friday'],   // Sun/Mon/Tue — use midweek for accuracy
-  Saturday:  ['Monday','Tuesday','Wednesday']
+  Sunday:    [],                                  // Dark day
+  Monday:    ['Tuesday','Wednesday'],             // Until Wed cook lands Thu PM
+  Tuesday:   ['Wednesday','Thursday'],            // Until Thu cook lands Fri PM
+  Wednesday: ['Thursday','Friday'],               // Until Fri cook lands Sat PM
+  Thursday:  ['Friday','Saturday','Sunday'],      // Until Sat cook lands Mon PM
+  Friday:    ['Saturday','Sunday','Monday'],      // Until Mon cook lands Tue PM
+  Saturday:  ['Monday','Tuesday','Wednesday']     // Until Tue cook lands Wed PM
 };
 
 function sanitizeForQuery(name) {

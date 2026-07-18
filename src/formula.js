@@ -45,7 +45,7 @@ const COOK_SCHEDULE = {
   Friday: {
     group: 1,
     burnOffDays: 1,   // Fri cooks → packages Sat PM → covers until Mon cook lands Tue PM
-    carryDays: 4      // Sat + Sun + Mon + Tue AM
+    carryDays: 3      // Sat + Sun + Mon
   },
   Saturday: {
     group: 2,
@@ -282,8 +282,14 @@ function calculateBatchesForMeal({
   // but meal has historically sold (totalSalesUnits > 0 over longer window),
   // treat as Priority 1 to prevent permanent stockout
   const hasRecentDemand  = burnOffUnits > 0 || carryUnits > 0;
-  const isDeathSpiral    = currentInventory <= 0 && !hasRecentDemand;
-  const isPriority1      = workingInventory <= 0 && (hasRecentDemand || isDeathSpiral);
+  const isDeathSpiral    = currentInventory <= 0 && !hasRecentDemand && !hasFutureLaunchCheck;
+
+  // Pre-landing stockout prevention:
+  // If current stock won't last 1 full day before next packaging lands → force Priority 1
+  const daysOfCurrentStock     = dailyRateInner > 0 ? currentInventory / dailyRateInner : 99;
+  const willStockOutPreLanding = daysOfCurrentStock < 1.0 && dailyRateInner > 0 && !hasFutureLaunchCheck;
+
+  const isPriority1 = (workingInventory <= 0 && (hasRecentDemand || isDeathSpiral)) || willStockOutPreLanding;
 
   // Step 2: Carry-Over Target — daily rate × targetDays
   // More reliable than raw carry sales which get distorted by stockouts
@@ -451,7 +457,7 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
        : null)
       : null;
     const TARGET_DAYS = holidayOverride !== null ? holidayOverride
-      : isThursday ? 4.0 : isFriday ? 3.5 : isSaturday ? 2.5 : isTuesday ? 3.0 : isWednesday ? 3.0 : isMonday ? 3.0 : 3.0;
+      : isThursday ? 4.5 : isFriday ? 4.0 : isSaturday ? 3.0 : isTuesday ? 3.5 : isWednesday ? 3.5 : isMonday ? 3.5 : 3.5;
 
     // Target inventory = daily rate × days to cover
 
