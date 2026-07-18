@@ -188,11 +188,24 @@ async function generateClosedPdf() {
 </body>
 </html>`;
 
-  const browser = await puppeteer.launch({
+  // Find chromium executable
+  const { execSync } = require('child_process');
+  let chromiumPath = process.env.PUPPETEER_EXECUTABLE_PATH;
+  if (!chromiumPath) {
+    try {
+      chromiumPath = execSync('which chromium || which chromium-browser || which google-chrome || find /usr -name chromium -type f 2>/dev/null | head -1').toString().trim();
+    } catch(e) {
+      chromiumPath = null;
+    }
+  }
+
+  const launchOptions = {
     headless: true,
-    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || '/usr/bin/chromium',
     args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
-  });
+  };
+  if (chromiumPath) launchOptions.executablePath = chromiumPath;
+
+  const browser = await puppeteer.launch(launchOptions);
 
   try {
     const page = await browser.newPage();
