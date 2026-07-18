@@ -284,18 +284,27 @@ function calculateBatchesForMeal({
   const hasRecentDemand  = burnOffUnits > 0 || carryUnits > 0;
   const isDeathSpiral    = currentInventory <= 0 && !hasRecentDemand && !hasFutureLaunchCheck;
 
-  // Pre-landing stockout prevention:
-  // If current stock won't last 1 full day before next packaging lands → force Priority 1
-  const daysOfCurrentStock     = dailyRateInner > 0 ? currentInventory / dailyRateInner : 99;
-  const willStockOutPreLanding = daysOfCurrentStock < 1.0 && dailyRateInner > 0 && !hasFutureLaunchCheck;
-
-  const isPriority1 = (workingInventory <= 0 && (hasRecentDemand || isDeathSpiral)) || willStockOutPreLanding;
-
   // Step 2: Carry-Over Target — daily rate × targetDays
   // More reliable than raw carry sales which get distorted by stockouts
   const totalSalesUnits = adjustedBurnOff + adjustedCarry;
   const totalSalesDays  = burnOffDays + carryDays;
   const dailyRateInner  = totalSalesDays > 0 && totalSalesUnits > 0 ? totalSalesUnits / totalSalesDays : 0;
+
+  // Pre-landing stockout prevention:
+  // If current stock won't last 1 full day before next packaging lands → force Priority 1
+  const daysOfCurrentStock     = dailyRateInner > 0 ? currentInventory / dailyRateInner : 99;
+  const willStockOutPreLanding = daysOfCurrentStock < 1.0 && dailyRateInner > 0 && !hasFutureLaunchCheck;
+
+  // Hard minimum stock floor — fast and medium movers only
+  // Slow movers (<50/day) excluded — expiry risk outweighs stockout risk
+  const MIN_STOCK_FLOOR = dailyRateInner >= 120 ? 200  // Fast movers: ~1.7 days buffer
+                        : dailyRateInner >= 50  ? 100  // Medium movers: ~2 days buffer
+                        : 0;                           // Slow movers: no floor — expiry risk
+  const belowStockFloor = currentInventory < MIN_STOCK_FLOOR && MIN_STOCK_FLOOR > 0 && !hasFutureLaunchCheck;
+
+  const isPriority1 = (workingInventory <= 0 && (hasRecentDemand || isDeathSpiral))
+                    || willStockOutPreLanding
+                    || belowStockFloor;
   // Dynamic buffer based on velocity
   // Fast movers (120+ units/day): 1.15 buffer — stockout prevention on top sellers
   // Slow movers (<120 units/day): 1.05 buffer — prevents sitting too long on shelf
