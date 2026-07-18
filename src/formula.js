@@ -520,7 +520,8 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
     // Priority 1 meals get shelf cap too — but minimum 2 batches guaranteed
     // hasFutureLaunch meals never bypass shelf cap (they have no sales history)
     const launchOverrideCheck = LAUNCH_OVERRIDES[meal.name];
-    const shelfCapped         = hasFutureLaunchCheck
+    const hasFutureLaunchOuter = launchOverrideCheck && new Date() < new Date(launchOverrideCheck.from);
+    const shelfCapped         = hasFutureLaunchOuter
       ? 0  // pre-launch — don't cook until launch date
       : result.isPriority1
       ? Math.max(Math.min(cappedBatches, Math.max(maxBatchesByShelf * 2, 2)), 2)
