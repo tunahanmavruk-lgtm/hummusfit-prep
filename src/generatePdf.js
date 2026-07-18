@@ -45,7 +45,7 @@ function buildHtml(prepSheet, groupNumber, dayName, eventName = null, eventMulti
 
     return `
       <tr>
-        <td class="meal-name ${meal.isPriority1 ? 'p1' : ''}">${meal.name}</td>
+        <td class="meal-name">${meal.name}</td>
         ${batchDisplay}
         <td class="td-stove">${meal.stove || ''}</td>
         <td class="td-oven">${meal.oven || ''}</td>
@@ -62,9 +62,7 @@ function buildHtml(prepSheet, groupNumber, dayName, eventName = null, eventMulti
     ? `<div class="event-bar">⚡ ${eventName} — Demand adjusted to ${(eventMultiplier * 100).toFixed(0)}% of normal</div>`
     : '';
 
-  const sameDayBanner = sameDayAlert
-    ? `<div class="same-day-bar">🚨 SAME-DAY PACKAGING REQUIRED — Package today to prevent stockouts. Do NOT wait until tomorrow.</div>`
-    : '';
+  const sameDayBanner = '';
 
   return `<!DOCTYPE html>
 <html>
@@ -94,18 +92,7 @@ function buildHtml(prepSheet, groupNumber, dayName, eventName = null, eventMulti
     text-transform: uppercase;
   }
 
-  /* ── SAME-DAY PACKAGING ALERT ── */
-  .same-day-bar {
-    background: #C0392B;
-    color: white;
-    font-size: 7.5pt;
-    font-weight: 900;
-    text-align: center;
-    padding: 4px 8px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    border-bottom: 2px solid #FF0000;
-  }
+
 
   /* ── HEADER ── */
   .header-bar {
@@ -266,7 +253,7 @@ function buildHtml(prepSheet, groupNumber, dayName, eventName = null, eventMulti
     font-size: 7pt;
   }
 
-  .meal-name.p1 { color: #E8612C; font-weight: 900; }
+  .meal-name.p1 { font-weight: 900; }
   .icon { font-size: 7pt; margin-right: 2px; }
 
   .batch-num {
@@ -276,7 +263,7 @@ function buildHtml(prepSheet, groupNumber, dayName, eventName = null, eventMulti
     color: #1C4A45;
   }
 
-  .batch-num.high { color: #E8612C; }
+  .batch-num.high { }
 
   .dta-units {
     text-align: center;
