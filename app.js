@@ -395,6 +395,8 @@ async function main() {
         status = m.batches >= 8 ? 'heavy' : 'normal';
       }
 
+      const yieldPerBatch = d.yield || 0;
+      const expectedUnits = m.batches * yieldPerBatch;
       return {
         name: m.name,
         batches: m.batches,
@@ -411,7 +413,8 @@ async function main() {
         deficit: deficit.toFixed(0),
         reason,
         status,
-        yield: d.yield || 0,
+        yieldPerBatch,
+        expectedUnits,
       };
     })
   };
@@ -518,6 +521,7 @@ function buildIntelligenceHTML(data) {
     skip: '⚫ SKIP — NO DATA',
   };
 
+  const totalExpectedUnits = cooking.reduce((s, m) => s + (m.expectedUnits || 0), 0);
   const cookingCards = cooking.map(m => `
     <div class="card" style="border-left:4px solid ${statusColor[m.status] || '#4cd964'}">
       <div class="card-top">
@@ -528,6 +532,9 @@ function buildIntelligenceHTML(data) {
         <div class="card-batches" style="color:${statusColor[m.status] || '#4cd964'}">${m.batches}</div>
       </div>
       <div class="card-reason">${m.reason}</div>
+      <div class="output-box">
+        🏭 ${m.batches} batches × ${m.yieldPerBatch} yield = <strong>${m.expectedUnits} meals produced</strong>
+      </div>
       <div class="card-stats">
         <span class="stat-pill">📦 ${m.currentInventory} on hand</span>
         <span class="stat-pill">🔥 ${m.dailyRate.toFixed(0)}/day burn</span>
@@ -592,6 +599,12 @@ body{background:#0a0a0a;color:#f0f0f0;font-family:-apple-system,BlinkMacSystemFo
 .card-status{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
 .card-batches{font-size:38px;font-weight:800;font-variant-numeric:tabular-nums;flex-shrink:0;margin-left:12px}
 .card-reason{font-size:13px;color:#999;line-height:1.5;margin-bottom:12px;padding:10px;background:#0d0d0d;border-radius:8px;border-left:3px solid #222}
+.output-box{font-size:13px;color:#ccc;background:#0d1a0d;border:1px solid #1a3a1a;border-radius:8px;padding:8px 12px;margin-bottom:8px}
+.output-box strong{color:#4cd964;font-weight:700}
+.card.critical .output-box{background:#1a0d0d;border-color:#3a1515}
+.card.critical .output-box strong{color:#ff4d4d}
+.card.urgent .output-box strong{color:#ff8c00}
+.card.heavy .output-box strong{color:#f5c542}
 .card-stats{display:flex;flex-wrap:wrap;gap:6px}
 .stat-pill{font-size:11px;padding:3px 8px;background:#1e1e1e;border-radius:5px;color:#777;border:1px solid #2a2a2a}
 .refresh-bar{position:fixed;bottom:0;left:0;right:0;height:3px;background:#1a1a1a}
@@ -651,6 +664,10 @@ body{background:#0a0a0a;color:#f0f0f0;font-family:-apple-system,BlinkMacSystemFo
   <div class="stat-box">
     <div class="stat-num" style="color:#555">${skipped.length}</div>
     <div class="stat-label">Meals Skipped — Well Stocked</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-num" style="color:#F89F1B">${totalExpectedUnits.toLocaleString()}</div>
+    <div class="stat-label">🏭 Total Meals To Produce</div>
   </div>
 </div>
 

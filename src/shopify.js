@@ -53,13 +53,13 @@ const BURN_OFF_CONFIG = {
 
 // ── Exact 1-week carry-over target day config ─────────────────
 const CARRY_CONFIG = {
-  Sunday:    [],                                  // Dark day
-  Monday:    ['Tuesday','Wednesday'],             // Until Wed cook lands Thu PM
-  Tuesday:   ['Wednesday','Thursday'],            // Until Thu cook lands Fri PM
-  Wednesday: ['Thursday','Friday'],               // Until Fri cook lands Sat PM
-  Thursday:  ['Friday','Saturday','Sunday'],      // Until Sat cook lands Mon PM
-  Friday:    ['Saturday','Sunday','Monday'],      // Until Mon cook lands Tue PM
-  Saturday:  ['Monday','Tuesday','Wednesday']     // Until Tue cook lands Wed PM
+  Sunday:    [],                                           // Dark day
+  Monday:    ['Tuesday','Wednesday','Thursday'],           // Until Wed cook lands Thu PM — cover Thu AM gap
+  Tuesday:   ['Wednesday','Thursday','Friday'],            // Until Thu cook lands Fri PM — cover Fri AM gap
+  Wednesday: ['Thursday','Friday','Saturday'],             // Until Fri cook lands Sat PM — cover Sat AM gap
+  Thursday:  ['Friday','Saturday','Sunday','Monday'],      // Until Sat cook lands Mon PM — cover Mon AM gap
+  Friday:    ['Saturday','Sunday','Monday','Tuesday'],     // Until Mon cook lands Tue PM — cover Tue AM gap
+  Saturday:  ['Monday','Tuesday','Wednesday','Thursday']   // Until Tue cook lands Wed PM — cover Wed AM gap
 };
 
 function sanitizeForQuery(name) {

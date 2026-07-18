@@ -25,32 +25,32 @@ const COOK_SCHEDULE = {
   Monday: {
     group: 1,
     burnOffDays: 1,   // Mon cooks → packages Tue PM → covers until Wed cook lands Thu PM
-    carryDays: 2      // Tue + Wed
+    carryDays: 3      // Tue + Wed + Thu AM gap
   },
   Tuesday: {
     group: 2,
     burnOffDays: 1,   // Tue cooks → packages Wed PM → covers until Thu cook lands Fri PM
-    carryDays: 2      // Wed + Thu
+    carryDays: 3      // Wed + Thu + Fri AM gap
   },
   Wednesday: {
     group: 1,
     burnOffDays: 1,   // Wed cooks → packages Thu PM → covers until Fri cook lands Sat PM
-    carryDays: 2      // Thu + Fri
+    carryDays: 3      // Thu + Fri + Sat AM gap
   },
   Thursday: {
     group: 2,
     burnOffDays: 1,   // Thu cooks → packages Fri PM → covers until Sat cook lands Mon PM
-    carryDays: 3      // Fri + Sat + Sun
+    carryDays: 4      // Fri + Sat + Sun + Mon AM gap
   },
   Friday: {
     group: 1,
     burnOffDays: 1,   // Fri cooks → packages Sat PM → covers until Mon cook lands Tue PM
-    carryDays: 3      // Sat + Sun + Mon
+    carryDays: 4      // Sat + Sun + Mon + Tue AM gap
   },
   Saturday: {
     group: 2,
     burnOffDays: 2,   // Sat cooks → packages Mon PM → Sat+Sun burn before landing
-    carryDays: 3      // Mon + Tue + Wed until Tue cook lands Wed PM
+    carryDays: 4      // Mon + Tue + Wed + Thu AM gap
   }
 };
 
