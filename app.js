@@ -477,7 +477,7 @@ async function main() {
 
 // ── Formula Intelligence Dashboard HTML ──────────────────────
 function buildIntelligenceHTML(data) {
-  if (!data) return `<!DOCTYPE html><html><body style="background:#111;color:#fff;font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0"><div style="text-align:center"><div style="font-size:64px">🌙</div><div style="font-size:24px;margin-top:16px">No blueprint yet — check back after 9PM</div></div></body></html>`;
+  if (!data) return '<!DOCTYPE html><html><head><meta charset="utf-8"></head><body style="background:#111;color:#fff;font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0"><div style="text-align:center"><div style="font-size:64px">&#127769;</div><div style="font-size:24px;margin-top:16px">No blueprint yet &mdash; check back after 9PM</div></div></body></html>';
 
   const cookDay = data.cookDay || '';
   const group = data.group || '';

@@ -282,6 +282,11 @@ function calculateBatchesForMeal({
   // but meal has historically sold (totalSalesUnits > 0 over longer window),
   // treat as Priority 1 to prevent permanent stockout
   const hasRecentDemand  = burnOffUnits > 0 || carryUnits > 0;
+
+  // Pre-check if this is a future launch meal (not yet live) — needed early for death spiral + floor logic
+  const _launchOverrideEarly     = LAUNCH_OVERRIDES[meal.name];
+  const hasFutureLaunchCheck     = _launchOverrideEarly && new Date() < new Date(_launchOverrideEarly.from);
+
   const isDeathSpiral    = currentInventory <= 0 && !hasRecentDemand && !hasFutureLaunchCheck;
 
   // Step 2: Carry-Over Target — daily rate × targetDays
@@ -513,7 +518,6 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
     // Priority 1 meals get shelf cap too — but minimum 2 batches guaranteed
     // hasFutureLaunch meals never bypass shelf cap (they have no sales history)
     const launchOverrideCheck = LAUNCH_OVERRIDES[meal.name];
-    const hasFutureLaunchCheck = launchOverrideCheck && new Date() < new Date(launchOverrideCheck.from);
     const shelfCapped         = hasFutureLaunchCheck
       ? 0  // pre-launch — don't cook until launch date
       : result.isPriority1
