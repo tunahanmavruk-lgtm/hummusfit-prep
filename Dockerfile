@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 WORKDIR /app
 COPY package*.json ./
-RUN npm ci --omit=dev
+RUN npm install --omit=dev --legacy-peer-deps
 COPY . .
 
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
@@ -24,4 +24,3 @@ ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
 
 EXPOSE 3000
 CMD ["node", "app.js"]
-# Node v20 — Sat Jul 18 11:58:00 EDT 2026
