@@ -491,7 +491,7 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
     // ── Shelf life cap — never cook more than 4 days of demand ──
     // Prevents overstock and waste on perishable products
     // Exception: Priority 1 meals (0 inventory) always get at least 2 batches
-    const MAX_SHELF_DAYS      = 4;
+    const MAX_SHELF_DAYS      = isSaturday ? 6 : isThursday ? 5 : 4;
     const maxUnitsByShelfLife = adjustedDailyRate > 0 ? Math.floor(adjustedDailyRate * MAX_SHELF_DAYS) : 999999;
     const maxBatchesByShelf   = adjustedDailyRate > 0 ? Math.floor(maxUnitsByShelfLife / meal.yield) : 999999;
     // Priority 1 meals get shelf cap too — but minimum 2 batches guaranteed
