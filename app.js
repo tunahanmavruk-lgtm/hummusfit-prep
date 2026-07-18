@@ -496,12 +496,12 @@ function buildIntelligenceHTML(data) {
 
   // Cook day explanation
   const cookDayExplanations = {
-    Monday:    { packages: 'Tuesday PM', covers: 'Tuesday + Wednesday', next: 'Wednesday cook lands Thursday PM', days: 2 },
-    Tuesday:   { packages: 'Wednesday PM', covers: 'Wednesday + Thursday', next: 'Thursday cook lands Friday PM', days: 2 },
-    Wednesday: { packages: 'Thursday PM', covers: 'Thursday + Friday', next: 'Friday cook lands Saturday PM', days: 2 },
-    Thursday:  { packages: 'Friday PM', covers: 'Friday + Saturday + Sunday', next: 'Saturday cook lands Monday PM', days: 3 },
-    Friday:    { packages: 'Saturday PM', covers: 'Saturday + Sunday + Monday', next: 'Monday cook lands Tuesday PM', days: 3 },
-    Saturday:  { packages: 'Monday PM', covers: 'Monday + Tuesday + Wednesday', next: 'Tuesday cook lands Wednesday PM', days: 3 },
+    Monday:    { packages: 'Tuesday PM', covers: 'Tuesday + Wednesday + Thursday AM', next: 'Wednesday cook lands Thursday PM', days: 3 },
+    Tuesday:   { packages: 'Wednesday PM', covers: 'Wednesday + Thursday + Friday AM', next: 'Thursday cook lands Friday PM', days: 3 },
+    Wednesday: { packages: 'Thursday PM', covers: 'Thursday + Friday + Saturday AM', next: 'Friday cook lands Saturday PM', days: 3 },
+    Thursday:  { packages: 'Friday PM', covers: 'Friday + Saturday + Sunday + Monday AM', next: 'Saturday cook lands Monday PM', days: 4 },
+    Friday:    { packages: 'Saturday PM', covers: 'Saturday + Sunday + Monday + Tuesday AM', next: 'Monday cook lands Tuesday PM', days: 4 },
+    Saturday:  { packages: 'Monday PM', covers: 'Monday + Tuesday + Wednesday + Thursday AM', next: 'Tuesday cook lands Wednesday PM', days: 4 },
   };
   const dayInfo = cookDayExplanations[cookDay] || {};
 
