@@ -24,3 +24,4 @@ ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
 
 EXPOSE 3000
 CMD ["node", "app.js"]
+# Node v20 — Sat Jul 18 11:58:00 EDT 2026
