@@ -411,7 +411,11 @@ async function main() {
 // ── HTTP SERVER — serves latest PDF at /blueprint ───────────
 const PORT = process.env.PORT || 3000;
 http.createServer((req, res) => {
-  if (req.url === '/blueprint' || req.url === '/') {
+  if (req.url === '/health') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ status: 'ok', uptime: process.uptime(), timestamp: new Date().toISOString() }));
+
+  } else if (req.url === '/blueprint' || req.url === '/') {
     if (fs.existsSync(PDF_PATH)) {
       const pdf = fs.readFileSync(PDF_PATH);
       res.writeHead(200, {
