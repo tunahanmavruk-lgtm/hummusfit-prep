@@ -24,33 +24,33 @@ const COOK_SCHEDULE = {
   },
   Monday: {
     group: 1,
-    burnOffDays: 1,   // Mon (food live Mon PM same day)
-    carryDays: 2      // Tue + Wed until Wed cook lands
+    burnOffDays: 1,   // Mon cooks → packages Tue PM → covers until Wed cook lands Thu PM
+    carryDays: 2      // Tue + Wed
   },
   Tuesday: {
     group: 2,
-    burnOffDays: 1,   // Tue (food live Tue PM same day)
-    carryDays: 2      // Wed + Thu until Thu cook lands
+    burnOffDays: 1,   // Tue cooks → packages Wed PM → covers until Thu cook lands Fri PM
+    carryDays: 2      // Wed + Thu
   },
   Wednesday: {
     group: 1,
-    burnOffDays: 1,   // Wed (food live Wed PM same day)
-    carryDays: 2      // Thu + Fri until Fri cook lands
+    burnOffDays: 1,   // Wed cooks → packages Thu PM → covers until Fri cook lands Sat PM
+    carryDays: 2      // Thu + Fri
   },
   Thursday: {
     group: 2,
-    burnOffDays: 1,   // Thu (food live Thu PM same day)
-    carryDays: 3      // Fri + Sat + Sun until Mon cook lands
+    burnOffDays: 1,   // Thu cooks → packages Fri PM → covers until Sat cook lands Mon PM
+    carryDays: 3      // Fri + Sat + Sun
   },
   Friday: {
     group: 1,
-    burnOffDays: 1,   // Fri (food live Fri PM same day)
-    carryDays: 3      // Sat + Sun + Mon until Tue cook lands
+    burnOffDays: 1,   // Fri cooks → packages Sat PM → covers until Mon cook lands Tue PM
+    carryDays: 4      // Sat + Sun + Mon + Tue AM
   },
   Saturday: {
     group: 2,
-    burnOffDays: 1,   // Sat (food live Sat PM same day)
-    carryDays: 3      // Sun + Mon + Tue until Wed cook lands
+    burnOffDays: 2,   // Sat cooks → packages Mon PM → Sat+Sun burn before landing
+    carryDays: 3      // Mon + Tue + Wed until Tue cook lands Wed PM
   }
 };
 
