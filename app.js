@@ -383,10 +383,12 @@ async function main() {
         reason = `Below minimum stock floor — need at least ${carryTarget.toFixed(0)} units on hand`;
         status = 'urgent';
       } else if (m.batches === 0 && daily === 0) {
-        reason = `No sales data — may be a slow mover or recently stocked. Skipping to avoid expiry waste`;
+        reason = `0 sales recorded this week — either a very slow mover or was out of stock all week. Skipping today to avoid cooking food that would expire before selling. Will auto-add to list when inventory drops low enough.`;
         status = 'skip';
       } else if (m.batches === 0) {
-        reason = `Well stocked — ${inv} units on hand = ${daysOfStock} days of supply. No need to cook today`;
+        const daysUntilNeeded = (inv / daily).toFixed(1);
+        const nextCookNeeded = daysUntilNeeded <= 3 ? 'next cook' : daysUntilNeeded <= 5 ? 'later this week' : 'next week';
+        reason = `SKIPPED — Already has ${inv} units = ${daysOfStock} days of supply at ${daily.toFixed(0)} units/day burn rate. Formula target is ${(daily * carryDays * 1.1).toFixed(0)} units minimum. Current stock covers the full coverage window — cooking today would create excess that risks expiring. Will need cooking ${nextCookNeeded}.`;
         status = 'stocked';
       } else {
         const nextLanding = dayName === 'Monday' ? 'Tuesday PM' : dayName === 'Tuesday' ? 'Wednesday PM' : dayName === 'Wednesday' ? 'Thursday PM' : dayName === 'Thursday' ? 'Friday PM' : dayName === 'Friday' ? 'Saturday PM' : 'Monday PM';
@@ -554,11 +556,14 @@ function buildIntelligenceHTML(data) {
         </div>
         <div class="card-batches" style="color:#444">0</div>
       </div>
-      <div class="card-reason" style="color:#555">${m.reason}</div>
+      <div class="skip-reason-box">
+        <div class="skip-reason-label">WHY WE'RE NOT COOKING THIS TODAY</div>
+        <div class="skip-reason-text">${m.reason}</div>
+      </div>
       <div class="card-stats">
-        <span class="stat-pill" style="opacity:.5">📦 ${m.currentInventory} on hand</span>
-        <span class="stat-pill" style="opacity:.5">🔥 ${m.dailyRate.toFixed(0)}/day burn</span>
-        <span class="stat-pill" style="opacity:.5">📅 ${m.daysOfStock} days left</span>
+        <span class="stat-pill" style="opacity:.6">📦 ${m.currentInventory} on hand</span>
+        <span class="stat-pill" style="opacity:.6">🔥 ${m.dailyRate.toFixed(0)}/day burn</span>
+        <span class="stat-pill" style="opacity:.6">📅 ${m.daysOfStock} days left</span>
       </div>
     </div>
   `).join('');
