@@ -1,2 +1,8 @@
 [phases.setup]
-nixPkgs = ["nodejs_20"]
+nixPkgs = ["nodejs_20", "chromium", "nss", "cups", "libdrm", "mesa", "alsa-lib", "pango", "atk", "gtk3"]
+
+[phases.install]
+cmds = ["npm ci --omit=dev"]
+
+[start]
+cmd = "node app.js"
