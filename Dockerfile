@@ -12,5 +12,6 @@ COPY package*.json ./
 RUN npm install --omit=dev --legacy-peer-deps
 COPY . .
 
+RUN which chromium || which chromium-browser || find / -name chromium 2>/dev/null | head -3 || echo "chromium not found"
 EXPOSE 3000
 CMD ["node", "app.js"]

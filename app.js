@@ -188,20 +188,31 @@ async function generateClosedPdf() {
 </body>
 </html>`;
 
-  // Find chromium executable
-  const { execSync } = require('child_process');
+  // Find chromium executable — search multiple locations
+  const { execSync: _exec } = require('child_process');
   let chromiumPath = process.env.PUPPETEER_EXECUTABLE_PATH;
   if (!chromiumPath) {
+    const candidates = [
+      '/usr/bin/chromium',
+      '/usr/bin/chromium-browser', 
+      '/usr/bin/google-chrome',
+      '/usr/bin/google-chrome-stable',
+      '/snap/bin/chromium',
+    ];
+    // Try to find via which command
     try {
-      chromiumPath = execSync('which chromium || which chromium-browser || which google-chrome || find /usr -name chromium -type f 2>/dev/null | head -1').toString().trim();
+      const found = _exec('find / -name "chromium" -o -name "chromium-browser" -o -name "google-chrome" 2>/dev/null | grep -v node_modules | head -3').toString().trim();
+      console.log('[puppeteer] Found browsers:', found);
+      if (found) chromiumPath = found.split('\n')[0];
     } catch(e) {
-      chromiumPath = null;
+      console.log('[puppeteer] find failed:', e.message);
     }
   }
+  console.log('[puppeteer] Using executablePath:', chromiumPath || 'puppeteer default');
 
   const launchOptions = {
     headless: true,
-    args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
+    args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage', '--disable-gpu']
   };
   if (chromiumPath) launchOptions.executablePath = chromiumPath;
 
