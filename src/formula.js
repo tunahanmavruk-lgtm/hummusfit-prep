@@ -87,6 +87,18 @@ const LAUNCH_OVERRIDES = {
   "Taco Build Quesadilla":             { minBatches: 2, from: "2026-07-13", until: "2026-07-21" },
   "6-Guys Patty Melt":                 { minBatches: 2, from: "2026-07-13", until: "2026-07-21" },
   // ── END TEMPORARY STOCKOUT RECOVERY OVERRIDES ──
+  // ── TARGETED DEPLETED MEAL OVERRIDES (Jul 21 week) ──
+  // Only for genuinely depleted meals — expires Jul 25
+  "Brookfield Chicken Bowl":           { minBatches: 3, from: "2026-07-21", until: "2026-07-25" },
+  "Farfalle & Chicken Alfredo":        { minBatches: 3, from: "2026-07-21", until: "2026-07-25" },
+  "Fit Ala Vodka With Chicken":        { minBatches: 3, from: "2026-07-21", until: "2026-07-25" },
+  "Southwest Chicken Quesadilla":      { minBatches: 3, from: "2026-07-21", until: "2026-07-25" },
+  "Vegan Cheeseburger Bowl":           { minBatches: 2, from: "2026-07-21", until: "2026-07-25" },
+  "The Golden Arches Wrap":            { minBatches: 3, from: "2026-07-22", until: "2026-07-25" },
+  "The Texas Queso Steak Bowl":        { minBatches: 2, from: "2026-07-22", until: "2026-07-25" },
+  "Buffalo Chicken Quesadilla":        { minBatches: 3, from: "2026-07-22", until: "2026-07-25" },
+  "Buffalo Mac N Chicken":             { minBatches: 2, from: "2026-07-22", until: "2026-07-25" },
+  // ── END TARGETED DEPLETED MEAL OVERRIDES ──
   "West Coast Secret Sauce Bowl":      { minBatches: 3, from: "2026-08-17", until: "2099-12-31" },
 };
 
@@ -387,13 +399,6 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
     '2026-7-10': { mon: 3.0, tue: 3.5, wed: 4.0, thu: 4.0, fri: 5.0, sat: 5.0, cap: 20000 },
     '2026-7-11': { mon: 3.0, tue: 3.5, wed: 4.0, thu: 4.0, fri: 2.5, sat: 2.5, cap: 17000 },
     '2026-7-12': { mon: 3.0, tue: 3.5, wed: 4.0, thu: 4.0, fri: 5.0, sat: 2.5, cap: 17000 },
-    '2026-7-13': { mon: 3.0, tue: 3.5, wed: 3.5, thu: 5.0, fri: 4.0, sat: 3.0, cap: 20000 },
-    '2026-7-14': { mon: 3.0, tue: 3.5, wed: 3.5, thu: 5.0, fri: 4.0, sat: 3.0, cap: 20000 },
-    '2026-7-15': { mon: 3.0, tue: 3.5, wed: 3.5, thu: 5.5, fri: 3.5, sat: 3.0, cap: 22000 },
-    '2026-7-16': { mon: 3.0, tue: 3.0, wed: 3.0, thu: 5.0, fri: 6.0, sat: 3.5, cap: 22000 },
-    '2026-7-17': { mon: 3.0, tue: 3.0, wed: 3.0, thu: 5.0, fri: 4.5, sat: 3.0, cap: 22000 },
-    '2026-7-18': { mon: 3.0, tue: 3.0, wed: 3.0, thu: 5.0, fri: 3.5, sat: 6.0, cap: 28000 },
-    '2026-7-19': { mon: 3.5, tue: 4.0, wed: 3.5, thu: 5.0, fri: 3.5, sat: 3.0, cap: 22000 },
   };
 
   // ── LEVELED RECOVERY PLAN Jul 16-19 ──────────────────────
