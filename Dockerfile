@@ -11,7 +11,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   libxss1 \
   libgtk-3-0 \
   libxshmfence1 \
-  chromium \
+  libx11-xcb1 \
+  libxcb-dri3-0 \
+  fonts-liberation \
+  wget \
   unzip \
   && rm -rf /var/lib/apt/lists/*
 
@@ -19,9 +22,6 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install --omit=dev --legacy-peer-deps
 COPY . .
-
-ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
-ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
 
 EXPOSE 3000
 CMD ["node", "app.js"]
