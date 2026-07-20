@@ -85,6 +85,23 @@ const LAUNCH_OVERRIDES = {
   "6-Guys Patty Melt":                 { minBatches: 2, from: "2026-07-13", until: "2026-07-21" },
   // ── END TEMPORARY STOCKOUT RECOVERY OVERRIDES ──
   // ── TARGETED DEPLETED MEAL OVERRIDES (Jul 21 week) ──
+  // Monday Jul 21 G1 — depleted meals need minBatches only (no maxBatches cap)
+  "Broritto Burrito":                  { minBatches: 10, from: "2026-07-21", until: "2026-07-22" },
+  "BBQ Chicken Garlic Parm Potatoes":  { minBatches: 10, from: "2026-07-21", until: "2026-07-22" },
+  "Buffalo Crispy Chicken Wrap":       { minBatches: 7,  from: "2026-07-21", until: "2026-07-22" },
+  "Baja Chicken Tacos":                { minBatches: 8,  from: "2026-07-21", until: "2026-07-22" },
+  "Brookfield Chicken Bowl":           { minBatches: 6,  from: "2026-07-21", until: "2026-07-22" },
+  "Southwest Chicken Quesadilla":      { minBatches: 6,  from: "2026-07-21", until: "2026-07-22" },
+  "Farfalle & Chicken Alfredo":        { minBatches: 5,  from: "2026-07-21", until: "2026-07-22" },
+  "Fit Ala Vodka With Chicken":        { minBatches: 5,  from: "2026-07-21", until: "2026-07-22" },
+  "Thai Chili Chicken":                { minBatches: 5,  from: "2026-07-21", until: "2026-07-22" },
+  "Soho Steak Bowl":                   { minBatches: 5,  from: "2026-07-21", until: "2026-07-22" },
+  "TexMex Potato Hash":                { minBatches: 4,  from: "2026-07-21", until: "2026-07-22" },
+  "Hot Honey Steak & Mac":             { minBatches: 4,  from: "2026-07-21", until: "2026-07-22" },
+  "Grilled Chicken Pesto Wrap":        { minBatches: 4,  from: "2026-07-21", until: "2026-07-22" },
+  "Gluten Free Carbonara Chicken":     { minBatches: 4,  from: "2026-07-21", until: "2026-07-22" },
+  "Nacho Average Bowl":                { minBatches: 3,  from: "2026-07-21", until: "2026-07-22" },
+  "Vegan Cheeseburger Bowl":           { minBatches: 2,  from: "2026-07-21", until: "2026-07-22" },
   // Tuesday Jul 22 G2
   "The Golden Arches Wrap":            { minBatches: 3, from: "2026-07-22", until: "2026-07-25" },
   "Buffalo Chicken Quesadilla":        { minBatches: 3, from: "2026-07-22", until: "2026-07-25" },
