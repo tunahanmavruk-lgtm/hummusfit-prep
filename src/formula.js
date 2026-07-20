@@ -99,7 +99,7 @@ const LAUNCH_OVERRIDES = {
   "Fit Ala Vodka With Chicken":        { minBatches: 5,  from: "2026-07-20", until: "2026-07-21" },
   "Thai Chili Chicken":                { minBatches: 5,  from: "2026-07-20", until: "2026-07-21" },
   "Soho Steak Bowl":                   { minBatches: 4,  from: "2026-07-20", until: "2026-07-21" },
-  "GLORIOUS GAINS":                    { minBatches: 4,  from: "2026-07-19", until: "2026-07-21" },
+  "GLORIOUS GAINS Steak Bites & Cilantro Lime Rice": { minBatches: 4, from: "2026-07-19", until: "2026-07-21" },
   "Gluten Free Carbonara Chicken":     { minBatches: 4,  from: "2026-07-20", until: "2026-07-21" },
   "TexMex Potato Hash":                { minBatches: 4,  from: "2026-07-20", until: "2026-07-21" },
   "Hot Honey Steak & Mac":             { minBatches: 4,  from: "2026-07-20", until: "2026-07-21" },
