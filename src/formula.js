@@ -85,6 +85,25 @@ const LAUNCH_OVERRIDES = {
   "6-Guys Patty Melt":                 { minBatches: 2, from: "2026-07-13", until: "2026-07-19" },
   // ── END TEMPORARY STOCKOUT RECOVERY OVERRIDES ──
   // ── TARGETED DEPLETED MEAL OVERRIDES (Jul 21 week) ──
+  // Monday Jul 21 G1 — hardcoded correct batches for depleted meals
+  // Sales data distorted by stockouts last week — manual correction
+  "BBQ Chicken Garlic Parm Potatoes":  { minBatches: 10, from: "2026-07-20", until: "2026-07-21" },
+  "Broritto Burrito":                  { minBatches: 8,  from: "2026-07-20", until: "2026-07-21" },
+  "Baja Chicken Tacos":                { minBatches: 8,  from: "2026-07-20", until: "2026-07-21" },
+  "Brookfield Chicken Bowl":           { minBatches: 6,  from: "2026-07-20", until: "2026-07-21" },
+  "Southwest Chicken Quesadilla":      { minBatches: 5,  from: "2026-07-20", until: "2026-07-21" },
+  "Farfalle & Chicken Alfredo":        { minBatches: 5,  from: "2026-07-20", until: "2026-07-21" },
+  "Fit Ala Vodka With Chicken":        { minBatches: 5,  from: "2026-07-20", until: "2026-07-21" },
+  "Thai Chili Chicken":                { minBatches: 5,  from: "2026-07-20", until: "2026-07-21" },
+  "Soho Steak Bowl":                   { minBatches: 4,  from: "2026-07-20", until: "2026-07-21" },
+  "GLORIOUS GAINS":                    { minBatches: 4,  from: "2026-07-20", until: "2026-07-21" },
+  "Gluten Free Carbonara Chicken":     { minBatches: 4,  from: "2026-07-20", until: "2026-07-21" },
+  "TexMex Potato Hash":                { minBatches: 4,  from: "2026-07-20", until: "2026-07-21" },
+  "Hot Honey Steak & Mac":             { minBatches: 4,  from: "2026-07-20", until: "2026-07-21" },
+  "Grilled Chicken Pesto Wrap":        { minBatches: 3,  from: "2026-07-20", until: "2026-07-21" },
+  "Competition Approved Sticky Rice (1lb)": { minBatches: 3, from: "2026-07-20", until: "2026-07-21" },
+  "Competition Approved Chicken Kebab (1lb)": { minBatches: 3, from: "2026-07-20", until: "2026-07-21" },
+  "Turkey Bacon Cheddar Egg Muffins":  { minBatches: 3,  from: "2026-07-20", until: "2026-07-21" },
   // Tuesday Jul 22 G2
   "The Golden Arches Wrap":            { minBatches: 3, from: "2026-07-22", until: "2026-07-25" },
   "Buffalo Chicken Quesadilla":        { minBatches: 3, from: "2026-07-22", until: "2026-07-25" },
