@@ -334,12 +334,14 @@ function calculateBatchesForMeal({
   // Step 4: Raw Batches — Ceiling Function (always round UP)
   const rawBatches = unitDeficit / yieldPerBatch;
 
-  // Step 5: No 1-Batch Rule
+  // Step 5: Batch rounding
+  // No 1-Batch Rule: only bump to 2 if meal has real demand (dailyRate > 0)
+  // Prevents bumping slow/overstocked meals with no genuine deficit
   let finalBatches;
   if (rawBatches <= 0) {
     finalBatches = 0;
-  } else if (rawBatches < 2) {
-    finalBatches = 2; // No 1-Batch Rule
+  } else if (rawBatches < 2 && dailyRateInner >= 50) {
+    finalBatches = 2; // No 1-Batch Rule — only for meals burning 50+ units/day
   } else {
     finalBatches = Math.ceil(rawBatches);
   }
@@ -503,7 +505,7 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
     // Priority 1 override: if working inventory is negative, always cook at least 1 batch
     const isPriority1Override = result.isPriority1 && rawCapped === 0;
     const cappedBatches       = isPriority1Override ? 1
-      : rawCapped > 0 && rawCapped < 2 && hasDeficit
+      : rawCapped > 0 && rawCapped < 2 && hasDeficit && adjustedDailyRate >= 50
       ? (oneBatchFitsInCap && hasEnoughExisting ? 1 : 2)
       : rawCapped;
 
