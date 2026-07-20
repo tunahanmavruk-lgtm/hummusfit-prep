@@ -85,12 +85,28 @@ const LAUNCH_OVERRIDES = {
   "6-Guys Patty Melt":                 { minBatches: 2, from: "2026-07-13", until: "2026-07-21" },
   // ── END TEMPORARY STOCKOUT RECOVERY OVERRIDES ──
   // ── TARGETED DEPLETED MEAL OVERRIDES (Jul 21 week) ──
-  // Only for genuinely depleted meals — expires Jul 25
-  "Brookfield Chicken Bowl":           { minBatches: 3, from: "2026-07-21", until: "2026-07-25" },
-  "Farfalle & Chicken Alfredo":        { minBatches: 3, from: "2026-07-21", until: "2026-07-25" },
-  "Fit Ala Vodka With Chicken":        { minBatches: 3, from: "2026-07-21", until: "2026-07-25" },
-  "Southwest Chicken Quesadilla":      { minBatches: 3, from: "2026-07-21", until: "2026-07-25" },
-  "Vegan Cheeseburger Bowl":           { minBatches: 2, from: "2026-07-21", until: "2026-07-25" },
+  // Monday Jul 21 G1 — fast movers with precise min/max to prevent under/overcooking
+  "Broritto Burrito":                  { minBatches: 10, maxBatches: 12, from: "2026-07-21", until: "2026-07-22" },
+  "BBQ Chicken Garlic Parm Potatoes":  { minBatches: 10, maxBatches: 12, from: "2026-07-21", until: "2026-07-22" },
+  "Buffalo Crispy Chicken Wrap":       { minBatches: 7,  maxBatches: 9,  from: "2026-07-21", until: "2026-07-22" },
+  "Baja Chicken Tacos":                { minBatches: 8,  maxBatches: 10, from: "2026-07-21", until: "2026-07-22" },
+  "Brookfield Chicken Bowl":           { minBatches: 6,  maxBatches: 8,  from: "2026-07-21", until: "2026-07-22" },
+  "Southwest Chicken Quesadilla":      { minBatches: 6,  maxBatches: 8,  from: "2026-07-21", until: "2026-07-22" },
+  "Farfalle & Chicken Alfredo":        { minBatches: 5,  maxBatches: 7,  from: "2026-07-21", until: "2026-07-22" },
+  "Fit Ala Vodka With Chicken":        { minBatches: 5,  maxBatches: 7,  from: "2026-07-21", until: "2026-07-22" },
+  "Thai Chili Chicken":                { minBatches: 6,  maxBatches: 7,  from: "2026-07-21", until: "2026-07-22" },
+  "Soho Steak Bowl":                   { minBatches: 5,  maxBatches: 6,  from: "2026-07-21", until: "2026-07-22" },
+  "TexMex Potato Hash":                { minBatches: 5,  maxBatches: 6,  from: "2026-07-21", until: "2026-07-22" },
+  "Hot Honey Steak & Mac":             { minBatches: 5,  maxBatches: 6,  from: "2026-07-21", until: "2026-07-22" },
+  "Grilled Chicken Pesto Wrap":        { minBatches: 4,  maxBatches: 5,  from: "2026-07-21", until: "2026-07-22" },
+  "Gluten Free Carbonara Chicken":     { minBatches: 4,  maxBatches: 5,  from: "2026-07-21", until: "2026-07-22" },
+  "Nacho Average Bowl":                { minBatches: 3,  maxBatches: 4,  from: "2026-07-21", until: "2026-07-22" },
+  "Vegan Cheeseburger Bowl":           { minBatches: 2,  maxBatches: 3,  from: "2026-07-21", until: "2026-07-22" },
+  // Slow movers — cap to prevent overcooking
+  "Competition Approved Oven Baked Cod (1lb)":      { minBatches: 2, maxBatches: 3, from: "2026-07-21", until: "2026-07-22" },
+  "Chipotle Chicken (1lb Competition Approved)":    { minBatches: 2, maxBatches: 4, from: "2026-07-21", until: "2026-07-22" },
+  "Competition Approved Grilled Chicken (1lb)":     { minBatches: 2, maxBatches: 3, from: "2026-07-21", until: "2026-07-22" },
+  // Tuesday Jul 22 G2
   "The Golden Arches Wrap":            { minBatches: 3, from: "2026-07-22", until: "2026-07-25" },
   "Buffalo Chicken Quesadilla":        { minBatches: 3, from: "2026-07-22", until: "2026-07-25" },
   "Buffalo Mac N Chicken":             { minBatches: 2, from: "2026-07-22", until: "2026-07-25" },
