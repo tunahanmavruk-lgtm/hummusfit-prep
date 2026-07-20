@@ -416,6 +416,7 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
     '2026-7-10': { mon: 3.0, tue: 3.5, wed: 4.0, thu: 4.0, fri: 5.0, sat: 5.0, cap: 20000 },
     '2026-7-11': { mon: 3.0, tue: 3.5, wed: 4.0, thu: 4.0, fri: 2.5, sat: 2.5, cap: 17000 },
     '2026-7-12': { mon: 3.0, tue: 3.5, wed: 4.0, thu: 4.0, fri: 5.0, sat: 2.5, cap: 17000 },
+    '2026-7-20': { mon: 3.5, tue: 4.0, wed: 4.0, thu: 4.5, fri: 4.0, sat: 3.0, cap: 22000 },
   };
 
   // ── LEVELED RECOVERY PLAN Jul 16-19 ──────────────────────
