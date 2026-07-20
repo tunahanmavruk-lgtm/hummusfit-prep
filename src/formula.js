@@ -496,14 +496,14 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
     const maxBatchesByCap     = Math.floor(maxUnitsToCook / meal.yield);
     const hasDeficit          = result.batches > 0;
     const rawCapped           = hasDeficit ? Math.min(result.batches, maxBatchesByCap)
-                              : (result.isDeathSpiral ? 2 : 0);
+                              : (result.isDeathSpiral && adjustedDailyRate > 0 ? 2 : 0);
     // Only allow 1 batch if existing inventory covers at least 1.5 days of demand
     // This prevents under-cooking high-velocity meals
     const oneBatchTotal       = currentInventory + meal.yield;
     const oneBatchFitsInCap   = oneBatchTotal <= adjustedTargetInv;
     const hasEnoughExisting   = currentInventory >= (adjustedDailyRate * 1.5);
     // Priority 1 override: if working inventory is negative, always cook at least 1 batch
-    const isPriority1Override = result.isPriority1 && rawCapped === 0;
+    const isPriority1Override = result.isPriority1 && rawCapped === 0 && adjustedDailyRate > 0;
     const cappedBatches       = isPriority1Override ? 1
       : rawCapped > 0 && rawCapped < 2 && hasDeficit && adjustedDailyRate >= 50
       ? (oneBatchFitsInCap && hasEnoughExisting ? 1 : 2)
