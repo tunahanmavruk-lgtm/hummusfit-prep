@@ -1,5 +1,11 @@
 // ============================================================
-//  SHEETS SYNC — HummusFit KDS v4
+//  SHEETS SYNC — HummusFit KDS v5
+//  Matches TV display exactly:
+//  - White rows, alternating light grey
+//  - No priority/red column
+//  - Station cells show task name only
+//  - Orange (#E8612C) for In Progress, Teal (#2BBFAA) for Done
+//  - Clean black header row matching TV column headers
 // ============================================================
 
 const { google } = require('googleapis');
@@ -13,22 +19,28 @@ function getAuthClient() {
   });
 }
 
-// Column indices (0-based)
+// Column indices (0-based) — NO priority column, matches TV exactly
 const COL = {
-  MEAL: 0, BATCHES: 1, PRIORITY: 2,
-  STOVE: 3, OVEN: 4, GRILL: 5, FLAT_GRILL: 6,
-  SALAD: 7, SAUCE: 8, RAW_MEATS: 9
+  MEAL:       0,  // A
+  BATCHES:    1,  // B
+  STOVE:      2,  // C
+  OVEN:       3,  // D
+  GRILL:      4,  // E
+  FLAT_GRILL: 5,  // F
+  SALAD:      6,  // G
+  SAUCE:      7,  // H
+  RAW_MEATS:  8   // I
 };
-const TOTAL_COLS = 10;
+const TOTAL_COLS = 9;
 
 const STATION_COLS = [
-  { key: 'stove',        col: COL.STOVE,      header: '▲ STOVE'      },
-  { key: 'oven',         col: COL.OVEN,        header: '◉ OVEN'       },
-  { key: 'grill',        col: COL.GRILL,       header: '⬡ GRILL'      },
-  { key: 'flatGrill',    col: COL.FLAT_GRILL,  header: '▬ FLAT GRILL' },
-  { key: 'saladStation', col: COL.SALAD,       header: '✦ SALAD'      },
-  { key: 'sauceStation', col: COL.SAUCE,       header: '◈ SAUCE'      },
-  { key: 'rawMeats',     col: COL.RAW_MEATS,   header: '◆ RAW MEATS'  },
+  { key: 'stove',        col: COL.STOVE,      header: 'STOVE'      },
+  { key: 'oven',         col: COL.OVEN,        header: 'OVEN'       },
+  { key: 'grill',        col: COL.GRILL,       header: 'GRILL'      },
+  { key: 'flatGrill',    col: COL.FLAT_GRILL,  header: 'FLAT GRILL' },
+  { key: 'saladStation', col: COL.SALAD,       header: 'SALAD'      },
+  { key: 'sauceStation', col: COL.SAUCE,       header: 'SAUCE'      },
+  { key: 'rawMeats',     col: COL.RAW_MEATS,   header: 'RAW MEATS'  },
 ];
 
 function tabName() {
@@ -39,6 +51,14 @@ function tabName() {
     weekday: 'short', month: 'short', day: 'numeric'
   });
 }
+
+// Colors matching TV display
+const COLOR_BLACK  = { red: 0.067, green: 0.067, blue: 0.067 };
+const COLOR_WHITE  = { red: 1,     green: 1,     blue: 1     };
+const COLOR_GREY   = { red: 0.973, green: 0.973, blue: 0.973 };
+const COLOR_ORANGE = { red: 0.910, green: 0.380, blue: 0.173 }; // #E8612C
+const COLOR_TEAL   = { red: 0.169, green: 0.749, blue: 0.667 }; // #2BBFAA
+const COLOR_BADGE_BG = { red: 0.933, green: 0.933, blue: 0.933 };
 
 async function syncToSheets(prepSheet, groupNum, dayName, eventName) {
   const spreadsheetId = process.env.GOOGLE_SHEET_ID;
@@ -59,7 +79,6 @@ async function syncToSheets(prepSheet, groupNum, dayName, eventName) {
     sheetId = existing.properties.sheetId;
     console.log(`  ↻ Tab "${tab}" exists — clearing`);
     await sheets.spreadsheets.values.clear({ spreadsheetId, range: `'${tab}'` });
-    // Clear all validation AND unmerge all cells (clean slate)
     await sheets.spreadsheets.batchUpdate({
       spreadsheetId,
       requestBody: {
@@ -96,30 +115,24 @@ async function syncToSheets(prepSheet, groupNum, dayName, eventName) {
     console.log(`  + Created tab "${tab}"`);
   }
 
-  // ── 2. Active meals ───────────────────────────────────────
-  const activeMeals = prepSheet.filter(
-    m => m.batches > 0 || (m.directToAssembly && m.exactUnits > 0)
-  );
+  // ── 2. Active meals sorted by batch count desc ────────────
+  const activeMeals = prepSheet
+    .filter(m => m.batches > 0 || (m.directToAssembly && m.exactUnits > 0))
+    .sort((a, b) => (b.batches || 0) - (a.batches || 0));
 
-  // ── 3. Build rows ─────────────────────────────────────────
-  const eventSuffix = eventName ? ` 🎉 ${eventName}` : '';
+  // ── 3. Build value rows ───────────────────────────────────
+  const eventSuffix = eventName ? ` — ${eventName}` : '';
   const titleText   = `HummusFit Kitchen — Group ${groupNum} | ${tab}${eventSuffix}`;
 
-  const headerRow = [
-    'MEAL NAME', '#', '🔴',
-    '▲ STOVE', '◉ OVEN', '⬡ GRILL', '▬ FLAT GRILL',
-    '✦ SALAD', '◈ SAUCE', '◆ RAW MEATS'
-  ];
+  const headerRow = ['MEAL NAME', '#', 'STOVE', 'OVEN', 'GRILL', 'FLAT GRILL', 'SALAD', 'SAUCE', 'RAW MEATS'];
 
-  // Station cell default value = "Task Name — ⬜ Not Started"
+  // Station cells: just the task name (dropdown overlaid separately)
   const dataRows = activeMeals.map(m => {
     const row = new Array(TOTAL_COLS).fill('');
-    row[COL.MEAL]     = m.name;
-    row[COL.BATCHES]  = m.directToAssembly ? `${m.exactUnits} units` : String(m.batches);
-    row[COL.PRIORITY] = m.isPriority1 ? '🔴' : '';
+    row[COL.MEAL]    = m.name;
+    row[COL.BATCHES] = m.directToAssembly ? `${m.exactUnits} units` : String(m.batches);
     STATION_COLS.forEach(({ key, col }) => {
-      const task = m[key] || '';
-      row[col] = task ? `${task} — ⬜ Not Started` : '';
+      row[col] = m[key] || '';
     });
     return row;
   });
@@ -140,7 +153,7 @@ async function syncToSheets(prepSheet, groupNum, dayName, eventName) {
   // ── 4. Formatting ─────────────────────────────────────────
   const requests = [];
 
-  // Title row
+  // Title row: orange background, white bold text, merged
   requests.push(
     {
       mergeCells: {
@@ -153,8 +166,8 @@ async function syncToSheets(prepSheet, groupNum, dayName, eventName) {
         range: { sheetId, startRowIndex: 0, endRowIndex: 1, startColumnIndex: 0, endColumnIndex: TOTAL_COLS },
         cell: {
           userEnteredFormat: {
-            backgroundColor: { red: 0.97, green: 0.62, blue: 0.18 },
-            textFormat: { foregroundColor: { red: 1, green: 1, blue: 1 }, bold: true, fontSize: 14 },
+            backgroundColor: COLOR_ORANGE,
+            textFormat: { foregroundColor: COLOR_WHITE, bold: true, fontSize: 13, fontFamily: 'Oswald' },
             horizontalAlignment: 'CENTER', verticalAlignment: 'MIDDLE'
           }
         },
@@ -164,21 +177,22 @@ async function syncToSheets(prepSheet, groupNum, dayName, eventName) {
     {
       updateDimensionProperties: {
         range: { sheetId, dimension: 'ROWS', startIndex: 0, endIndex: 1 },
-        properties: { pixelSize: 50 }, fields: 'pixelSize'
+        properties: { pixelSize: 44 }, fields: 'pixelSize'
       }
     }
   );
 
-  // Header row
+  // Header row: black background, white bold — matches TV column headers
   requests.push(
     {
       repeatCell: {
         range: { sheetId, startRowIndex: 1, endRowIndex: 2, startColumnIndex: 0, endColumnIndex: TOTAL_COLS },
         cell: {
           userEnteredFormat: {
-            backgroundColor: { red: 0.09, green: 0.09, blue: 0.09 },
-            textFormat: { foregroundColor: { red: 1, green: 1, blue: 1 }, bold: true, fontSize: 10 },
-            horizontalAlignment: 'CENTER', verticalAlignment: 'MIDDLE', wrapStrategy: 'WRAP'
+            backgroundColor: COLOR_BLACK,
+            textFormat: { foregroundColor: COLOR_WHITE, bold: true, fontSize: 10, fontFamily: 'Oswald' },
+            horizontalAlignment: 'LEFT', verticalAlignment: 'MIDDLE',
+            wrapStrategy: 'WRAP'
           }
         },
         fields: 'userEnteredFormat(backgroundColor,textFormat,horizontalAlignment,verticalAlignment,wrapStrategy)'
@@ -187,7 +201,7 @@ async function syncToSheets(prepSheet, groupNum, dayName, eventName) {
     {
       updateDimensionProperties: {
         range: { sheetId, dimension: 'ROWS', startIndex: 1, endIndex: 2 },
-        properties: { pixelSize: 44 }, fields: 'pixelSize'
+        properties: { pixelSize: 36 }, fields: 'pixelSize'
       }
     }
   );
@@ -196,23 +210,17 @@ async function syncToSheets(prepSheet, groupNum, dayName, eventName) {
   const numDataRows = activeMeals.length;
   for (let i = 0; i < numDataRows; i++) {
     const rowIdx = i + 2;
-    const meal   = activeMeals[i];
     const isEven = i % 2 === 0;
+    const bg = isEven ? COLOR_WHITE : COLOR_GREY;
 
-    const bg = meal.isPriority1
-      ? { red: 1.0, green: 0.88, blue: 0.86 }
-      : isEven
-        ? { red: 0.96, green: 0.96, blue: 0.96 }
-        : { red: 1.0,  green: 1.0,  blue: 1.0  };
-
-    // Base row format
+    // Row base
     requests.push({
       repeatCell: {
         range: { sheetId, startRowIndex: rowIdx, endRowIndex: rowIdx + 1, startColumnIndex: 0, endColumnIndex: TOTAL_COLS },
         cell: {
           userEnteredFormat: {
             backgroundColor: bg,
-            textFormat: { fontSize: 10 },
+            textFormat: { fontSize: 11, fontFamily: 'Arial' },
             verticalAlignment: 'MIDDLE', wrapStrategy: 'WRAP'
           }
         },
@@ -220,50 +228,39 @@ async function syncToSheets(prepSheet, groupNum, dayName, eventName) {
       }
     });
 
-    // Meal name bold
+    // Meal name: bold, larger
     requests.push({
       repeatCell: {
         range: { sheetId, startRowIndex: rowIdx, endRowIndex: rowIdx + 1, startColumnIndex: COL.MEAL, endColumnIndex: COL.MEAL + 1 },
-        cell: { userEnteredFormat: { textFormat: { bold: true, fontSize: 12 } } },
+        cell: { userEnteredFormat: { textFormat: { bold: true, fontSize: 12, fontFamily: 'Oswald' } } },
         fields: 'userEnteredFormat.textFormat'
       }
     });
 
-    // Batch count: centered, orange, bold
+    // Batch count: centered, bold, large
     requests.push({
       repeatCell: {
         range: { sheetId, startRowIndex: rowIdx, endRowIndex: rowIdx + 1, startColumnIndex: COL.BATCHES, endColumnIndex: COL.BATCHES + 1 },
         cell: {
           userEnteredFormat: {
             horizontalAlignment: 'CENTER',
-            textFormat: { bold: true, fontSize: 14, foregroundColor: { red: 0.97, green: 0.50, blue: 0.10 } }
+            textFormat: { bold: true, fontSize: 16, fontFamily: 'Oswald' }
           }
         },
         fields: 'userEnteredFormat(horizontalAlignment,textFormat)'
       }
     });
 
-    // Priority: centered
-    requests.push({
-      repeatCell: {
-        range: { sheetId, startRowIndex: rowIdx, endRowIndex: rowIdx + 1, startColumnIndex: COL.PRIORITY, endColumnIndex: COL.PRIORITY + 1 },
-        cell: { userEnteredFormat: { horizontalAlignment: 'CENTER', textFormat: { fontSize: 14 } } },
-        fields: 'userEnteredFormat(horizontalAlignment,textFormat)'
-      }
-    });
-
-    // Station cells — dropdown only where task exists
-    // Options: "Task — ⬜ Not Started" (default, already written), "Task — 🟡 In Progress", "Task — 🟢 Done"
+    // Station cells: dropdown where task exists
     STATION_COLS.forEach(({ key, col }) => {
-      const task = meal[key] || '';
+      const task = activeMeals[i][key] || '';
 
-      // Center all station cells
       requests.push({
         repeatCell: {
           range: { sheetId, startRowIndex: rowIdx, endRowIndex: rowIdx + 1, startColumnIndex: col, endColumnIndex: col + 1 },
           cell: {
             userEnteredFormat: {
-              horizontalAlignment: 'CENTER',
+              horizontalAlignment: 'LEFT',
               textFormat: { fontSize: 10 },
               wrapStrategy: 'WRAP'
             }
@@ -274,7 +271,7 @@ async function syncToSheets(prepSheet, groupNum, dayName, eventName) {
 
       if (!task) return;
 
-      // Dropdown: 3 options with task name embedded
+      // Dropdown: task name → Not Started / In Progress / Done
       requests.push({
         setDataValidation: {
           range: {
@@ -286,21 +283,21 @@ async function syncToSheets(prepSheet, groupNum, dayName, eventName) {
             condition: {
               type: 'ONE_OF_LIST',
               values: [
-                { userEnteredValue: `${task} — ⬜ Not Started` },
+                { userEnteredValue: task },
                 { userEnteredValue: `${task} — 🟡 In Progress` },
-                { userEnteredValue: `${task} — 🟢 Done`        },
+                { userEnteredValue: `${task} — 🟢 Done` }
               ]
             },
             showCustomUi: true,
-            strict: true
+            strict: false
           }
         }
       });
     });
   }
 
-  // Column widths
-  [240, 65, 40, 130, 130, 150, 120, 130, 120, 130].forEach((w, colIdx) => {
+  // Column widths matching TV grid
+  [240, 52, 140, 150, 150, 130, 140, 130, 150].forEach((w, colIdx) => {
     requests.push({
       updateDimensionProperties: {
         range: { sheetId, dimension: 'COLUMNS', startIndex: colIdx, endIndex: colIdx + 1 },
@@ -309,12 +306,12 @@ async function syncToSheets(prepSheet, groupNum, dayName, eventName) {
     });
   });
 
-  // Row heights
+  // Data row height
   if (numDataRows > 0) {
     requests.push({
       updateDimensionProperties: {
         range: { sheetId, dimension: 'ROWS', startIndex: 2, endIndex: numDataRows + 2 },
-        properties: { pixelSize: 60 }, fields: 'pixelSize'
+        properties: { pixelSize: 52 }, fields: 'pixelSize'
       }
     });
   }
@@ -330,7 +327,7 @@ async function syncToSheets(prepSheet, groupNum, dayName, eventName) {
   await sheets.spreadsheets.batchUpdate({ spreadsheetId, requestBody: { requests } });
 
   const sheetUrl = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/edit#gid=${sheetId}`;
-  console.log(`  ✓ Sheet synced: ${activeMeals.length} meals written`);
+  console.log(`  ✓ Sheet synced: ${activeMeals.length} meals`);
   console.log(`  🔗 ${sheetUrl}`);
   return sheetUrl;
 }
