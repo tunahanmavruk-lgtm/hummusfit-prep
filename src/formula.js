@@ -532,7 +532,7 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
     const daysCurrentlyCovered = adjustedDailyRate > 0 ? currentInventory / adjustedDailyRate : 99;
     // Dynamic threshold = burnOffDays + carryDays + 0.5 buffer
     // Prevents skipping meals that LOOK stocked but will run out before next cook lands
-    const alreadyCoveredThreshold = burnOffDays + carryDays + 0.5;
+    const alreadyCoveredThreshold = TARGET_DAYS + 0.5;  // Only skip if already covered beyond target
     const alreadyCovered = daysCurrentlyCovered >= alreadyCoveredThreshold && !result.isPriority1;
     const rawCapped           = alreadyCovered ? 0
                               : hasDeficit ? Math.min(result.batches, maxBatchesByCap)
