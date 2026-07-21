@@ -63,7 +63,7 @@ const LAUNCH_OVERRIDES = {
   "The Texas Queso Steak Bowl":        { minBatches: 3, from: "2026-07-07", until: "2026-07-19" },
   "The Philly Cheesesteak Quesadilla": { minBatches: 3, from: "2026-07-19", until: "2099-12-31" },
   "Honey Garlic Crispy Chicken Tacos": { minBatches: 3, from: "2026-08-04", until: "2099-12-31" },
-  "The Arches Mac Daddy Wrap":         { minBatches: 2, maxBatches: 4, from: "2026-07-11", until: "2099-12-31" },
+  "The Arches Mac Daddy Wrap":         { minBatches: 5, maxBatches: 8, from: "2026-07-11", until: "2099-12-31" },
 
   // ── TEMPORARY STOCKOUT RECOVERY OVERRIDES (expires 2026-07-21) ──
   // These force minimum batches for meals caught in the death spiral
@@ -113,7 +113,7 @@ const LAUNCH_OVERRIDES = {
   "Buffalo Mac N Chicken":             { minBatches: 4,  from: "2026-07-20", until: "2026-07-23" },
   "Garlic Flank & Potatoes":           { minBatches: 3,  from: "2026-07-20", until: "2026-07-23" },
   "General Tso Tacos":                 { minBatches: 3,  from: "2026-07-20", until: "2026-07-23" },
-  "The Texas Queso Steak Bowl":        { minBatches: 4,  from: "2026-07-20", until: "2026-07-23" },
+  "The Texas Queso Steak Bowl":        { minBatches: 5,  from: "2026-07-20", until: "2026-07-23" },
   // Cap overcooking meals
   "Competition Approved White Basmati Rice (1lb)": { minBatches: 3, from: "2026-07-20", until: "2026-07-23" },
   "Zeus Bowl":                         { minBatches: 0, maxBatches: 0, from: "2026-07-21", until: "2026-07-23" },
