@@ -508,7 +508,9 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
     // Daily rate and target days — calculated before formula call
     const totalSalesUnits     = burnOffUnits + carryUnits;
     const totalSalesDays      = burnOffDays + carryDays;
-    const dailyRate           = totalSalesDays > 0 && totalSalesUnits > 0 ? totalSalesUnits / totalSalesDays : 0;
+    const salesRate           = totalSalesDays > 0 && totalSalesUnits > 0 ? totalSalesUnits / totalSalesDays : 0;
+    const outerBaselineFloor  = (meal.baselineRate || 0) * 0.5;
+    const dailyRate           = Math.max(salesRate, outerBaselineFloor);
     const isMonday            = day === 'Monday';
     const isThursday          = day === 'Thursday';
     const isFriday            = day === 'Friday';
