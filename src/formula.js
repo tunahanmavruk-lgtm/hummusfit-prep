@@ -619,7 +619,7 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
   // Fast movers are protected first; slow movers get cut first and hardest
   // During recovery ramp, disable global cap enforcement so individual meal targets are met
   const RECOVERY_MODE = rampEntry !== null;
-  const GLOBAL_INVENTORY_CAP = (HOLIDAY_CAP !== null && HOLIDAY_CAP !== undefined) ? HOLIDAY_CAP : 30000;
+  const GLOBAL_INVENTORY_CAP = (HOLIDAY_CAP !== null && HOLIDAY_CAP !== undefined) ? HOLIDAY_CAP : 27000;
   const MINIMUM_DAYS_FLOOR   = 1.5;
 
   const totalCurrentInventory = prepSheet.reduce((sum, m) => sum + (m._debug?.currentInventory || 0), 0);
