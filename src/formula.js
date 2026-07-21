@@ -355,7 +355,7 @@ function calculateBatchesForMeal({
   const salesDailyRate  = totalSalesDays > 0 && totalSalesUnits > 0 ? totalSalesUnits / totalSalesDays : 0;
   // Baseline floor: if sales data is distorted (0 sales due to stockout/holiday),
   // use 30% of the meal's known historical baseline rate so it never gets skipped
-  const baselineFloor   = (meal.baselineRate || 0) * 0.3;
+  const baselineFloor   = (meal.baselineRate || 0) * 0.5;
   const dailyRateInner  = Math.max(salesDailyRate, baselineFloor);
 
   // Pre-landing stockout prevention:
@@ -547,6 +547,7 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
       carryUnits,
       yieldPerBatch: meal.yield,
       mealName: meal.name,
+      baselineRate: meal.baselineRate || 0,
       directToAssembly: isDTA,
       eventMultiplier,
       targetDays: TARGET_DAYS,
