@@ -56,9 +56,9 @@ const CARRY_CONFIG = {
   Sunday:    [],                                           // Dark day
   Monday:    ['Tuesday','Wednesday','Thursday'],           // Until Wed cook lands Thu PM — cover Thu AM gap
   Tuesday:   ['Wednesday','Thursday','Friday'],            // Until Thu cook lands Fri PM — cover Fri AM gap
-  Wednesday: ['Thursday','Friday','Saturday'],             // Until Fri cook lands Sat PM — cover Sat AM gap
-  Thursday:  ['Friday','Saturday','Sunday','Monday'],      // Until Sat cook lands Mon PM — cover Mon AM gap
-  Friday:    ['Saturday','Sunday','Monday','Tuesday'],     // Until Mon cook lands Tue PM — cover Tue AM gap
+  Wednesday: ['Monday','Tuesday','Wednesday'],             // Use midweek — Thu/Fri/Sat distorted by weekend/stockouts
+  Thursday:  ['Monday','Tuesday','Wednesday','Thursday'],  // Use midweek — Fri/Sat/Sun/Mon distorted by weekend
+  Friday:    ['Monday','Tuesday','Wednesday','Thursday'],  // Use midweek — weekend days always distorted
   Saturday:  ['Monday','Tuesday','Wednesday','Thursday']   // Until Tue cook lands Wed PM — cover Wed AM gap
 };
 
