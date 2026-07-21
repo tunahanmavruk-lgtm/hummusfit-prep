@@ -15,6 +15,7 @@ const GROUP1_MEALS = [
   {
     name: "Arnold 2022 Bowl",
     yield: 83,
+    baselineRate: 114,
     stove: "Sticky Rice",
     oven: "",
     grill: "Arnold Chicken, Grilled Asparagus",
@@ -26,6 +27,7 @@ const GROUP1_MEALS = [
   {
     name: "Baja Chicken Tacos",
     yield: 75,
+    baselineRate: 176,
     stove: "Basmati Rice",
     oven: "",
     grill: "Baja Chicken",
@@ -38,6 +40,7 @@ const GROUP1_MEALS = [
   {
     name: "Baked Herbed Tilapia (1lb Competition Approved)",
     yield: 6,
+    baselineRate: 14,
     stove: "",
     oven: "Tilapia",
     grill: "",
@@ -49,6 +52,7 @@ const GROUP1_MEALS = [
   {
     name: "BBQ Chicken Garlic Parm Potatoes",
     yield: 79,
+    baselineRate: 245,
     stove: "Sauce",
     oven: "Cube Potatoes",
     grill: "",
@@ -60,6 +64,7 @@ const GROUP1_MEALS = [
   {
     name: "Blueberry French Toast",
     yield: 65,
+    baselineRate: 66,
     stove: "",
     oven: "",
     grill: "",
@@ -71,6 +76,7 @@ const GROUP1_MEALS = [
   {
     name: "Brookfield Chicken Bowl",
     yield: 90,
+    baselineRate: 154,
     stove: "Cilantro Lime Rice",
     oven: "Sazon Chicken",
     grill: "",
@@ -82,6 +88,7 @@ const GROUP1_MEALS = [
   {
     name: "Broritto Burrito",
     yield: 75,
+    baselineRate: 277,
     stove: "",
     oven: "",
     grill: "Chipotle Chicken",
@@ -93,6 +100,7 @@ const GROUP1_MEALS = [
   {
     name: "Buffalo Chicken Meatballs",
     yield: 120,
+    baselineRate: 119,
     stove: "",
     oven: "Meatballs",
     grill: "",
@@ -104,6 +112,7 @@ const GROUP1_MEALS = [
   {
     name: "Buffalo Crispy Chicken Wrap",
     yield: 85,
+    baselineRate: 189,
     stove: "",
     oven: "Crispy Chicken",
     grill: "",
@@ -115,6 +124,7 @@ const GROUP1_MEALS = [
   {
     name: "Chicken Mushroom Pot Stickers",
     yield: 77,
+    baselineRate: 63,
     stove: "",
     oven: "Mushroom",
     grill: "",
@@ -127,6 +137,7 @@ const GROUP1_MEALS = [
   {
     name: "Chipotle Chicken (1lb Competition Approved)",
     yield: 25,
+    baselineRate: 85,
     stove: "",
     oven: "",
     grill: "Chipotle Chicken",
@@ -138,6 +149,7 @@ const GROUP1_MEALS = [
   {
     name: "Cinnamon Roll Pancakes",
     yield: 60,
+    baselineRate: 61,
     stove: "",
     oven: "",
     grill: "",
@@ -149,6 +161,7 @@ const GROUP1_MEALS = [
   {
     name: "Club Wrap",
     yield: 73,
+    baselineRate: 96,
     stove: "",
     oven: "Club Wrap Chicken",
     grill: "",
@@ -160,6 +173,7 @@ const GROUP1_MEALS = [
   {
     name: "Competition Approved Chicken Kebab (1lb)",
     yield: 28,
+    baselineRate: 42,
     stove: "",
     oven: "Chicken Kebab",
     grill: "",
@@ -171,6 +185,7 @@ const GROUP1_MEALS = [
   {
     name: "Competition Approved Grilled Chicken (1lb)",
     yield: 25,
+    baselineRate: 109,
     stove: "",
     oven: "",
     grill: "Arnold",
@@ -182,6 +197,7 @@ const GROUP1_MEALS = [
   {
     name: "Competition Approved Sticky Rice (1lb)",
     yield: 32,
+    baselineRate: 40,
     stove: "Sticky Rice",
     oven: "",
     grill: "",
@@ -193,6 +209,7 @@ const GROUP1_MEALS = [
   {
     name: "Competition Approved Oven Baked Cod (1lb)",
     yield: 5,
+    baselineRate: 13,
     stove: "",
     oven: "Cod",
     grill: "",
@@ -216,6 +233,7 @@ const GROUP1_MEALS = [
   {
     name: "Farfalle & Chicken Alfredo",
     yield: 85,
+    baselineRate: 122,
     stove: "Farfalle Pasta & Sauce",
     oven: "Chicken",
     grill: "",
@@ -227,6 +245,7 @@ const GROUP1_MEALS = [
   {
     name: "Fit Ala Vodka With Chicken",
     yield: 85,
+    baselineRate: 126,
     stove: "Penne Vodka Sauce",
     oven: "",
     grill: "Basil Chicken",
@@ -238,6 +257,7 @@ const GROUP1_MEALS = [
   {
     name: "Fit-Fil-A",
     yield: 75,
+    baselineRate: 104,
     stove: "",
     oven: "Waffle Fries, Smoked Chicken",
     grill: "",
@@ -249,6 +269,7 @@ const GROUP1_MEALS = [
   {
     name: "GLORIOUS GAINS Steak Bites & Cilantro Lime Rice",
     yield: 70,
+    baselineRate: 141,
     stove: "Cilantro Lime Rice",
     oven: "",
     grill: "",
@@ -260,6 +281,7 @@ const GROUP1_MEALS = [
   {
     name: "Gluten Free Carbonara Chicken",
     yield: 79,
+    baselineRate: 98,
     stove: "Pasta & Sauce",
     oven: "",
     grill: "GF Carbonara Chicken",
@@ -271,6 +293,7 @@ const GROUP1_MEALS = [
   {
     name: "Grilled Chicken Parmesan Wrap",
     yield: 70,
+    baselineRate: 129,
     stove: "",
     oven: "",
     grill: "Basil Chicken",
@@ -282,6 +305,7 @@ const GROUP1_MEALS = [
   {
     name: "Grilled Chicken Pesto Wrap",
     yield: 73,
+    baselineRate: 116,
     stove: "",
     oven: "Pesto Chicken",
     grill: "",
@@ -293,6 +317,7 @@ const GROUP1_MEALS = [
   {
     name: "Hey Arnold! Burrito",
     yield: 75,
+    baselineRate: 125,
     stove: "",
     oven: "",
     grill: "Hey Arnold Chicken",
@@ -304,6 +329,7 @@ const GROUP1_MEALS = [
   {
     name: "Hot Honey Steak & Mac",
     yield: 68,
+    baselineRate: 102,
     stove: "Rotini Pasta",
     oven: "",
     grill: "Hot Honey Steak",
@@ -315,6 +341,7 @@ const GROUP1_MEALS = [
   {
     name: "Meatball Parmesan Wrap",
     yield: 30,
+    baselineRate: 113,
     stove: "",
     oven: "",
     grill: "",
@@ -339,6 +366,7 @@ const GROUP1_MEALS = [
   {
     name: "Soho Steak Bowl",
     yield: 90,
+    baselineRate: 112,
     stove: "",
     oven: "Sweet Potato Fries",
     grill: "Steak",
@@ -350,6 +378,7 @@ const GROUP1_MEALS = [
   {
     name: "Southwest Chicken Bowl",
     yield: 75,
+    baselineRate: 147,
     stove: "Basmati Rice",
     oven: "SW Chicken",
     grill: "",
@@ -362,6 +391,7 @@ const GROUP1_MEALS = [
   {
     name: "Spicy Buffalo Wrap",
     yield: 73,
+    baselineRate: 147,
     stove: "",
     oven: "Chicken Kebab",
     grill: "",
@@ -373,6 +403,7 @@ const GROUP1_MEALS = [
   {
     name: "Stacked and Jacked",
     yield: 103,
+    baselineRate: 118,
     stove: "",
     oven: "Potato Fries",
     grill: "",
@@ -384,6 +415,7 @@ const GROUP1_MEALS = [
   {
     name: "Strawberry Protein French Toast",
     yield: 65,
+    baselineRate: 66,
     stove: "",
     oven: "",
     grill: "",
@@ -395,6 +427,7 @@ const GROUP1_MEALS = [
   {
     name: "Thai Chili Chicken",
     yield: 72,
+    baselineRate: 125,
     stove: "Sticky Rice",
     oven: "",
     grill: "",
@@ -406,6 +439,7 @@ const GROUP1_MEALS = [
   {
     name: "Turkey Bacon Cheddar Egg Muffins",
     yield: 44,
+    baselineRate: 38,
     stove: "",
     oven: "Egg Muffin",
     grill: "",
@@ -417,6 +451,7 @@ const GROUP1_MEALS = [
   {
     name: "Vegan Breakfast Sandwich",
     yield: 1,
+    baselineRate: 11,
     directToAssembly: true,
     stove: "",
     oven: "",
@@ -442,6 +477,7 @@ const GROUP1_MEALS = [
   {
     name: "TexMex Potato Hash",
     yield: 84,
+    baselineRate: 120,
     stove: "Ground Beef",
     oven: "Cube Seasoned Potatoes",
     grill: "",
@@ -453,6 +489,7 @@ const GROUP1_MEALS = [
   {
     name: "Nacho Average Bowl",
     yield: 71,
+    baselineRate: 71,
     stove: "Ground Beef",
     oven: "Sweet Potato Fries",
     grill: "",
@@ -464,6 +501,7 @@ const GROUP1_MEALS = [
   {
     name: "Southwest Chicken Quesadilla",
     yield: 80,
+    baselineRate: 137,
     stove: "Pulled Chicken",
     oven: "",
     grill: "",
@@ -476,6 +514,7 @@ const GROUP1_MEALS = [
   {
     name: "Strongsville Chicken Ranch Fold",
     yield: 88,
+    baselineRate: 138,
     stove: "",
     oven: "Ranch Chicken",
     grill: "",
@@ -487,6 +526,7 @@ const GROUP1_MEALS = [
   {
     name: "Taco Build Quesadilla",
     yield: 104,
+    baselineRate: 100,
     stove: "",
     oven: "",
     grill: "",
@@ -498,6 +538,7 @@ const GROUP1_MEALS = [
   {
     name: "Cheeseburger Bowl",
     yield: 93,
+    baselineRate: 124,
     stove: "Basmati, Gr. Beef",
     oven: "",
     grill: "",
@@ -512,6 +553,7 @@ const GROUP2_MEALS = [
   {
     name: "Low Carb Keto Cheeseburger Bowl",
     yield: 80,
+    baselineRate: 90,
     stove: "Ground Beef",
     oven: "",
     grill: "",
@@ -523,6 +565,7 @@ const GROUP2_MEALS = [
   {
     name: "Chicken Taco Bowl",
     yield: 80,
+    baselineRate: 117,
     stove: "Brown Rice, Taco Pulled Chicken",
     oven: "",
     grill: "",
@@ -536,6 +579,7 @@ const GROUP2_MEALS = [
   {
     name: "6-Guys Patty Melt",
     yield: 102,
+    baselineRate: 95,
     stove: "",
     oven: "Sweet Potato Fries",
     grill: "",
@@ -547,6 +591,7 @@ const GROUP2_MEALS = [
   {
     name: "BBQ Meltdown",
     yield: 70,
+    baselineRate: 120,
     stove: "Jasmine Rice",
     oven: "",
     grill: "",
@@ -558,6 +603,7 @@ const GROUP2_MEALS = [
   {
     name: "BBQ Chicken Mac Bowl",
     yield: 80,
+    baselineRate: 95,
     stove: "Rotini Pasta",
     oven: "",
     grill: "",
@@ -569,6 +615,7 @@ const GROUP2_MEALS = [
   {
     name: "Breakfast Burrito",
     yield: 75,
+    baselineRate: 108,
     stove: "",
     oven: "Cube Potatoes",
     grill: "",
@@ -580,6 +627,7 @@ const GROUP2_MEALS = [
   {
     name: "Buffalo Chicken Quesadilla",
     yield: 87,
+    baselineRate: 110,
     stove: "Taco Pulled Chicken",
     oven: "",
     grill: "",
@@ -591,6 +639,7 @@ const GROUP2_MEALS = [
   {
     name: "Buffalo Mac N Chicken",
     yield: 90,
+    baselineRate: 106,
     stove: "Elbow Pasta Mix",
     oven: "Chicken Kebabs",
     grill: "",
@@ -603,6 +652,7 @@ const GROUP2_MEALS = [
   {
     name: "Chicken Stir Fry",
     yield: 80,
+    baselineRate: 107,
     stove: "Peas/Carrots Rice",
     oven: "",
     grill: "",
@@ -614,6 +664,7 @@ const GROUP2_MEALS = [
   {
     name: "Competition Approved 90/10 Lean Ground Beef (1lb)",
     yield: 22,
+    baselineRate: 33,
     stove: "Ground Beef",
     oven: "",
     grill: "",
@@ -625,6 +676,7 @@ const GROUP2_MEALS = [
   {
     name: "Competition Approved Baked Sweet Potato Fries (1lb)",
     yield: 24,
+    baselineRate: 37,
     stove: "",
     oven: "Sweet Potato Fries",
     grill: "",
@@ -636,6 +688,7 @@ const GROUP2_MEALS = [
   {
     name: "Competition Approved Grilled Chicken W/ Smokin Poppie Sauce (1lb)",
     yield: 25,
+    baselineRate: 65,
     stove: "",
     oven: "",
     grill: "Flavor Gang Chicken",
@@ -647,6 +700,7 @@ const GROUP2_MEALS = [
   {
     name: "Competition Approved Grilled Flank Steak (1lb)",
     yield: 28,
+    baselineRate: 54,
     stove: "",
     oven: "",
     grill: "Steak",
@@ -658,6 +712,7 @@ const GROUP2_MEALS = [
   {
     name: "Competition Approved Lemon Pepper Salmon (1lb)",
     yield: 6,
+    baselineRate: 20,
     stove: "",
     oven: "Salmon",
     grill: "",
@@ -669,6 +724,7 @@ const GROUP2_MEALS = [
   {
     name: "Competition Approved White Basmati Rice (1lb)",
     yield: 27,
+    baselineRate: 22,
     stove: "Basmati Rice",
     oven: "",
     grill: "",
@@ -680,6 +736,7 @@ const GROUP2_MEALS = [
   {
     name: "Crispy Baked Chicken Wrap",
     yield: 85,
+    baselineRate: 189,
     stove: "",
     oven: "Crispy Chicken",
     grill: "",
@@ -702,6 +759,7 @@ const GROUP2_MEALS = [
   {
     name: "HFit Signature Fold",
     yield: 86,
+    baselineRate: 122,
     stove: "",
     oven: "Fold Chicken",
     grill: "",
@@ -713,6 +771,7 @@ const GROUP2_MEALS = [
   {
     name: "Keto Ricotta Meatballs",
     yield: 65,
+    baselineRate: 85,
     stove: "Keto Ricotta Sauce",
     oven: "Meatballs",
     grill: "",
@@ -724,6 +783,7 @@ const GROUP2_MEALS = [
   {
     name: "Lo Mein Teriyaki Steak",
     yield: 75,
+    baselineRate: 122,
     stove: "Lo Mein Pasta",
     oven: "",
     grill: "Teriyaki Steak",
@@ -737,6 +797,7 @@ const GROUP2_MEALS = [
   {
     name: "MsWendy Buff Nuggets",
     yield: 60,
+    baselineRate: 108,
     stove: "",
     oven: "Nuggets",
     grill: "",
@@ -748,6 +809,7 @@ const GROUP2_MEALS = [
   {
     name: "Pineapple Teriyaki Meatballs",
     yield: 81,
+    baselineRate: 63,
     stove: "Jasmine Rice",
     oven: "Teri Yaki P. Meatballs",
     grill: "",
@@ -759,6 +821,7 @@ const GROUP2_MEALS = [
   {
     name: "Rigatoni & Meatballs",
     yield: 85,
+    baselineRate: 111,
     stove: "Rigatoni Sauce",
     oven: "Chicken Meatballs",
     grill: "",
@@ -773,6 +836,7 @@ const GROUP2_MEALS = [
   {
     name: "Teriyaki Flank Bowl",
     yield: 80,
+    baselineRate: 139,
     stove: "Basmati Rice",
     oven: "",
     grill: "Steak",
@@ -785,6 +849,7 @@ const GROUP2_MEALS = [
   {
     name: "The Clean Bulk Pasta Bowl",
     yield: 32,
+    baselineRate: 100,
     stove: "Penne, Gr. Beef",
     oven: "",
     grill: "",
@@ -796,6 +861,7 @@ const GROUP2_MEALS = [
   {
     name: "Zeus Bowl",
     yield: 78,
+    baselineRate: 177,
     stove: "Basmati Rice",
     oven: "Chicken Kebab",
     grill: "",
@@ -819,6 +885,7 @@ const GROUP2_MEALS = [
   {
     name: "Closed on Sunday Crispy Chicken Bowl",
     yield: 70,
+    baselineRate: 175,
     stove: "",
     oven: "Russet Potato Wedges, Chicken Tenders",
     grill: "",
@@ -830,6 +897,7 @@ const GROUP2_MEALS = [
   {
     name: "The Arches Mac Daddy Wrap",
     yield: 70,
+    baselineRate: 54,
     stove: "Ground Beef",
     oven: "",
     grill: "",
@@ -841,6 +909,7 @@ const GROUP2_MEALS = [
   {
     name: "The Texas Queso Steak Bowl",
     yield: 70,
+    baselineRate: 80,
     stove: "Lime Rice, Queso Sauce",
     oven: "",
     grill: "",
@@ -852,6 +921,7 @@ const GROUP2_MEALS = [
   {
     name: "The Philly Cheesesteak Quesadilla",
     yield: 70,
+    baselineRate: 80,
     stove: "",
     oven: "",
     grill: "",
@@ -863,6 +933,7 @@ const GROUP2_MEALS = [
   {
     name: "Honey Garlic Crispy Chicken Tacos",
     yield: 70,
+    baselineRate: 0,
     stove: "",
     oven: "Popcorn Chicken",
     grill: "",
@@ -874,6 +945,7 @@ const GROUP2_MEALS = [
   {
     name: "West Coast Secret Sauce Bowl",
     yield: 70,
+    baselineRate: 0,
     stove: "Ground Beef",
     oven: "Russet Wedge Potatoes",
     grill: "",
@@ -885,6 +957,7 @@ const GROUP2_MEALS = [
   {
     name: "Zeus Bowl V2",
     yield: 87,
+    baselineRate: 82,
     stove: "",
     oven: "Chicken Kebab, Cube Potatoes",
     grill: "",

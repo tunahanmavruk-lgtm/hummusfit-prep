@@ -352,7 +352,11 @@ function calculateBatchesForMeal({
   // More reliable than raw carry sales which get distorted by stockouts
   const totalSalesUnits = adjustedBurnOff + adjustedCarry;
   const totalSalesDays  = burnOffDays + carryDays;
-  const dailyRateInner  = totalSalesDays > 0 && totalSalesUnits > 0 ? totalSalesUnits / totalSalesDays : 0;
+  const salesDailyRate  = totalSalesDays > 0 && totalSalesUnits > 0 ? totalSalesUnits / totalSalesDays : 0;
+  // Baseline floor: if sales data is distorted (0 sales due to stockout/holiday),
+  // use 30% of the meal's known historical baseline rate so it never gets skipped
+  const baselineFloor   = (meal.baselineRate || 0) * 0.3;
+  const dailyRateInner  = Math.max(salesDailyRate, baselineFloor);
 
   // Pre-landing stockout prevention:
   // If current stock won't last 1 full day before next packaging lands → force Priority 1
