@@ -122,6 +122,36 @@ const LAUNCH_OVERRIDES = {
   "Low Carb Keto Cheeseburger Bowl":   { minBatches: 0, maxBatches: 2, from: "2026-07-21", until: "2026-07-23" },
   "The Golden Arches Wrap":            { minBatches: 3, from: "2026-07-22", until: "2026-07-25" },
 
+  // ── WEDNESDAY JUL 23 EMERGENCY OVERRIDES ──
+  // Based on real Shopify inventory Jul 21 6:52PM
+  // Carry data distorted — manual batch counts required
+  "Competition Approved Grilled Chicken (1lb)": { minBatches: 11, from: "2026-07-22", until: "2026-07-23" },
+  "Chipotle Chicken (1lb Competition Approved)": { minBatches: 9, from: "2026-07-22", until: "2026-07-23" },
+  "Buffalo Crispy Chicken Wrap":       { minBatches: 7,  from: "2026-07-22", until: "2026-07-23" },
+  "Cheeseburger Bowl":                 { minBatches: 4,  from: "2026-07-22", until: "2026-07-23" },
+  "Arnold 2022 Bowl":                  { minBatches: 4,  from: "2026-07-22", until: "2026-07-23" },
+  "Fit Ala Vodka With Chicken":        { minBatches: 4,  from: "2026-07-22", until: "2026-07-23" },
+  "Southwest Chicken Bowl":            { minBatches: 4,  from: "2026-07-22", until: "2026-07-23" },
+  "Strawberry Protein French Toast":   { minBatches: 3,  from: "2026-07-22", until: "2026-07-23" },
+  "Blueberry French Toast":            { minBatches: 3,  from: "2026-07-22", until: "2026-07-23" },
+  "Hey Arnold! Burrito":               { minBatches: 3,  from: "2026-07-22", until: "2026-07-23" },
+  "Spicy Buffalo Wrap":                { minBatches: 3,  from: "2026-07-22", until: "2026-07-23" },
+  "Chicken Mushroom Pot Stickers":     { minBatches: 2,  from: "2026-07-22", until: "2026-07-23" },
+  "Baked Herbed Tilapia (1lb Competition Approved)": { minBatches: 2, from: "2026-07-22", until: "2026-07-23" },
+  "Stacked and Jacked":                { minBatches: 2,  from: "2026-07-22", until: "2026-07-23" },
+  "Brookfield Chicken Bowl":           { minBatches: 2,  from: "2026-07-22", until: "2026-07-23" },
+  "Taco Build Quesadilla":             { minBatches: 2,  from: "2026-07-22", until: "2026-07-23" },
+  "Strongsville Chicken Ranch Fold":   { minBatches: 2,  from: "2026-07-22", until: "2026-07-23" },
+  "Grilled Chicken Parmesan Wrap":     { minBatches: 2,  from: "2026-07-22", until: "2026-07-23" },
+  "Meatball Parmesan Wrap":            { minBatches: 2,  from: "2026-07-22", until: "2026-07-23" },
+  "Nacho Average Bowl":                { minBatches: 1,  from: "2026-07-22", until: "2026-07-23" },
+  "Farfalle & Chicken Alfredo":        { minBatches: 1,  from: "2026-07-22", until: "2026-07-23" },
+  "Cinnamon Roll Pancakes":            { minBatches: 1,  from: "2026-07-22", until: "2026-07-23" },
+  "Fit-Fil-A":                         { minBatches: 1,  from: "2026-07-22", until: "2026-07-23" },
+  "Soho Steak Bowl":                   { minBatches: 1,  from: "2026-07-22", until: "2026-07-23" },
+  "Competition Approved Chicken Kebab (1lb)": { minBatches: 1, from: "2026-07-22", until: "2026-07-23" },
+  "Baja Chicken Tacos":                { minBatches: 1,  from: "2026-07-22", until: "2026-07-23" },
+  // ── END WEDNESDAY JUL 23 EMERGENCY OVERRIDES ──
   // ── END TARGETED DEPLETED MEAL OVERRIDES ──
   "West Coast Secret Sauce Bowl":      { minBatches: 3, from: "2026-08-17", until: "2099-12-31" },
 };
