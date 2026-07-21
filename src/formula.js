@@ -530,7 +530,7 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
     const hasDeficit          = result.batches > 0;
     // Skip meals already covered 4+ days — don't cook even if formula thinks there's a deficit
     const daysCurrentlyCovered = adjustedDailyRate > 0 ? currentInventory / adjustedDailyRate : 99;
-    const alreadyCovered = daysCurrentlyCovered >= 4.0 && !result.isPriority1;
+    const alreadyCovered = daysCurrentlyCovered >= 3.5 && !result.isPriority1;
     const rawCapped           = alreadyCovered ? 0
                               : hasDeficit ? Math.min(result.batches, maxBatchesByCap)
                               : (result.isDeathSpiral && adjustedDailyRate > 0 ? 2 : 0);
