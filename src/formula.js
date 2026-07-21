@@ -108,19 +108,20 @@ const LAUNCH_OVERRIDES = {
   "Competition Approved Chicken Kebab (1lb)": { minBatches: 3, from: "2026-07-20", until: "2026-07-21" },
   "Turkey Bacon Cheddar Egg Muffins":  { minBatches: 3,  from: "2026-07-20", until: "2026-07-21" },
   // Tuesday Jul 22 G2 — depleted meals + undercooking fixes
-  "Crispy Baked Chicken Wrap":         { minBatches: 7,  from: "2026-07-21", until: "2026-07-23" },
-  "Buffalo Chicken Quesadilla":        { minBatches: 5,  from: "2026-07-21", until: "2026-07-23" },
-  "Buffalo Mac N Chicken":             { minBatches: 4,  from: "2026-07-21", until: "2026-07-23" },
-  "Garlic Flank & Potatoes":           { minBatches: 3,  from: "2026-07-21", until: "2026-07-23" },
-  "General Tso Tacos":                 { minBatches: 3,  from: "2026-07-21", until: "2026-07-23" },
-  "The Texas Queso Steak Bowl":        { minBatches: 4,  from: "2026-07-21", until: "2026-07-23" },
+  "Crispy Baked Chicken Wrap":         { minBatches: 7,  from: "2026-07-20", until: "2026-07-23" },
+  "Buffalo Chicken Quesadilla":        { minBatches: 5,  from: "2026-07-20", until: "2026-07-23" },
+  "Buffalo Mac N Chicken":             { minBatches: 4,  from: "2026-07-20", until: "2026-07-23" },
+  "Garlic Flank & Potatoes":           { minBatches: 3,  from: "2026-07-20", until: "2026-07-23" },
+  "General Tso Tacos":                 { minBatches: 3,  from: "2026-07-20", until: "2026-07-23" },
+  "The Texas Queso Steak Bowl":        { minBatches: 4,  from: "2026-07-20", until: "2026-07-23" },
   // Cap overcooking meals
+  "Competition Approved White Basmati Rice (1lb)": { minBatches: 3, from: "2026-07-20", until: "2026-07-23" },
   "Zeus Bowl":                         { minBatches: 0, maxBatches: 0, from: "2026-07-21", until: "2026-07-23" },
   "Herb Butter Steak Tips Bowl":       { minBatches: 0, maxBatches: 0, from: "2026-07-21", until: "2026-07-23" },
   "BBQ Chicken Mac Bowl":              { minBatches: 0, maxBatches: 2, from: "2026-07-21", until: "2026-07-23" },
   "Low Carb Keto Cheeseburger Bowl":   { minBatches: 0, maxBatches: 2, from: "2026-07-21", until: "2026-07-23" },
   "The Golden Arches Wrap":            { minBatches: 3, from: "2026-07-22", until: "2026-07-25" },
-  "Buffalo Chicken Quesadilla":        { minBatches: 3, from: "2026-07-22", until: "2026-07-25" },
+
   "Buffalo Mac N Chicken":             { minBatches: 2, from: "2026-07-22", until: "2026-07-25" },
   // ── END TARGETED DEPLETED MEAL OVERRIDES ──
   "West Coast Secret Sauce Bowl":      { minBatches: 3, from: "2026-08-17", until: "2099-12-31" },
