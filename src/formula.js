@@ -122,7 +122,6 @@ const LAUNCH_OVERRIDES = {
   "Low Carb Keto Cheeseburger Bowl":   { minBatches: 0, maxBatches: 2, from: "2026-07-21", until: "2026-07-23" },
   "The Golden Arches Wrap":            { minBatches: 3, from: "2026-07-22", until: "2026-07-25" },
 
-  "Buffalo Mac N Chicken":             { minBatches: 2, from: "2026-07-22", until: "2026-07-25" },
   // ── END TARGETED DEPLETED MEAL OVERRIDES ──
   "West Coast Secret Sauce Bowl":      { minBatches: 3, from: "2026-08-17", until: "2099-12-31" },
 };
