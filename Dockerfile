@@ -23,10 +23,8 @@ COPY package*.json ./
 RUN npm install --legacy-peer-deps
 ENV PUPPETEER_CACHE_DIR=/app/.cache/puppeteer
 RUN npx puppeteer browsers install chrome
+ARG CACHEBUST=1
 COPY . .
 
 EXPOSE 3000
 CMD ["node", "app.js"]
-# cache bust Tue Jul 21 19:57:16 EDT 2026
-# Force rebuild - baseline rate fix
-RUN echo "build-$(date +%s)"
