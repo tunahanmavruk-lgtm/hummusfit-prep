@@ -151,6 +151,8 @@ const LAUNCH_OVERRIDES = {
   "Soho Steak Bowl":                   { minBatches: 2,  from: "2026-07-22", until: "2026-07-23" },
   "Competition Approved Chicken Kebab (1lb)": { minBatches: 1, from: "2026-07-22", until: "2026-07-23" },
   "Baja Chicken Tacos":                { minBatches: 3,  from: "2026-07-22", until: "2026-07-23" },
+  "Chipotle Chicken (1lb Competition Approved)": { minBatches: 0, maxBatches: 5, from: "2026-07-22", until: "2026-07-24" },
+  "Baked Herbed Tilapia (1lb Competition Approved)": { minBatches: 0, maxBatches: 2, from: "2026-07-22", until: "2026-07-24" },
   // ── END WEDNESDAY JUL 23 EMERGENCY OVERRIDES ──
   // ── END TARGETED DEPLETED MEAL OVERRIDES ──
   "West Coast Secret Sauce Bowl":      { minBatches: 3, from: "2026-08-17", until: "2099-12-31" },
