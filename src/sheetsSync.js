@@ -324,6 +324,10 @@ async function syncToSheets(prepSheet, groupNum, dayName, eventName) {
     }
   });
 
+  // Auto-collapse rows 1-11 (station summary) and 56-65 (summary footer)
+  requests.push({ addDimensionGroup: { range: { sheetId, dimension: 'ROWS', startIndex: 0, endIndex: 11 } } });
+  requests.push({ addDimensionGroup: { range: { sheetId, dimension: 'ROWS', startIndex: 55, endIndex: 65 } } });
+
   await sheets.spreadsheets.batchUpdate({ spreadsheetId, requestBody: { requests } });
 
   const sheetUrl = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/edit#gid=${sheetId}`;
