@@ -147,10 +147,10 @@ const LAUNCH_OVERRIDES = {
   "Nacho Average Bowl":                { minBatches: 1,  from: "2026-07-22", until: "2026-07-23" },
   "Farfalle & Chicken Alfredo":        { minBatches: 1,  from: "2026-07-22", until: "2026-07-23" },
   "Cinnamon Roll Pancakes":            { minBatches: 1,  from: "2026-07-22", until: "2026-07-23" },
-  "Fit-Fil-A":                         { minBatches: 1,  from: "2026-07-22", until: "2026-07-23" },
-  "Soho Steak Bowl":                   { minBatches: 1,  from: "2026-07-22", until: "2026-07-23" },
+  "Fit-Fil-A":                         { minBatches: 2,  from: "2026-07-22", until: "2026-07-23" },
+  "Soho Steak Bowl":                   { minBatches: 2,  from: "2026-07-22", until: "2026-07-23" },
   "Competition Approved Chicken Kebab (1lb)": { minBatches: 1, from: "2026-07-22", until: "2026-07-23" },
-  "Baja Chicken Tacos":                { minBatches: 1,  from: "2026-07-22", until: "2026-07-23" },
+  "Baja Chicken Tacos":                { minBatches: 3,  from: "2026-07-22", until: "2026-07-23" },
   // ── END WEDNESDAY JUL 23 EMERGENCY OVERRIDES ──
   // ── END TARGETED DEPLETED MEAL OVERRIDES ──
   "West Coast Secret Sauce Bowl":      { minBatches: 3, from: "2026-08-17", until: "2099-12-31" },
