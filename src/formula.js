@@ -356,7 +356,7 @@ function calculateBatchesForMeal({
   const salesDailyRate  = totalSalesDays > 0 && totalSalesUnits > 0 ? totalSalesUnits / totalSalesDays : 0;
   // Baseline floor: if sales data is distorted (0 sales due to stockout/holiday),
   // use 30% of the meal's known historical baseline rate so it never gets skipped
-  const baselineFloor   = (baselineRate || 0) * 0.5;
+  const baselineFloor   = (baselineRate || 0) * 0.75;
   const dailyRateInner  = Math.max(salesDailyRate, baselineFloor);
 
   // Pre-landing stockout prevention:
@@ -509,7 +509,7 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
     const totalSalesUnits     = burnOffUnits + carryUnits;
     const totalSalesDays      = burnOffDays + carryDays;
     const salesRate           = totalSalesDays > 0 && totalSalesUnits > 0 ? totalSalesUnits / totalSalesDays : 0;
-    const outerBaselineFloor  = (meal.baselineRate || 0) * 0.5;
+    const outerBaselineFloor  = (meal.baselineRate || 0) * 0.75;
     const dailyRate           = Math.max(salesRate, outerBaselineFloor);
     const isMonday            = day === 'Monday';
     const isThursday          = day === 'Thursday';
