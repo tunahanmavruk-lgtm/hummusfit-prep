@@ -919,7 +919,7 @@ const GROUP2_MEALS = [
     rawMeats: "",
   },
   {
-    name: "The Philly Cheesesteak Quesadilla",
+    name: "Philly Cheesesteak Quesadilla",
     yield: 70,
     baselineRate: 80,
     stove: "",
