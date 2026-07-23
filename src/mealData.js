@@ -907,7 +907,7 @@ const GROUP2_MEALS = [
     rawMeats: "",
   },
   {
-    name: "The Texas Queso Steak Bowl",
+    name: "Texas Queso Steak Bowl",
     yield: 70,
     baselineRate: 80,
     stove: "Lime Rice, Queso Sauce",
