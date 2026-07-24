@@ -154,6 +154,13 @@ const LAUNCH_OVERRIDES = {
   "Chipotle Chicken (1lb Competition Approved)": { minBatches: 0, maxBatches: 5, from: "2026-07-22", until: "2026-07-24" },
   "Baked Herbed Tilapia (1lb Competition Approved)": { minBatches: 0, maxBatches: 2, from: "2026-07-22", until: "2026-07-24" },
   // ── END WEDNESDAY JUL 23 EMERGENCY OVERRIDES ──
+  // Comp item batch caps — low yield inflates batch count
+  "Chipotle Chicken (1lb Competition Approved)":  { minBatches: 0, maxBatches: 10, from: "2026-07-23", until: "2099-12-31" },
+  "Competition Approved Grilled Chicken (1lb)":   { minBatches: 0, maxBatches: 10, from: "2026-07-23", until: "2099-12-31" },
+  "Competition Approved Oven Baked Cod (1lb)":    { minBatches: 0, maxBatches: 5,  from: "2026-07-23", until: "2099-12-31" },
+  "Brookfield Chicken Bowl":                       { minBatches: 0, maxBatches: 3,  from: "2026-07-23", until: "2026-07-25" },
+  "Buffalo Crispy Chicken Wrap":                   { minBatches: 0, maxBatches: 3,  from: "2026-07-23", until: "2026-07-25" },
+  "Southwest Chicken Bowl":                        { minBatches: 0, maxBatches: 3,  from: "2026-07-23", until: "2026-07-25" },
   // ── END TARGETED DEPLETED MEAL OVERRIDES ──
   "West Coast Secret Sauce Bowl":      { minBatches: 3, from: "2026-08-17", until: "2099-12-31" },
 };
