@@ -42,13 +42,13 @@ const DAY_INDEX = {
 
 // ── Exact 1-week burn-off day config ─────────────────────────
 const BURN_OFF_CONFIG = {
-  Sunday:    { days: [],            hardcoded: true  },
-  Monday:    { days: ['Monday'],    hardcoded: false },  // Mon burns before Tue PM landing
-  Tuesday:   { days: ['Tuesday'],   hardcoded: false },  // Tue burns before Wed PM landing
-  Wednesday: { days: ['Wednesday'], hardcoded: false },  // Wed burns before Thu PM landing
-  Thursday:  { days: ['Thursday'],  hardcoded: false },  // Thu burns before Fri PM landing
-  Friday:    { days: ['Friday'],    hardcoded: false },  // Fri burns before Sat PM landing
-  Saturday:  { days: ['Saturday','Sunday'], hardcoded: false }  // Sat+Sun burn before Mon PM landing
+  Sunday:    { days: [],            hardcoded: true,  useYesterday: false },
+  Monday:    { days: ['Monday'],    hardcoded: false, useYesterday: true  },  // Use yesterday (Sun) — freshest data
+  Tuesday:   { days: ['Tuesday'],   hardcoded: false, useYesterday: true  },  // Use yesterday (Mon) — freshest data
+  Wednesday: { days: ['Wednesday'], hardcoded: false, useYesterday: true  },  // Use yesterday (Tue) — freshest data
+  Thursday:  { days: ['Thursday'],  hardcoded: false, useYesterday: true  },  // Use yesterday (Wed) — freshest data
+  Friday:    { days: ['Friday'],    hardcoded: false, useYesterday: true  },  // Use yesterday (Thu) — NOT last Friday!
+  Saturday:  { days: ['Saturday','Sunday'], hardcoded: false, useYesterday: false }  // Sat needs both days
 };
 
 // ── Exact 1-week carry-over target day config ─────────────────
@@ -166,6 +166,14 @@ function getLastOccurrence(dayName, referenceDate = new Date()) {
   return d;
 }
 
+// ── GET YESTERDAY (always fresh, never distorted) ───────────
+function getYesterday() {
+  const d = new Date();
+  d.setHours(12, 0, 0, 0);
+  d.setDate(d.getDate() - 1);
+  return d;
+}
+
 // ── GET DAY RANGE (midnight to midnight) ─────────────────────
 function getDayRange(date) {
   // Use EST timezone (UTC-5) to match Shopify online store order times
@@ -255,6 +263,15 @@ async function fetchDaySales(dayName, meals) {
   return countSalesFromOrders(orders, meals);
 }
 
+// ── FETCH SALES FOR A SPECIFIC DATE (not day name) ──────────
+async function fetchDaySalesForDate(date, meals) {
+  const { start, end } = getDayRange(date);
+  const dayName = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][date.getDay()];
+  console.log(`  Fetching ${dayName} (${date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })})...`);
+  const orders = await fetchOrdersForRange(start, end);
+  return countSalesFromOrders(orders, meals);
+}
+
 // ── MAIN: FETCH SALES ─────────────────────────────────────────
 // Returns { burnOff, carryTarget } per meal — both as raw unit counts
 // (not rates). Formula divides by 1 since these ARE the daily amounts.
@@ -271,12 +288,23 @@ async function fetchSales(meals, cookDay) {
   meals.forEach(m => burnOffSales[m.name] = 0);
 
   if (!burnConfig.hardcoded) {
-    for (const dayName of burnConfig.days) {
-      const daySales = await fetchDaySales(dayName, meals);
+    if (burnConfig.useYesterday) {
+      // Use yesterday's actual sales — always fresh, never last week's distorted data
+      const yesterday = getYesterday();
+      const yesterdayName = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][yesterday.getDay()];
+      console.log(`   Burn-Off days : yesterday (${yesterdayName} ${yesterday.toLocaleDateString('en-US', {month:'short',day:'numeric'})})`);
+      const daySales = await fetchDaySalesForDate(yesterday, meals);
       meals.forEach(m => {
         burnOffSales[m.name] += daySales[m.name.toLowerCase()] || 0;
       });
-      await new Promise(r => setTimeout(r, 100));
+    } else {
+      for (const dayName of burnConfig.days) {
+        const daySales = await fetchDaySales(dayName, meals);
+        meals.forEach(m => {
+          burnOffSales[m.name] += daySales[m.name.toLowerCase()] || 0;
+        });
+        await new Promise(r => setTimeout(r, 100));
+      }
     }
   }
 
