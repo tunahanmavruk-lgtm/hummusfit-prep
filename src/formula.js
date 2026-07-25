@@ -203,7 +203,10 @@ const LAUNCH_OVERRIDES = {
   "Hot Honey Steak & Mac":                                 { minBatches: 0,  maxBatches: 0,  from: "2026-07-24", until: "2026-07-25" },
   "Southwest Chicken Quesadilla":                          { minBatches: 0,  maxBatches: 0,  from: "2026-07-24", until: "2026-07-25" },
   "Competition Approved Chicken Kebab (1lb)":              { minBatches: 0,  maxBatches: 0,  from: "2026-07-24", until: "2026-07-25" },
-    // ── END TARGETED DEPLETED MEAL OVERRIDES ──
+    // Cap slow movers Saturday — prevent expiry on high-inventory meals
+  "The Clean Bulk Pasta Bowl":   { minBatches: 0, maxBatches: 3, from: "2026-07-25", until: "2026-07-26" },
+  "The Arches Mac Daddy Wrap":   { minBatches: 0, maxBatches: 3, from: "2026-07-25", until: "2026-07-26" },
+  // ── END TARGETED DEPLETED MEAL OVERRIDES ──
   "West Coast Secret Sauce Bowl":      { minBatches: 3, from: "2026-08-17", until: "2099-12-31" },
 };
 
