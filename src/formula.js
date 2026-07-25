@@ -692,7 +692,14 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
         currentInventory,
         burnOffUnits,
         carryUnits,
-        yield: meal.yield
+        yield: meal.yield,
+        dailyRate,
+        adjustedDailyRate,
+        carryOverTarget: adjustedDailyRate * TARGET_DAYS,
+        unitDeficit: Math.max(0, adjustedDailyRate * TARGET_DAYS - currentInventory),
+        workingInventory: Math.max(0, currentInventory - burnOffUnits),
+        carryDays,
+        burnOffDays
       }
     };
   });
