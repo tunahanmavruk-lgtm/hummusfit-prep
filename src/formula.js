@@ -206,6 +206,12 @@ const LAUNCH_OVERRIDES = {
     // Cap slow movers Saturday — prevent expiry on high-inventory meals
   "The Clean Bulk Pasta Bowl":   { minBatches: 0, maxBatches: 3, from: "2026-07-25", until: "2026-07-26" },
   "The Arches Mac Daddy Wrap":   { minBatches: 0, maxBatches: 3, from: "2026-07-25", until: "2026-07-26" },
+  // Monday Jul 28 — undercooking fixes
+  "Southwest Chicken Quesadilla":  { minBatches: 4, from: "2026-07-27", until: "2026-07-28" },
+  "Nacho Average Bowl":            { minBatches: 2, from: "2026-07-27", until: "2026-07-28" },
+  "Stacked and Jacked":            { minBatches: 3, from: "2026-07-27", until: "2026-07-28" },
+  "Strongsville Chicken Ranch Fold": { minBatches: 4, from: "2026-07-27", until: "2026-07-28" },
+  "Strawberry Protein French Toast": { minBatches: 3, from: "2026-07-27", until: "2026-07-28" },
   // ── END TARGETED DEPLETED MEAL OVERRIDES ──
   "West Coast Secret Sauce Bowl":      { minBatches: 3, from: "2026-08-17", until: "2099-12-31" },
 };
