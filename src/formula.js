@@ -151,7 +151,8 @@ const LAUNCH_OVERRIDES = {
   "Soho Steak Bowl":                   { minBatches: 2,  from: "2026-07-22", until: "2026-07-23" },
   "Competition Approved Chicken Kebab (1lb)": { minBatches: 1, from: "2026-07-22", until: "2026-07-23" },
   "Baja Chicken Tacos":                { minBatches: 3,  from: "2026-07-22", until: "2026-07-23" },
-  "Chipotle Chicken (1lb Competition Approved)": { minBatches: 0, maxBatches: 5, from: "2026-07-22", until: "2026-07-24" },
+  "Chipotle Chicken (1lb Competition Approved)": { minBatches: 0, maxBatches: 8, from: "2026-07-22", until: "2099-12-31" },
+  "Competition Approved Grilled Chicken (1lb)":   { minBatches: 0, maxBatches: 8, from: "2026-07-28", until: "2099-12-31" },
   "Baked Herbed Tilapia (1lb Competition Approved)": { minBatches: 0, maxBatches: 2, from: "2026-07-22", until: "2026-07-24" },
   // ── END WEDNESDAY JUL 23 EMERGENCY OVERRIDES ──
   // Comp item batch caps — low yield inflates batch count
@@ -210,6 +211,26 @@ const LAUNCH_OVERRIDES = {
   "Chipotle Chicken (1lb Competition Approved)":  { minBatches: 0, maxBatches: 8,  from: "2026-07-28", until: "2099-12-31" },
   "Competition Approved Grilled Chicken (1lb)":   { minBatches: 0, maxBatches: 8,  from: "2026-07-28", until: "2099-12-31" },
   "Competition Approved Oven Baked Cod (1lb)":    { minBatches: 0, maxBatches: 5,  from: "2026-07-28", until: "2099-12-31" },
+  // Wed Jul 28 — manual caps to counter double-Tuesday distortion
+  "Meatball Parmesan Wrap":                        { minBatches: 9,  maxBatches: 9,  from: "2026-07-28", until: "2026-07-29" },
+  "Broritto Burrito":                              { minBatches: 8,  maxBatches: 8,  from: "2026-07-28", until: "2026-07-29" },
+  "Baja Chicken Tacos":                            { minBatches: 6,  maxBatches: 6,  from: "2026-07-28", until: "2026-07-29" },
+  "Grilled Chicken Parmesan Wrap":                 { minBatches: 5,  maxBatches: 5,  from: "2026-07-28", until: "2026-07-29" },
+  "Grilled Chicken Pesto Wrap":                    { minBatches: 4,  maxBatches: 4,  from: "2026-07-28", until: "2026-07-29" },
+  "Thai Chili Chicken":                            { minBatches: 4,  maxBatches: 4,  from: "2026-07-28", until: "2026-07-29" },
+  "GLORIOUS GAINS Steak Bites & Cilantro Lime Rice": { minBatches: 4, maxBatches: 4, from: "2026-07-28", until: "2026-07-29" },
+  "Hey Arnold! Burrito":                           { minBatches: 4,  maxBatches: 4,  from: "2026-07-28", until: "2026-07-29" },
+  "Spicy Buffalo Wrap":                            { minBatches: 4,  maxBatches: 4,  from: "2026-07-28", until: "2026-07-29" },
+  "Buffalo Crispy Chicken Wrap":                   { minBatches: 4,  maxBatches: 4,  from: "2026-07-28", until: "2026-07-29" },
+  "Stacked and Jacked":                            { minBatches: 3,  maxBatches: 3,  from: "2026-07-28", until: "2026-07-29" },
+  "Cinnamon Roll Pancakes":                        { minBatches: 3,  maxBatches: 3,  from: "2026-07-28", until: "2026-07-29" },
+  "Baked Herbed Tilapia (1lb Competition Approved)": { minBatches: 1, maxBatches: 1, from: "2026-07-28", until: "2026-07-29" },
+  "Southwest Chicken Bowl":                        { minBatches: 2,  maxBatches: 2,  from: "2026-07-28", until: "2026-07-29" },
+  "Arnold 2022 Bowl":                              { minBatches: 2,  maxBatches: 2,  from: "2026-07-28", until: "2026-07-29" },
+  "Strongsville Chicken Ranch Fold":               { minBatches: 2,  maxBatches: 2,  from: "2026-07-28", until: "2026-07-29" },
+  "BBQ Chicken Garlic Parm Potatoes":              { minBatches: 2,  maxBatches: 2,  from: "2026-07-28", until: "2026-07-29" },
+  "Southwest Chicken Quesadilla":                  { minBatches: 1,  maxBatches: 1,  from: "2026-07-28", until: "2026-07-29" },
+  "Soho Steak Bowl":                               { minBatches: 1,  maxBatches: 1,  from: "2026-07-28", until: "2026-07-29" },
   // ── END TARGETED DEPLETED MEAL OVERRIDES ──
   "West Coast Secret Sauce Bowl":      { minBatches: 3, from: "2026-08-17", until: "2099-12-31" },
 };
@@ -725,7 +746,7 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
   // Fast movers are protected first; slow movers get cut first and hardest
   // During recovery ramp, disable global cap enforcement so individual meal targets are met
   const RECOVERY_MODE = rampEntry !== null;
-  const GLOBAL_INVENTORY_CAP = (HOLIDAY_CAP !== null && HOLIDAY_CAP !== undefined) ? HOLIDAY_CAP : 33300;
+  const GLOBAL_INVENTORY_CAP = (HOLIDAY_CAP !== null && HOLIDAY_CAP !== undefined) ? HOLIDAY_CAP : 28000;  // Temporarily lowered Wed Jul 28 — double Tuesday inflated rates
   const MINIMUM_DAYS_FLOOR   = 1.5;
 
   const totalCurrentInventory = prepSheet.reduce((sum, m) => sum + (m._debug?.currentInventory || 0), 0);
