@@ -206,6 +206,10 @@ const LAUNCH_OVERRIDES = {
     // Cap slow movers Saturday — prevent expiry on high-inventory meals
   "The Clean Bulk Pasta Bowl":   { minBatches: 0, maxBatches: 3, from: "2026-07-25", until: "2026-07-26" },
   "The Arches Mac Daddy Wrap":   { minBatches: 0, maxBatches: 3, from: "2026-07-25", until: "2026-07-26" },
+  // Comp item caps — tiny yields inflate batch count on distorted sales days
+  "Chipotle Chicken (1lb Competition Approved)":  { minBatches: 0, maxBatches: 8,  from: "2026-07-28", until: "2099-12-31" },
+  "Competition Approved Grilled Chicken (1lb)":   { minBatches: 0, maxBatches: 8,  from: "2026-07-28", until: "2099-12-31" },
+  "Competition Approved Oven Baked Cod (1lb)":    { minBatches: 0, maxBatches: 5,  from: "2026-07-28", until: "2099-12-31" },
   // ── END TARGETED DEPLETED MEAL OVERRIDES ──
   "West Coast Secret Sauce Bowl":      { minBatches: 3, from: "2026-08-17", until: "2099-12-31" },
 };
