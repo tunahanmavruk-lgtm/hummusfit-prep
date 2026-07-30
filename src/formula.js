@@ -575,7 +575,7 @@ function calculateBatchesForMeal({
  * @param {string} dayName        - e.g. "Friday"
  * @returns {Array} prepSheet sorted by batches descending
  */
-function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName = null) {
+function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName = null, directToAssemblyParam = [], rollingRates = {}) {
   const day      = dayName || getTodayEST();
   const schedule = COOK_SCHEDULE[day];
   if (!schedule) throw new Error(`No cook schedule for ${day}. Sunday is a dark day.`);
