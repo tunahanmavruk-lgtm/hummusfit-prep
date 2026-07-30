@@ -284,11 +284,19 @@ async function main() {
 
     console.log("\n📊 STEP 2: Pulling sales data from Shopify...");
     sales = await fetchSales(meals, dayName);
+
+    // Save today's sales to rolling average store
+    console.log('\n📈 Saving daily sales to burn rate store...');
+    await saveDailySales(meals, sales.burnOffSales, sales.carryOverSales, dayName, groupNumber);
   }
+
+  // Load 30-day rolling averages
+  console.log('\n📊 Loading 30-day rolling averages...');
+  const rollingRates = await getRollingAverages(meals);
 
   // ── STEP 3: God Mode batch calculation ───────────────────────────────────
   console.log('\n🧮 STEP 3: Running God Mode batch formula...\n');
-  const prepSheet = calculateBatches(meals, inventory, sales, 1, dayName, DIRECT_TO_ASSEMBLY);
+  const prepSheet = calculateBatches(meals, inventory, sales, 1, dayName, DIRECT_TO_ASSEMBLY, rollingRates);
 
   // Console summary
   const active   = prepSheet.filter(m => m.batches > 0 || m.directToAssembly);

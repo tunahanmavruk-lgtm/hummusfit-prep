@@ -615,7 +615,11 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
     const totalSalesDays      = burnOffDays + carryDays;
     const salesRate           = totalSalesDays > 0 && totalSalesUnits > 0 ? totalSalesUnits / totalSalesDays : 0;
     const outerBaselineFloor  = (meal.baselineRate || 0) * 0.75;
-    const dailyRate           = Math.max(salesRate, outerBaselineFloor);
+    const rollingAvg          = rollingRates[meal.name] || 0;
+    // Use rolling 30-day average when available — immune to stockouts/holidays/double-order days
+    const dailyRate           = rollingAvg > 0
+      ? Math.max(salesRate, rollingAvg * 0.85, outerBaselineFloor)  // rolling avg = source of truth
+      : Math.max(salesRate, outerBaselineFloor);                     // fallback when no history yet
     const isMonday            = day === 'Monday';
     const isThursday          = day === 'Thursday';
     const isFriday            = day === 'Friday';
