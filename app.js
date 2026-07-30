@@ -33,6 +33,7 @@ const { calculateBatches, getDayGroup, getDayName,
 const { generatePdf }                                     = require('./src/generatePdf');
 const { syncToSheets } = require('./src/sheetsSync');
 const { sendEmail }                                       = require('./src/emailer');
+const { saveDailySales, getRollingAverages }               = require('./src/burnRateStore');
 
 const http = require('http');
 const cron = require('node-cron');
