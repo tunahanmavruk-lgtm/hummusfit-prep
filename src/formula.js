@@ -676,7 +676,7 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
        : null)
       : null;
     const TARGET_DAYS = holidayOverride !== null ? holidayOverride
-      : isThursday ? 5.5 : isFriday ? 4.5 : isSaturday ? 4.5 : isTuesday ? 4.0 : isWednesday ? 4.0 : isMonday ? 4.0 : 4.0;
+      : isThursday ? 6.0 : isFriday ? 4.5 : isSaturday ? 4.5 : isTuesday ? 4.0 : isWednesday ? 4.0 : isMonday ? 4.0 : 4.0;
 
     // Target inventory = daily rate × days to cover
 
