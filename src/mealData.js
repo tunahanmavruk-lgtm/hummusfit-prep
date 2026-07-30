@@ -106,7 +106,7 @@ const GROUP1_MEALS = [
     grill: "",
     flatGrill: "",
     saladStation: "",
-    sauceStation: "",
+    sauceStation: "Keto Buffalo Sauce",
     rawMeats: "",
   },
   {
