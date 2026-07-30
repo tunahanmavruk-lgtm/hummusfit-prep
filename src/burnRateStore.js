@@ -29,8 +29,23 @@ async function ensureTab(sheets, spreadsheetId) {
     valueInputOption: 'USER_ENTERED',
     requestBody: { values: [['Date', 'Day', 'Meal Name', 'Units Sold', 'Group']] }
   });
-  console.log(`  ✓ Created "${TAB_NAME}" tab`);
-  return res.data.replies[0].addSheet.properties.sheetId;
+  const newSheetId = res.data.replies[0].addSheet.properties.sheetId;
+
+  // Hide the tab so it never appears on iPad/KDS display
+  await sheets.spreadsheets.batchUpdate({
+    spreadsheetId,
+    requestBody: {
+      requests: [{
+        updateSheetProperties: {
+          properties: { sheetId: newSheetId, hidden: true },
+          fields: 'hidden'
+        }
+      }]
+    }
+  });
+
+  console.log(`  ✓ Created "${TAB_NAME}" tab (hidden)`);
+  return newSheetId;
 }
 
 async function saveDailySales(meals, burnOffSales, carryOverSales, dayName, groupNum) {
