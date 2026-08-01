@@ -291,6 +291,7 @@ const LAUNCH_OVERRIDES = {
   "Rigatoni & Meatballs":                          { minBatches: 0, maxBatches: 4, from: "2026-07-31", until: "2026-08-02" },
   "MsWendy Buff Nuggets":                          { minBatches: 0, maxBatches: 3, from: "2026-07-31", until: "2026-08-02" },
   "Competition Approved Grilled Flank Steak (1lb)": { minBatches: 0, maxBatches: 3, from: "2026-07-31", until: "2026-08-02" },
+  "Buffalo Chicken Meatballs": { minBatches: 0, maxBatches: 0, from: "2026-08-01", until: "2026-08-03" },
   // ── END TARGETED DEPLETED MEAL OVERRIDES ──
   "West Coast Secret Sauce Bowl":      { minBatches: 3, from: "2026-08-17", until: "2099-12-31" },
 };
