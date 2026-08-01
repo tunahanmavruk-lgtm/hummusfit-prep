@@ -284,6 +284,13 @@ const LAUNCH_OVERRIDES = {
   "Texas Queso Steak Bowl":                        { minBatches: 3,  from: "2026-07-29", until: "2026-07-30" },
   "Competition Approved Grilled Chicken W/ Smokin Poppie Sauce (1lb)": { minBatches: 2, from: "2026-07-29", until: "2026-07-30" },
   "Competition Approved Baked Sweet Potato Fries (1lb)": { minBatches: 2, from: "2026-07-29", until: "2026-07-30" },
+  // Sat Aug 1 — expiry risk caps
+  "BBQ Meltdown":                                  { minBatches: 0, maxBatches: 0, from: "2026-07-31", until: "2026-08-01" },
+  "BBQ Chicken Mac Bowl":                          { minBatches: 0, maxBatches: 0, from: "2026-07-31", until: "2026-08-01" },
+  "Closed on Sunday Crispy Chicken Bowl":          { minBatches: 0, maxBatches: 8, from: "2026-07-31", until: "2026-08-01" },
+  "Rigatoni & Meatballs":                          { minBatches: 0, maxBatches: 4, from: "2026-07-31", until: "2026-08-01" },
+  "MsWendy Buff Nuggets":                          { minBatches: 0, maxBatches: 3, from: "2026-07-31", until: "2026-08-01" },
+  "Competition Approved Grilled Flank Steak (1lb)": { minBatches: 0, maxBatches: 3, from: "2026-07-31", until: "2026-08-01" },
   // ── END TARGETED DEPLETED MEAL OVERRIDES ──
   "West Coast Secret Sauce Bowl":      { minBatches: 3, from: "2026-08-17", until: "2099-12-31" },
 };
