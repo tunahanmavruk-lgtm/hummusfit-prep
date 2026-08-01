@@ -714,7 +714,11 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
     // Dynamic threshold = burnOffDays + carryDays + 0.5 buffer
     // Prevents skipping meals that LOOK stocked but will run out before next cook lands
     const alreadyCoveredThreshold = TARGET_DAYS + 0.5;  // Only skip if already covered beyond target
-    const alreadyCovered = daysCurrentlyCovered >= alreadyCoveredThreshold && !result.isPriority1;
+    // Hard stop: maxBatches:0 means never cook regardless of anything
+    const _earlyOverride = LAUNCH_OVERRIDES[meal.name];
+    const _earlyActive = _earlyOverride && new Date() >= new Date(_earlyOverride.from) && new Date() <= new Date(_earlyOverride.until);
+    const hardStop = _earlyActive && _earlyOverride.maxBatches === 0;
+    const alreadyCovered = (hardStop || daysCurrentlyCovered >= alreadyCoveredThreshold) && !result.isPriority1;
     const rawCapped           = alreadyCovered ? 0
                               : hasDeficit ? Math.min(result.batches, maxBatchesByCap)
                               : (result.isDeathSpiral && adjustedDailyRate > 0 ? 2 : 0);
@@ -752,8 +756,10 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
     const afterMin       = launchActive && shelfCapped < launchOverride.minBatches && !alreadyCovered
       ? launchOverride.minBatches
       : shelfCapped;
-    const finalBatches   = launchActive && launchOverride.maxBatches && afterMin > launchOverride.maxBatches
+    const finalBatches   = launchActive && launchOverride.maxBatches !== undefined && afterMin > launchOverride.maxBatches
       ? launchOverride.maxBatches
+      : launchActive && launchOverride.maxBatches === 0
+      ? 0  // maxBatches:0 means NEVER cook this meal today regardless of alreadyCovered
       : afterMin;
 
     const daysToSellThrough   = dailyRate > 0 ? currentInventory / dailyRate : 999;
