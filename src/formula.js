@@ -293,6 +293,16 @@ const LAUNCH_OVERRIDES = {
   "Competition Approved Grilled Flank Steak (1lb)": { minBatches: 0, maxBatches: 3, from: "2026-07-31", until: "2026-08-02" },
   "Buffalo Chicken Meatballs": { minBatches: 0, maxBatches: 0, from: "2026-08-01", until: "2026-08-03" },
   "Vegan Chorizo Quesadilla": { minBatches: 0, maxBatches: 1, from: "2026-01-01", until: "2099-12-31" },
+  // Sat Aug 8 — rolling avg inflated on first run, cap overcookers
+  "Closed on Sunday Crispy Chicken Bowl":   { maxBatches: 9,  from: "2026-08-08", until: "2026-08-09" },
+  "The Clean Bulk Pasta Bowl":              { maxBatches: 6,  from: "2026-08-08", until: "2026-08-09" },
+  "Philly Cheesesteak Quesadilla":          { maxBatches: 4,  from: "2026-08-08", until: "2026-08-09" },
+  "Crispy Baked Chicken Wrap":              { maxBatches: 5,  from: "2026-08-08", until: "2026-08-09" },
+  "Herb Butter Steak Tips Bowl":            { maxBatches: 5,  from: "2026-08-08", until: "2026-08-09" },
+  "Zeus Bowl":                              { maxBatches: 6,  from: "2026-08-08", until: "2026-08-09" },
+  "HFit Signature Fold":                    { maxBatches: 4,  from: "2026-08-08", until: "2026-08-09" },
+  "Lo Mein Teriyaki Steak":                { maxBatches: 4,  from: "2026-08-08", until: "2026-08-09" },
+  "Vegan Chorizo Quesadilla":               { maxBatches: 0,  from: "2026-08-08", until: "2026-08-09" },
   // ── END TARGETED DEPLETED MEAL OVERRIDES ──
   "West Coast Secret Sauce Bowl":      { minBatches: 3, from: "2026-08-17", until: "2099-12-31" },
 };
