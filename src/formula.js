@@ -720,7 +720,9 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
     const _earlyOverride = LAUNCH_OVERRIDES[meal.name];
     const _earlyActive = _earlyOverride && new Date() >= new Date(_earlyOverride.from) && new Date() <= new Date(_earlyOverride.until);
     const hardStop = _earlyActive && _earlyOverride.maxBatches === 0;
-    const alreadyCovered = (hardStop || daysCurrentlyCovered >= alreadyCoveredThreshold) && !result.isPriority1;
+    // Shelf expiry protection: never cook if inventory already fills shelf window
+    const shelfAlreadyCovered = daysCurrentlyCovered >= MAX_SHELF_DAYS;
+    const alreadyCovered = (hardStop || shelfAlreadyCovered || daysCurrentlyCovered >= alreadyCoveredThreshold) && !result.isPriority1;
     const rawCapped           = alreadyCovered ? 0
                               : hasDeficit ? Math.min(result.batches, maxBatchesByCap)
                               : (result.isDeathSpiral && adjustedDailyRate > 0 ? 2 : 0);
