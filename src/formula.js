@@ -303,6 +303,7 @@ const LAUNCH_OVERRIDES = {
   "HFit Signature Fold":                    { maxBatches: 4,  from: "2026-08-08", until: "2026-08-09" },
   "Lo Mein Teriyaki Steak":                { maxBatches: 4,  from: "2026-08-08", until: "2026-08-09" },
   "Vegan Chorizo Quesadilla":               { maxBatches: 0,  from: "2026-08-08", until: "2026-08-09" },
+  "Texas Queso Steak Bowl": { minBatches: 0, maxBatches: 10, from: "2026-01-01", until: "2099-12-31" },
   // ── END TARGETED DEPLETED MEAL OVERRIDES ──
   "West Coast Secret Sauce Bowl":      { minBatches: 3, from: "2026-08-17", until: "2099-12-31" },
 };
