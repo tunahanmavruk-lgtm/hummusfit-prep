@@ -304,6 +304,11 @@ const LAUNCH_OVERRIDES = {
   "Lo Mein Teriyaki Steak":                { maxBatches: 4,  from: "2026-08-08", until: "2026-08-09" },
   "Vegan Chorizo Quesadilla":               { maxBatches: 0,  from: "2026-08-08", until: "2026-08-09" },
   "Texas Queso Steak Bowl": { minBatches: 0, maxBatches: 10, from: "2026-01-01", until: "2099-12-31" },
+  // Permanent caps — slow movers always overcook due to baseline floor
+  "Vegan Cheeseburger Bowl":                { minBatches: 0, maxBatches: 1, from: "2026-01-01", until: "2099-12-31" },
+  "Nacho Average Vegan Bowl":               { minBatches: 0, maxBatches: 1, from: "2026-01-01", until: "2099-12-31" },
+  "Baked Herbed Tilapia (1lb Competition Approved)": { minBatches: 0, maxBatches: 3, from: "2026-01-01", until: "2099-12-31" },
+  "Crispy Vegan Wrap":                      { minBatches: 0, maxBatches: 2, from: "2026-01-01", until: "2099-12-31" },
   // ── END TARGETED DEPLETED MEAL OVERRIDES ──
   "West Coast Secret Sauce Bowl":      { minBatches: 3, from: "2026-08-17", until: "2099-12-31" },
 };
