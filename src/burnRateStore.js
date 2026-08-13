@@ -48,7 +48,7 @@ async function ensureTab(sheets, spreadsheetId) {
   return newSheetId;
 }
 
-async function saveDailySales(meals, burnOffSales, carryOverSales, dayName, groupNum) {
+async function saveDailySales(meals, burnOffSales, carryOverSales, dayName, groupNum, burnDayCount = 1, carryDayCount = 3) {
   if (!SHEET_ID) { console.log('  ⚠️  No GOOGLE_SHEET_ID — skipping'); return; }
   try {
     const auth = getAuth();
@@ -56,8 +56,13 @@ async function saveDailySales(meals, burnOffSales, carryOverSales, dayName, grou
     await ensureTab(sheets, SHEET_ID);
     const today = new Date().toISOString().split('T')[0];
     const rows = meals
-      .map(m => [today, dayName, m.name, burnOffSales[m.name] || 0, groupNum])
-      .filter(r => r[3] >= 0); // save all meals including 0-sales stockout days
+      .map(m => {
+        const totalSales = (burnOffSales[m.name] || 0) + (carryOverSales[m.name] || 0);
+        const totalDays  = burnDayCount + carryDayCount;
+        const dailyRate  = totalDays > 0 ? Math.round(totalSales / totalDays) : 0;
+        return [today, dayName, m.name, dailyRate, groupNum];
+      })
+      .filter(r => r[3] >= 0); // save true daily rate including 0-sales days
     if (rows.length === 0) { console.log('  ℹ️  No sales to save'); return; }
     await sheets.spreadsheets.values.append({
       spreadsheetId: SHEET_ID, range: `'${TAB_NAME}'!A:E`,

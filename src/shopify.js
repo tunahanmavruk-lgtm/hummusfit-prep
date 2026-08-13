@@ -330,7 +330,9 @@ async function fetchSales(meals, cookDay) {
     }
   });
 
-  return { burnOffSales, carryOverSales };
+  const burnDayCount = burnConfig.hardcoded ? 0 : burnConfig.useYesterday ? 1 : burnConfig.days.length;
+  const carryDayCount = carryDays.length;
+  return { burnOffSales, carryOverSales, burnDayCount, carryDayCount };
 }
 
 module.exports = { fetchInventory, fetchSales };

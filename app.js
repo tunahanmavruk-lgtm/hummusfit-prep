@@ -288,7 +288,7 @@ async function main() {
 
     // Save today's sales to rolling average store
     console.log('\n📈 Saving daily sales to burn rate store...');
-    await saveDailySales(meals, sales.burnOffSales, sales.carryOverSales, dayName, groupNumber);
+    await saveDailySales(meals, sales.burnOffSales, sales.carryOverSales, dayName, groupNumber, sales.burnDayCount || 1, sales.carryDayCount || 3);
   }
 
   // Load 30-day rolling averages
