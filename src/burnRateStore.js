@@ -57,7 +57,7 @@ async function saveDailySales(meals, burnOffSales, carryOverSales, dayName, grou
     const today = new Date().toISOString().split('T')[0];
     const rows = meals
       .map(m => [today, dayName, m.name, burnOffSales[m.name] || 0, groupNum])
-      .filter(r => r[3] > 0);
+      .filter(r => r[3] >= 0); // save all meals including 0-sales stockout days
     if (rows.length === 0) { console.log('  ℹ️  No sales to save'); return; }
     await sheets.spreadsheets.values.append({
       spreadsheetId: SHEET_ID, range: `'${TAB_NAME}'!A:E`,
@@ -96,7 +96,7 @@ async function getRollingAverages(meals) {
     }
     for (const meal of meals) {
       const name = meal.name;
-      if (salesByMeal[name] && datesByMeal[name].size >= 5) {
+      if (salesByMeal[name] && datesByMeal[name].size >= 3) {
         result[name] = Math.round(salesByMeal[name] / datesByMeal[name].size);
       }
     }
