@@ -799,13 +799,8 @@ setTimeout(() => {
   });
 }, 3000); // 3 second delay — server is fully up before blueprint runs
 
-// Schedule daily at 1AM UTC (9PM EDT) Sunday–Friday (skips Saturday — no Sunday cook)
-cron.schedule('0 1 * * 0-5', () => {
-  console.log('\n⏰ Cron triggered — running main()...');
-  main().catch(err => {
-    console.error('\n❌ CRON ERROR:', err.message);
-    console.error(err.stack);
-  });
-});
-
-console.log('\n⏳ Server alive. Next run at 1AM UTC (9PM EDT).');
+// Internal 9PM EDT cron removed Aug 14 2026 — Railway's platform-level Cron
+// Job resource (0 23 * * 0-5 UTC / 7PM EDT) + the startup setTimeout above
+// already trigger one run per day. This second schedule was firing main()
+// a second time in the same long-lived process, causing duplicate runs.
+console.log('\n⏳ Server alive. Next run triggered by Railway Cron Job at 7PM EDT.');
