@@ -66,7 +66,7 @@ async function saveDailySales(meals, burnOffSales, carryOverSales, dayName, grou
     if (rows.length === 0) { console.log('  ℹ️  No sales to save'); return; }
     await sheets.spreadsheets.values.append({
       spreadsheetId: SHEET_ID, range: `'${TAB_NAME}'!A:E`,
-      valueInputOption: 'USER_ENTERED', requestBody: { values: rows }
+      valueInputOption: 'RAW', requestBody: { values: rows }
     });
     console.log(`  ✓ Saved ${rows.length} meal sales to Burn Rates tab`);
   } catch (err) {
