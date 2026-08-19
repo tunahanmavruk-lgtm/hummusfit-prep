@@ -22,7 +22,7 @@ const GROUP1_MEALS = [
     flatGrill: "",
     saladStation: "Asparagus",
     sauceStation: "",
-    rawMeats: "1/3 Filet Chicken",
+    rawMeats: "Filet Chicken",
   },
   {
     name: "Baja Chicken Tacos",
@@ -34,7 +34,7 @@ const GROUP1_MEALS = [
     flatGrill: "",
     saladStation: "Cut Cilantro",
     sauceStation: "",
-    rawMeats: "1/3 Chicken Breast",
+    rawMeats: "Filet Chicken",
   },
 
   {
@@ -83,7 +83,7 @@ const GROUP1_MEALS = [
     flatGrill: "",
     saladStation: "",
     sauceStation: "",
-    rawMeats: "1/2 Filet Oven",
+    rawMeats: "Filet Chicken",
   },
   {
     name: "Broritto Burrito",
@@ -95,7 +95,7 @@ const GROUP1_MEALS = [
     flatGrill: "",
     saladStation: "Burrito Salad",
     sauceStation: "",
-    rawMeats: "1/3 Filet Chicken",
+    rawMeats: "Filet Chicken",
   },
   {
     name: "Buffalo Chicken Meatballs",
@@ -144,7 +144,7 @@ const GROUP1_MEALS = [
     flatGrill: "",
     saladStation: "",
     sauceStation: "",
-    rawMeats: "1/2 Filet Oven",
+    rawMeats: "Filet Chicken",
   },
   {
     name: "Cinnamon Roll Pancakes",
@@ -192,7 +192,7 @@ const GROUP1_MEALS = [
     flatGrill: "",
     saladStation: "",
     sauceStation: "",
-    rawMeats: "1/3 Filet",
+    rawMeats: "Filet Chicken",
   },
   {
     name: "Competition Approved Sticky Rice (1lb)",
@@ -240,7 +240,7 @@ const GROUP1_MEALS = [
     flatGrill: "",
     saladStation: "Scallions",
     sauceStation: "",
-    rawMeats: "Half",
+    rawMeats: "Filet Chicken",
   },
   {
     name: "Fit Ala Vodka With Chicken",
@@ -252,7 +252,7 @@ const GROUP1_MEALS = [
     flatGrill: "",
     saladStation: "Parsley",
     sauceStation: "",
-    rawMeats: "1/3 Filet Chicken",
+    rawMeats: "Filet Chicken",
   },
   {
     name: "Fit-Fil-A",
@@ -264,7 +264,7 @@ const GROUP1_MEALS = [
     flatGrill: "",
     saladStation: "",
     sauceStation: "",
-    rawMeats: "1/2 Oven Filet",
+    rawMeats: "Filet Chicken",
   },
   {
     name: "GLORIOUS GAINS Steak Bites & Cilantro Lime Rice",
@@ -288,7 +288,7 @@ const GROUP1_MEALS = [
     flatGrill: "",
     saladStation: "Parsley",
     sauceStation: "",
-    rawMeats: "Fillet Chicken",
+    rawMeats: "Filet Chicken",
   },
   {
     name: "Grilled Chicken Parmesan Wrap",
@@ -300,7 +300,7 @@ const GROUP1_MEALS = [
     flatGrill: "",
     saladStation: "",
     sauceStation: "",
-    rawMeats: "1/3 Filet Chicken",
+    rawMeats: "Filet Chicken",
   },
   {
     name: "Grilled Chicken Pesto Wrap",
@@ -324,7 +324,7 @@ const GROUP1_MEALS = [
     flatGrill: "",
     saladStation: "Hey Arnold Salad",
     sauceStation: "",
-    rawMeats: "Fillet Chicken",
+    rawMeats: "Filet Chicken",
   },
   {
     name: "Hot Honey Steak & Mac",
@@ -385,7 +385,7 @@ const GROUP1_MEALS = [
     flatGrill: "",
     saladStation: "Corn Salad",
     sauceStation: "",
-    rawMeats: "1/2 Filet Oven",
+    rawMeats: "Filet Chicken",
   },
 
   {
@@ -521,7 +521,7 @@ const GROUP1_MEALS = [
     flatGrill: "",
     saladStation: "Mix Ranch Fold",
     sauceStation: "",
-    rawMeats: "1/2 Filet Oven"
+    rawMeats: "Filet Chicken"
   },
   {
     name: "Taco Build Quesadilla",
@@ -695,7 +695,7 @@ const GROUP2_MEALS = [
     flatGrill: "",
     saladStation: "",
     sauceStation: "",
-    rawMeats: "Fillet Chicken"
+    rawMeats: "Filet Chicken"
   },
   {
     name: "Competition Approved Grilled Flank Steak (1lb)",
@@ -766,7 +766,7 @@ const GROUP2_MEALS = [
     flatGrill: "",
     saladStation: "Fold Mix",
     sauceStation: "",
-    rawMeats: "1/2 Filet Oven"
+    rawMeats: "Filet Chicken"
   },
   {
     name: "Keto Ricotta Meatballs",
