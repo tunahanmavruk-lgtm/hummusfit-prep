@@ -1,0 +1,20 @@
+name: Trigger nightly blueprint
+
+on:
+  schedule:
+    - cron: '0 23 * * 0-5'
+  workflow_dispatch:
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call run-now endpoint
+        run: |
+          response=$(curl -s -w "%{http_code}" -X POST https://scintillating-commitment-production-8909.up.railway.app/run-now -o /tmp/response.json)
+          echo "HTTP status: $response"
+          cat /tmp/response.json
+          if [ "$response" -ne 200 ]; then
+            echo "Trigger failed with status $response"
+            exit 1
+          fi
