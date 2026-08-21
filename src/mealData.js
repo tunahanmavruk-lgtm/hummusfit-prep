@@ -659,7 +659,7 @@ const GROUP2_MEALS = [
     flatGrill: "Stir Fry Chicken",
     saladStation: "",
     sauceStation: "",
-    rawMeats: ""
+    rawMeats: "Cube Chicken"
   },
   {
     name: "Competition Approved 90/10 Lean Ground Beef (1lb)",
@@ -916,7 +916,7 @@ const GROUP2_MEALS = [
     flatGrill: "Cube Seasoned Steak",
     saladStation: "Bean Salad, Onion & Peppers",
     sauceStation: "",
-    rawMeats: "",
+    rawMeats: "Cube Steak",
   },
   {
     name: "Philly Cheesesteak Quesadilla",
