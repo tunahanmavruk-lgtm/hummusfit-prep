@@ -318,7 +318,7 @@ const GROUP1_MEALS = [
     name: "Hey Arnold! Burrito",
     yield: 75,
     baselineRate: 125,
-    stove: "",
+    stove: "Jasmine Rice",
     oven: "",
     grill: "Hey Arnold Chicken",
     flatGrill: "",
@@ -598,7 +598,7 @@ const GROUP2_MEALS = [
     flatGrill: "BBQ Chicken",
     saladStation: "Chopped Pickles",
     sauceStation: "",
-    rawMeats: "",
+    rawMeats: "Cube Chicken",
   },
   {
     name: "BBQ Chicken Mac Bowl",
@@ -778,7 +778,7 @@ const GROUP2_MEALS = [
     flatGrill: "",
     saladStation: "",
     sauceStation: "",
-    rawMeats: ""
+    rawMeats: "Ground Chicken"
   },
   {
     name: "Lo Mein Teriyaki Steak",
@@ -787,7 +787,7 @@ const GROUP2_MEALS = [
     stove: "Lo Mein Pasta",
     oven: "",
     grill: "Teriyaki Steak",
-    flatGrill: "",
+    flatGrill: "Lo Mein Steak",
     saladStation: "Scallions",
     sauceStation: "",
     rawMeats: "Pesto Steak"
@@ -927,7 +927,7 @@ const GROUP2_MEALS = [
     grill: "",
     flatGrill: "Philly Cheesesteak, Onion & Peppers",
     saladStation: "Peppers, Onions",
-    sauceStation: "",
+    sauceStation: "Philly Steak Sauce",
     rawMeats: "",
   },
   {
@@ -949,8 +949,8 @@ const GROUP2_MEALS = [
     stove: "Ground Beef",
     oven: "Russet Wedge Potatoes",
     grill: "",
-    flatGrill: "",
-    saladStation: "",
+    flatGrill: "Caramelized Onion",
+    saladStation: "Caramelized Onion",
     sauceStation: "Fil-A Sauce",
     rawMeats: "",
   },
