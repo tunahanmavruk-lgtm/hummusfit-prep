@@ -188,7 +188,7 @@ const GROUP1_MEALS = [
     baselineRate: 109,
     stove: "",
     oven: "",
-    grill: "Arnold",
+    grill: "Arnold Chicken",
     flatGrill: "",
     saladStation: "",
     sauceStation: "",
