@@ -539,7 +539,7 @@ const GROUP1_MEALS = [
     name: "Cheeseburger Bowl",
     yield: 93,
     baselineRate: 124,
-    stove: "Basmati, Gr. Beef",
+    stove: "Basmati Rice, Ground Beef",
     oven: "",
     grill: "",
     flatGrill: "",
