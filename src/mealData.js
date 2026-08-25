@@ -903,7 +903,7 @@ const GROUP2_MEALS = [
     grill: "",
     flatGrill: "",
     saladStation: "Onion Pickle",
-    sauceStation: "Sauce",
+    sauceStation: "Arches Mac Daddy Sauce",
     rawMeats: "",
   },
   {
