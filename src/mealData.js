@@ -227,7 +227,7 @@ const GROUP1_MEALS = [
     grill: "",
     flatGrill: "",
     saladStation: "",
-    sauceStation: "",
+    sauceStation: "Vegan Crispy Sauce",
     rawMeats: "",
   },
   {
@@ -839,7 +839,7 @@ const GROUP2_MEALS = [
     baselineRate: 139,
     stove: "Basmati Rice",
     oven: "",
-    grill: "Steak",
+    grill: "Teriyaki Steak",
     flatGrill: "",
     saladStation: "",
     sauceStation: "",
