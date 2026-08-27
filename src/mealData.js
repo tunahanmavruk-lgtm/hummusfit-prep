@@ -59,7 +59,7 @@ const GROUP1_MEALS = [
     flatGrill: "BBQ Garlic Parm Chicken",
     saladStation: "",
     sauceStation: "Parm Potato Sauce",
-    rawMeats: "",
+    rawMeats: "Cube Chicken",
   },
   {
     name: "Blueberry French Toast",
