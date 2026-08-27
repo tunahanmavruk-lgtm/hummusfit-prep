@@ -229,6 +229,8 @@ async function generateClosedPdf() {
 }
 
 async function main() {
+  // TEMP: force Wed 7PM EDT to generate Thu G2 — remove after run
+  const _od=Date;const _fd=new _od('2026-08-26T23:00:00Z');global.Date=class extends _od{constructor(...a){super(...(a.length?a:[_fd]))}static now(){return _fd.getTime()}static parse(s){return _od.parse(s)}static UTC(...a){return _od.UTC(...a)}};
   // TEMP OVERRIDE — force Thursday G2 for one run (remove after)
   const _realDateNow = Date.now;
   Date.now = () => new Date('2026-08-27T22:00:00').getTime();
