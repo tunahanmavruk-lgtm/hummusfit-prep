@@ -229,6 +229,9 @@ async function generateClosedPdf() {
 }
 
 async function main() {
+  // TEMP OVERRIDE — force Thursday G2 for one run (remove after)
+  const _realDateNow = Date.now;
+  Date.now = () => new Date('2026-08-27T22:00:00').getTime();
   console.log('');
   console.log('═══════════════════════════════════════════════════════');
   console.log('  HUMMUSFIT KITCHEN — GOD MODE PREP SHEET GENERATOR');
