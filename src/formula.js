@@ -376,8 +376,7 @@ const EVENT_DICTIONARY = [
     name: "Back to School / Labor Day Week",
     multiplier: 1.20,
     type: 'annual',
-    month: 8, startDay: 29, endDay: 31,
-    extraMonth: 9, extraStartDay: 1, extraEndDay: 4
+    month: 9, startDay: 1, endDay: 7
   },
   {
     name: "Halloween Week",
