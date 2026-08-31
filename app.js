@@ -229,6 +229,15 @@ async function generateClosedPdf() {
 }
 
 async function main() {
+  // TEMP: force Sunday 11PM UTC → generates Monday G1 list
+  const _od = Date;
+  const _fd = new _od('2026-08-30T23:00:00Z');
+  global.Date = class extends _od {
+    constructor(...a) { super(...(a.length ? a : [_fd])); }
+    static now() { return _fd.getTime(); }
+    static parse(s) { return _od.parse(s); }
+    static UTC(...a) { return _od.UTC(...a); }
+  };
 
   // TEMP OVERRIDE — force Thursday G2 for one run (remove after)
   console.log('');
@@ -796,8 +805,9 @@ let cachedIntelligence = null;
 // This prevents morning Railway restarts from overwriting the previous night's list
 setTimeout(() => {
   const utcHour = new Date().getUTCHours();
-  if (utcHour >= 21 || utcHour <= 1) {
-    console.log(`\n🕐 Startup run firing (UTC hour: ${utcHour}) — within cron window`);
+  const hasCachedBlueprint = cachedIntelligence !== null;
+  if (utcHour >= 21 || utcHour <= 1 || !hasCachedBlueprint) {
+    console.log(`\n🕐 Startup run firing (UTC hour: ${utcHour}, cached: ${hasCachedBlueprint})`);
     main().catch(err => {
       console.error('\n❌ FATAL ERROR:', err.message);
       console.error(err.stack);
