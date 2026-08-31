@@ -794,20 +794,10 @@ let cachedIntelligence = null;
 // Cache for /meals endpoint
 
 // Run after short delay on startup — ONLY during cron window (9PM-midnight UTC)
-// This prevents morning Railway restarts from overwriting the previous night's list
-setTimeout(() => {
-  const utcHour = new Date().getUTCHours();
-  const hasCachedBlueprint = cachedIntelligence !== null;
-  if (utcHour >= 21 || utcHour <= 1 || !hasCachedBlueprint) {
-    console.log(`\n🕐 Startup run firing (UTC hour: ${utcHour}, cached: ${hasCachedBlueprint})`);
-    main().catch(err => {
-      console.error('\n❌ FATAL ERROR:', err.message);
-      console.error(err.stack);
-    });
-  } else {
-    console.log(`\n⏭️  Startup run skipped (UTC hour: ${utcHour}) — outside cron window, preserving last blueprint`);
-  }
-}, 3000); // 3 second delay — server is fully up before blueprint runs
+// Startup auto-run DISABLED — Railway platform cron (7PM EDT) is the only trigger
+// Manual runs use the /run-now HTTP endpoint
+// This prevents Railway restarts from ever overwriting the correct nightly blueprint
+console.log('\n✅ Server ready. Waiting for Railway cron at 7PM EDT or /run-now request.');
 
 // Internal 9PM EDT cron removed Aug 14 2026 — Railway's platform-level Cron
 // Job resource (0 23 * * 0-5 UTC / 7PM EDT) + the startup setTimeout above
