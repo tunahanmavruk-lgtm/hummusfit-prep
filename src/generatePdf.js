@@ -55,6 +55,7 @@ function buildHtml(prepSheet, groupNumber, dayName, eventName = null, eventMulti
         <td class="td-sauce">${meal.sauceStation || ''}</td>
         <td class="td-meats">${meal.rawMeats || ''}</td>
         <td class="td-mainkitchen">${meal.mainKitchen || ''}</td>
+        <td class="td-mainkitchen">${meal.mainKitchen || ''}</td>
       </tr>
     `;
   }).join('');
@@ -221,6 +222,8 @@ function buildHtml(prepSheet, groupNumber, dayName, eventName = null, eventMulti
   th.col-salad     { border-left: 2px solid #4CAF50; }
   th.col-sauce     { border-left: 2px solid #2E7D5E; }
   th.col-meats     { border-left: 2px solid #C0392B; }
+  th.col-mainkitchen { border-left: 2px solid #8E44AD; }
+  td.td-mainkitchen  { border-left: 2px solid #8E44AD; color: #6C3483; font-weight: 500; }
   th.col-mainkitchen { border-left: 2px solid #8E44AD; }
   td.td-mainkitchen { border-left: 2px solid #8E44AD; color: #6C3483; font-weight: 500; }
 
