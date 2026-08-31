@@ -310,7 +310,6 @@ const LAUNCH_OVERRIDES = {
   "Baked Herbed Tilapia (1lb Competition Approved)": { minBatches: 0, maxBatches: 3, from: "2026-01-01", until: "2099-12-31" },
   "Crispy Vegan Wrap":                      { minBatches: 0, maxBatches: 2, from: "2026-01-01", until: "2099-12-31" },
   // ── END TARGETED DEPLETED MEAL OVERRIDES ──
-  "West Coast Secret Sauce Bowl":      { minBatches: 0, maxBatches: 0, from: "2026-01-01", until: "2099-12-31" },
 };
 
 // ── Holiday / Event Dictionary ───────────────────────────────

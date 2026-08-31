@@ -943,7 +943,7 @@ const GROUP2_MEALS = [
     rawMeats: "",
   },
   {
-    name: "West Coast Secret Sauce Bowl",
+    name: "Animal Style West Coast Beef Bowl",
     yield: 70,
     baselineRate: 0,
     stove: "Ground Beef",
@@ -951,7 +951,7 @@ const GROUP2_MEALS = [
     grill: "",
     flatGrill: "Caramelized Onion",
     saladStation: "Caramelized Onion",
-    sauceStation: "West Coast Secret Sauce",
+    sauceStation: "Animal Style West Coast Sauce",
     rawMeats: "",
   },
   {

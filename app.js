@@ -792,13 +792,19 @@ let cachedIntelligence = null;
 
 // Cache for /meals endpoint
 
-// Run after short delay on startup — gives server time to bind port first
-// This prevents Railway 502 during health checks on fresh deploy
+// Run after short delay on startup — ONLY during cron window (9PM-midnight UTC)
+// This prevents morning Railway restarts from overwriting the previous night's list
 setTimeout(() => {
-  main().catch(err => {
-    console.error('\n❌ FATAL ERROR:', err.message);
-    console.error(err.stack);
-  });
+  const utcHour = new Date().getUTCHours();
+  if (utcHour >= 21 || utcHour <= 1) {
+    console.log(`\n🕐 Startup run firing (UTC hour: ${utcHour}) — within cron window`);
+    main().catch(err => {
+      console.error('\n❌ FATAL ERROR:', err.message);
+      console.error(err.stack);
+    });
+  } else {
+    console.log(`\n⏭️  Startup run skipped (UTC hour: ${utcHour}) — outside cron window, preserving last blueprint`);
+  }
 }, 3000); // 3 second delay — server is fully up before blueprint runs
 
 // Internal 9PM EDT cron removed Aug 14 2026 — Railway's platform-level Cron
