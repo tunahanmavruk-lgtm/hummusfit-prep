@@ -126,7 +126,7 @@ async function syncToSheets(prepSheet, groupNum, dayName, eventName) {
   const eventSuffix = eventName ? ` — ${eventName}` : '';
   const titleText   = `HummusFit Kitchen — Group ${groupNum} | ${tab}${eventSuffix}`;
 
-  const headerRow = ['MEAL NAME', '#', 'STOVE', 'OVEN', 'GRILL', 'FLAT GRILL', 'SALAD', 'SAUCE', 'RAW MEATS'];
+  const headerRow = ['MEAL NAME', '#', 'STOVE', 'OVEN', 'GRILL', 'FLAT GRILL', 'SALAD', 'SAUCE', 'RAW MEATS', 'MAIN KITCHEN'];
 
   // Station cells: just the task name (dropdown overlaid separately)
   const dataRows = activeMeals.map(m => {
