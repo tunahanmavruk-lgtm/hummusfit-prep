@@ -29,9 +29,10 @@ const COL = {
   FLAT_GRILL: 5,  // F
   SALAD:      6,  // G
   SAUCE:      7,  // H
-  RAW_MEATS:  8   // I
+  RAW_MEATS:  8,  // I
+  MAIN_KITCHEN: 9  // J
 };
-const TOTAL_COLS = 9;
+const TOTAL_COLS = 10;
 
 const STATION_COLS = [
   { key: 'stove',        col: COL.STOVE,      header: 'STOVE'      },
@@ -41,6 +42,7 @@ const STATION_COLS = [
   { key: 'saladStation', col: COL.SALAD,       header: 'SALAD'      },
   { key: 'sauceStation', col: COL.SAUCE,       header: 'SAUCE'      },
   { key: 'rawMeats',     col: COL.RAW_MEATS,   header: 'RAW MEATS'  },
+  { key: 'mainKitchen', col: COL.MAIN_KITCHEN, header: 'MAIN KITCHEN' },
 ];
 
 function tabName() {
