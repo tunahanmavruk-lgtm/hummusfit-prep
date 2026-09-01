@@ -192,9 +192,10 @@ function buildHtml(prepSheet, groupNumber, dayName, eventName = null, eventMulti
     table-layout: fixed;
   }
 
-  col.col-meal    { width: 17%; }
-  col.col-batch   { width: 5.5%; }
-  col.col-station { width: 11%; }
+  col.col-meal       { width: 16%; }
+  col.col-batch      { width: 5%; }
+  col.col-station    { width: 9.5%; }
+  col.col-mainkitchen { width: 9.5%; }
 
   /* ── COLUMN HEADERS ── */
   thead tr { background: #1C4A45; }
@@ -409,6 +410,7 @@ ${eventBanner}
     <col class="col-station">
     <col class="col-station">
     <col class="col-station">
+    <col class="col-mainkitchen">
   </colgroup>
   <thead>
     <tr>
