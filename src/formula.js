@@ -699,7 +699,7 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
        : null)
       : null;
     const TARGET_DAYS = holidayOverride !== null ? holidayOverride
-      : isThursday && month === 9 && day === 3 ? 3.5   // Labor Day 2026: online-only Mon, next G2 packaged Tue
+      : isThursday && month === 9 && day === 3 ? 4.0   // Labor Day 2026: Fri+Sat+Sun+Mon(online)+Tue buffer
       : isThursday ? 6.0 : isFriday ? 4.6 : isSaturday ? 4.5 : isTuesday ? 4.0 : isWednesday ? 4.0 : isMonday ? 4.0 : 4.0;
 
     // Target inventory = daily rate × days to cover
