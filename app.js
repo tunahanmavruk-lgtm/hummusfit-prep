@@ -772,13 +772,14 @@ http.createServer((req, res) => {
       res.end(JSON.stringify({ error: 'Meal data not yet generated. Try again after 6PM.' }));
     }
   } else if (req.method === 'POST' && req.url === '/run-now') {
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ status: 'triggered', message: 'Blueprint generation started — check /blueprint in ~60 seconds' }));
-    console.log('\n🔄 Manual /run-now triggered — running main()...');
-    main().catch(err => {
-      console.error('\n❌ RUN-NOW ERROR:', err.message);
-      console.error(err.stack);
-    });
+    if (mainRunning) {
+      res.writeHead(409, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ status: 'skipped', message: 'main() is already running — try again shortly' }));
+    } else {
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ status: 'triggered', message: 'Blueprint generation started — check /blueprint in ~60 seconds' }));
+      runMainOnce('Manual /run-now');
+    }
   } else {
     res.writeHead(404);
     res.end('Not found');
@@ -791,23 +792,37 @@ http.createServer((req, res) => {
 let cachedMealsData = null;
 let cachedIntelligence = null;
 
-// Cache for /meals endpoint
+// ── Reliable nightly trigger ────────────────────────────────────
+// Previous design relied on the container happening to BOOT inside a
+// specific UTC hour window — if a manual deploy/restart landed outside
+// that window (which happens constantly during active development), the
+// automatic trigger silently disabled itself until the next lucky boot.
+// This runs on the actual clock instead, independent of container
+// lifecycle, so it fires every scheduled night regardless of what deploys
+// happened earlier that day.
+let mainRunning = false;
 
-// Run after short delay on startup — ONLY during cron window (9PM-midnight UTC)
-// Startup auto-run — fires ONLY during cron window (10PM-midnight UTC = 6-8PM EDT)
-// Morning Railway restarts (UTC hour 1-21) are skipped automatically
-setTimeout(() => {
-  const utcHour = new Date().getUTCHours();
-  if (utcHour >= 22 || utcHour === 0) {
-    console.log(`\n🕐 Cron window detected (UTC hour: ${utcHour}) — running blueprint...`);
-    main().catch(err => {
-      console.error('\n❌ FATAL ERROR:', err.message);
-      console.error(err.stack);
-    });
-  } else {
-    console.log(`\n⏭️  Startup skipped (UTC hour: ${utcHour}) — outside cron window. Use /run-now to trigger manually.`);
+function runMainOnce(source) {
+  if (mainRunning) {
+    console.log(`\n⚠️  ${source} skipped — main() already running`);
+    return;
   }
-}, 3000);
+  mainRunning = true;
+  console.log(`\n🕐 ${source} — running blueprint...`);
+  main().catch(err => {
+    console.error(`\n❌ ${source} ERROR:`, err.message);
+    console.error(err.stack);
+  }).finally(() => { mainRunning = false; });
+}
+
+// 11PM UTC = 7PM EDT, Sunday-Friday (matches Railway's own Cron Job
+// resource — kept as a backup in case that resource ever misfires, guarded
+// against double-run by mainRunning above)
+cron.schedule('0 23 * * 0-5', () => {
+  runMainOnce('Internal cron (11PM UTC / 7PM EDT)');
+}, { timezone: 'UTC' });
+
+console.log('\n⏳ Server alive. Internal cron scheduled for 11PM UTC (7PM EDT) daily, Sun-Fri.');
 console.log('\n✅ Server ready. Waiting for Railway cron at 7PM EDT or /run-now request.');
 
 // Internal 9PM EDT cron removed Aug 14 2026 — Railway's platform-level Cron
