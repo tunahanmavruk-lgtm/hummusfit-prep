@@ -666,12 +666,12 @@ const GROUP2_MEALS = [
     yield: 75,
     baselineRate: 108,
     stove: "",
-    oven: "Frozen Cube Potatoes",
+    oven: "",
     grill: "",
     flatGrill: "Yellow Eggs",
     saladStation: "Cube Red and Green Peppers, Bacon",
     sauceStation: "",
-    mainKitchen: '',
+    mainKitchen: 'Frozen Cube Potatoes',
     rawMeats: ""
   },
   {
