@@ -1017,7 +1017,7 @@ const GROUP2_MEALS = [
     name: "Texas Queso Steak Bowl",
     yield: 70,
     baselineRate: 80,
-    stove: "Lime Rice, Queso Sauce",
+    stove: "Lime Rice",
     oven: "",
     grill: "",
     flatGrill: "Cube Seasoned Steak",
