@@ -12,19 +12,7 @@ const DIRECT_TO_ASSEMBLY = [
 ];
 
 const GROUP1_MEALS = [
-  {
-    name: "Arnold 2022 Bowl",
-    yield: 83,
-    baselineRate: 114,
-    stove: "Sticky Rice",
-    oven: "",
-    grill: "Arnold Chicken, Grilled Asparagus",
-    flatGrill: "",
-    saladStation: "",
-    sauceStation: "",
-    mainKitchen: '',
-    rawMeats: "Filet Chicken",
-  },
+
   {
     name: "Baja Chicken Tacos",
     yield: 75,
@@ -144,19 +132,7 @@ const GROUP1_MEALS = [
     rawMeats: "",
   },
 
-  {
-    name: "Chipotle Chicken (1lb Competition Approved)",
-    yield: 25,
-    baselineRate: 85,
-    stove: "",
-    oven: "",
-    grill: "Chipotle Chicken",
-    flatGrill: "",
-    saladStation: "",
-    sauceStation: "",
-    mainKitchen: '',
-    rawMeats: "Filet Chicken",
-  },
+
   {
     name: "Cinnamon Roll Pancakes",
     yield: 60,
@@ -313,19 +289,7 @@ const GROUP1_MEALS = [
     mainKitchen: '',
     rawMeats: "Filet Chicken",
   },
-  {
-    name: "Grilled Chicken Parmesan Wrap",
-    yield: 70,
-    baselineRate: 129,
-    stove: "",
-    oven: "Chicken Parm Wrap",
-    grill: "",
-    flatGrill: "",
-    saladStation: "",
-    sauceStation: "",
-    mainKitchen: '',
-    rawMeats: "Filet Chicken",
-  },
+
   {
     name: "Grilled Chicken Pesto Wrap",
     yield: 73,
@@ -1043,7 +1007,46 @@ const GROUP2_MEALS = [
     sauceStation: "Zeus Sauce",
     mainKitchen: 'Chicken Kebab',
     rawMeats: "Cube Chicken"
-  }
+  },
+  {
+    name: "Chipotle Chicken (1lb Competition Approved)",
+    yield: 25,
+    baselineRate: 85,
+    stove: "",
+    oven: "",
+    grill: "Chipotle Chicken",
+    flatGrill: "",
+    saladStation: "",
+    sauceStation: "",
+    mainKitchen: '',
+    rawMeats: "Filet Chicken",
+  },
+  {
+    name: "Arnold 2022 Bowl",
+    yield: 83,
+    baselineRate: 114,
+    stove: "Sticky Rice",
+    oven: "",
+    grill: "Arnold Chicken, Grilled Asparagus",
+    flatGrill: "",
+    saladStation: "",
+    sauceStation: "",
+    mainKitchen: '',
+    rawMeats: "Filet Chicken",
+  },
+  {
+    name: "Grilled Chicken Parmesan Wrap",
+    yield: 70,
+    baselineRate: 129,
+    stove: "",
+    oven: "Chicken Parm Wrap",
+    grill: "",
+    flatGrill: "",
+    saladStation: "",
+    sauceStation: "",
+    mainKitchen: '',
+    rawMeats: "Filet Chicken",
+  },
 ];
 
 module.exports = { GROUP1_MEALS, GROUP2_MEALS, DIRECT_TO_ASSEMBLY };
