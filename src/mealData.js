@@ -17,13 +17,14 @@ const GROUP1_MEALS = [
     name: "Baja Chicken Tacos",
     yield: 75,
     baselineRate: 176,
-    stove: "Basmati Rice",
+    stove: "",
     oven: "",
     grill: "Baja Chicken",
     flatGrill: "",
     saladStation: "Cut Cilantro",
     sauceStation: "",
     mainKitchen: '',
+    holbrook: 'Basmati Rice',
     rawMeats: "Filet Chicken",
   },
 
@@ -38,6 +39,7 @@ const GROUP1_MEALS = [
     saladStation: "",
     sauceStation: "",
     mainKitchen: 'Tilapia',
+    holbrook: '',
     rawMeats: "",
   },
   {
@@ -51,6 +53,7 @@ const GROUP1_MEALS = [
     saladStation: "",
     sauceStation: "",
     mainKitchen: '',
+    holbrook: '',
     rawMeats: "Cube Chicken",
   },
   {
@@ -64,6 +67,7 @@ const GROUP1_MEALS = [
     saladStation: "",
     sauceStation: "Blueberry French Toast Sauce",
     mainKitchen: '',
+    holbrook: '',
     rawMeats: "",
   },
   {
@@ -77,6 +81,7 @@ const GROUP1_MEALS = [
     saladStation: "",
     sauceStation: "",
     mainKitchen: '',
+    holbrook: '',
     rawMeats: "Filet Chicken",
   },
   {
@@ -84,12 +89,13 @@ const GROUP1_MEALS = [
     yield: 75,
     baselineRate: 277,
     stove: "",
-    oven: "Chipotle Chicken",
+    oven: "",
     grill: "",
     flatGrill: "",
     saladStation: "Burrito Salad",
     sauceStation: "",
     mainKitchen: '',
+    holbrook: 'Chipotle Chicken',
     rawMeats: "Filet Chicken",
   },
   {
@@ -103,6 +109,7 @@ const GROUP1_MEALS = [
     saladStation: "",
     sauceStation: "Buffalo Meatball Sauce",
     mainKitchen: 'Sweet Potato Fries',
+    holbrook: '',
     rawMeats: "Ground Chicken",
   },
   {
@@ -116,6 +123,7 @@ const GROUP1_MEALS = [
     saladStation: "Celery",
     sauceStation: "Buffalo Crispy Chicken Sauce",
     mainKitchen: 'Mix Buffalo Crispy, Buffalo Crispy Chicken',
+    holbrook: '',
     rawMeats: "",
   },
   {
@@ -129,6 +137,7 @@ const GROUP1_MEALS = [
     saladStation: "Sliced Mushrooms",
     sauceStation: "",
     mainKitchen: '',
+    holbrook: '',
     rawMeats: "",
   },
 
@@ -144,6 +153,7 @@ const GROUP1_MEALS = [
     saladStation: "",
     sauceStation: "Cinnamon Sauce",
     mainKitchen: '',
+    holbrook: '',
     rawMeats: "",
   },
   {
@@ -157,6 +167,7 @@ const GROUP1_MEALS = [
     saladStation: "",
     sauceStation: "Club Wrap Sauce",
     mainKitchen: '',
+    holbrook: '',
     rawMeats: "Pesto Chicken",
   },
   {
@@ -170,6 +181,7 @@ const GROUP1_MEALS = [
     saladStation: "",
     sauceStation: "",
     mainKitchen: 'Chicken Kebab',
+    holbrook: '',
     rawMeats: "Cube Chicken",
   },
   {
@@ -183,19 +195,21 @@ const GROUP1_MEALS = [
     saladStation: "",
     sauceStation: "",
     mainKitchen: '',
+    holbrook: '',
     rawMeats: "Filet Chicken",
   },
   {
     name: "Competition Approved Sticky Rice (1lb)",
     yield: 32,
     baselineRate: 40,
-    stove: "Sticky Rice",
+    stove: "",
     oven: "",
     grill: "",
     flatGrill: "",
     saladStation: "",
     sauceStation: "",
     mainKitchen: '',
+    holbrook: 'Sticky Rice',
     rawMeats: "",
   },
   {
@@ -209,6 +223,7 @@ const GROUP1_MEALS = [
     saladStation: "",
     sauceStation: "",
     mainKitchen: 'Cod',
+    holbrook: '',
     rawMeats: "",
   },
   {
@@ -222,6 +237,7 @@ const GROUP1_MEALS = [
     saladStation: "",
     sauceStation: "Vegan Crispy Sauce",
     mainKitchen: '',
+    holbrook: '',
     rawMeats: "",
   },
   {
@@ -235,6 +251,7 @@ const GROUP1_MEALS = [
     saladStation: "Scallions",
     sauceStation: "",
     mainKitchen: '',
+    holbrook: '',
     rawMeats: "Filet Chicken",
   },
   {
@@ -248,6 +265,7 @@ const GROUP1_MEALS = [
     saladStation: "Parsley",
     sauceStation: "",
     mainKitchen: '',
+    holbrook: '',
     rawMeats: "Filet Chicken",
   },
   {
@@ -261,6 +279,7 @@ const GROUP1_MEALS = [
     saladStation: "",
     sauceStation: "",
     mainKitchen: 'Fit Fil-A Waffle Fries',
+    holbrook: '',
     rawMeats: "Filet Chicken",
   },
   {
@@ -274,6 +293,7 @@ const GROUP1_MEALS = [
     saladStation: "",
     sauceStation: "Glorious Sauce",
     mainKitchen: '',
+    holbrook: '',
     rawMeats: "Cube Steak",
   },
   {
@@ -287,6 +307,7 @@ const GROUP1_MEALS = [
     saladStation: "Parsley",
     sauceStation: "",
     mainKitchen: '',
+    holbrook: '',
     rawMeats: "Filet Chicken",
   },
 
@@ -301,6 +322,7 @@ const GROUP1_MEALS = [
     saladStation: "Fresh Mozzarella",
     sauceStation: "Pesto Sauce",
     mainKitchen: '',
+    holbrook: '',
     rawMeats: "Pesto Chicken",
   },
   {
@@ -314,6 +336,7 @@ const GROUP1_MEALS = [
     saladStation: "Hey Arnold Salad",
     sauceStation: "",
     mainKitchen: '',
+    holbrook: '',
     rawMeats: "Filet Chicken",
   },
   {
@@ -327,6 +350,7 @@ const GROUP1_MEALS = [
     saladStation: "Mix Rotini Pasta",
     sauceStation: "",
     mainKitchen: '',
+    holbrook: '',
     rawMeats: "",
   },
   {
@@ -340,6 +364,7 @@ const GROUP1_MEALS = [
     saladStation: "",
     sauceStation: "",
     mainKitchen: '',
+    holbrook: '',
     rawMeats: "",
   },
 
@@ -354,6 +379,7 @@ const GROUP1_MEALS = [
     saladStation: "",
     sauceStation: "",
     mainKitchen: 'Sweet Potato Fries',
+    holbrook: '',
     rawMeats: "",
   },
   {
@@ -367,19 +393,21 @@ const GROUP1_MEALS = [
     saladStation: "",
     sauceStation: "",
     mainKitchen: 'Sweet Potato Fries',
+    holbrook: '',
     rawMeats: "",
   },
   {
     name: "Southwest Chicken Bowl",
     yield: 75,
     baselineRate: 147,
-    stove: "Basmati Rice",
+    stove: "",
     oven: "SW Chicken",
     grill: "",
     flatGrill: "",
     saladStation: "Corn Salad",
     sauceStation: "",
     mainKitchen: '',
+    holbrook: 'Basmati Rice',
     rawMeats: "Filet Chicken",
   },
 
@@ -394,6 +422,7 @@ const GROUP1_MEALS = [
     saladStation: "",
     sauceStation: "",
     mainKitchen: 'Chicken Kebab',
+    holbrook: '',
     rawMeats: "Cube Chicken",
   },
   {
@@ -407,6 +436,7 @@ const GROUP1_MEALS = [
     saladStation: "",
     sauceStation: "",
     mainKitchen: 'Mix & Form Burgers, Stacked and Jacked Potato',
+    holbrook: '',
     rawMeats: "",
   },
   {
@@ -420,19 +450,21 @@ const GROUP1_MEALS = [
     saladStation: "",
     sauceStation: "Strawberry French Toast Sauce",
     mainKitchen: '',
+    holbrook: '',
     rawMeats: "",
   },
   {
     name: "Thai Chili Chicken",
     yield: 72,
     baselineRate: 125,
-    stove: "Sticky Rice",
+    stove: "",
     oven: "",
     grill: "",
     flatGrill: "Thai Chili Chicken",
     saladStation: "",
     sauceStation: "",
     mainKitchen: '',
+    holbrook: 'Sticky Rice',
     rawMeats: "Cube Chicken",
   },
   {
@@ -446,6 +478,7 @@ const GROUP1_MEALS = [
     saladStation: "",
     sauceStation: "",
     mainKitchen: 'Egg Muffin',
+    holbrook: '',
     rawMeats: "",
   },
   {
@@ -460,19 +493,21 @@ const GROUP1_MEALS = [
     saladStation: "",
     sauceStation: "",
     mainKitchen: '',
+    holbrook: '',
     rawMeats: "",
   },
   {
     name: "Vegan Cheeseburger Bowl",
     isVegan: true,
     yield: 28,
-    stove: "Basmati Rice",
+    stove: "",
     oven: "Vegan Chorizo",
     grill: "",
     flatGrill: "",
     saladStation: "Onion/Pickle",
     sauceStation: "",
     mainKitchen: '',
+    holbrook: 'Basmati Rice',
     rawMeats: "",
   },
 
@@ -487,6 +522,7 @@ const GROUP1_MEALS = [
     saladStation: "Texas Hash Salad",
     sauceStation: "",
     mainKitchen: 'Ground Beef',
+    holbrook: '',
     rawMeats: "",
   },
   {
@@ -500,6 +536,7 @@ const GROUP1_MEALS = [
     saladStation: "",
     sauceStation: "",
     mainKitchen: 'Sweet Potato Fries, Ground Beef',
+    holbrook: '',
     rawMeats: "",
   },
   {
@@ -513,6 +550,7 @@ const GROUP1_MEALS = [
     saladStation: "Quesadilla Veggies",
     sauceStation: "",
     mainKitchen: '',
+    holbrook: '',
     rawMeats: "",
   },
 
@@ -527,6 +565,7 @@ const GROUP1_MEALS = [
     saladStation: "Mix Ranch Fold",
     sauceStation: "",
     mainKitchen: '',
+    holbrook: '',
     rawMeats: "Filet Chicken"
   },
   {
@@ -540,19 +579,21 @@ const GROUP1_MEALS = [
     saladStation: "Mix Taco Build Quesadilla",
     sauceStation: "",
     mainKitchen: '',
+    holbrook: '',
     rawMeats: "Triple Cut Cube"
   },
   {
     name: "Cheeseburger Bowl",
     yield: 93,
     baselineRate: 124,
-    stove: "Basmati Rice",
+    stove: "",
     oven: "",
     grill: "",
     flatGrill: "",
     saladStation: "Onion/Pickle",
     sauceStation: "",
     mainKitchen: 'Ground Beef',
+    holbrook: 'Basmati Rice',
     rawMeats: "",
   },
 ];
@@ -569,6 +610,7 @@ const GROUP2_MEALS = [
     saladStation: "Onion/Pickle",
     sauceStation: "",
     mainKitchen: 'Ground Beef',
+    holbrook: '',
     rawMeats: "",
   },
   {
@@ -582,6 +624,7 @@ const GROUP2_MEALS = [
     saladStation: "Red Bean Corn Salad",
     sauceStation: "",
     mainKitchen: '',
+    holbrook: '',
     rawMeats: "",
   },
 
@@ -597,6 +640,7 @@ const GROUP2_MEALS = [
     saladStation: "",
     sauceStation: "",
     mainKitchen: 'Mix & Form Burgers, Sweet Potato Fries',
+    holbrook: '',
     rawMeats: ""
   },
   {
@@ -610,6 +654,7 @@ const GROUP2_MEALS = [
     saladStation: "",
     sauceStation: "",
     mainKitchen: '',
+    holbrook: '',
     rawMeats: "Cube Chicken",
   },
   {
@@ -623,6 +668,7 @@ const GROUP2_MEALS = [
     saladStation: "Cut Parsley, Scallions",
     sauceStation: "",
     mainKitchen: '',
+    holbrook: '',
     rawMeats: "Cube Chicken"
   },
   {
@@ -636,6 +682,7 @@ const GROUP2_MEALS = [
     saladStation: "Cube Red and Green Peppers, Bacon",
     sauceStation: "",
     mainKitchen: 'Frozen Cube Potatoes',
+    holbrook: '',
     rawMeats: ""
   },
   {
@@ -649,6 +696,7 @@ const GROUP2_MEALS = [
     saladStation: "Buffalo Chicken Quesadilla Veggies",
     sauceStation: "",
     mainKitchen: '',
+    holbrook: '',
     rawMeats: ""
   },
   {
@@ -662,6 +710,7 @@ const GROUP2_MEALS = [
     saladStation: "",
     sauceStation: "",
     mainKitchen: 'Chicken Kebab',
+    holbrook: '',
     rawMeats: "Cube Chicken"
   },
 
@@ -676,6 +725,7 @@ const GROUP2_MEALS = [
     saladStation: "",
     sauceStation: "",
     mainKitchen: '',
+    holbrook: '',
     rawMeats: "Cube Chicken"
   },
   {
@@ -689,6 +739,7 @@ const GROUP2_MEALS = [
     saladStation: "",
     sauceStation: "",
     mainKitchen: 'Ground Beef',
+    holbrook: '',
     rawMeats: ""
   },
   {
@@ -702,6 +753,7 @@ const GROUP2_MEALS = [
     saladStation: "",
     sauceStation: "",
     mainKitchen: 'Sweet Potato Fries',
+    holbrook: '',
     rawMeats: ""
   },
   {
@@ -715,6 +767,7 @@ const GROUP2_MEALS = [
     saladStation: "",
     sauceStation: "",
     mainKitchen: '',
+    holbrook: '',
     rawMeats: "Filet Chicken"
   },
   {
@@ -728,6 +781,7 @@ const GROUP2_MEALS = [
     saladStation: "",
     sauceStation: "",
     mainKitchen: '',
+    holbrook: '',
     rawMeats: ""
   },
   {
@@ -741,19 +795,21 @@ const GROUP2_MEALS = [
     saladStation: "",
     sauceStation: "",
     mainKitchen: '',
+    holbrook: '',
     rawMeats: ""
   },
   {
     name: "Competition Approved White Basmati Rice (1lb)",
     yield: 27,
     baselineRate: 22,
-    stove: "Basmati Rice",
+    stove: "",
     oven: "",
     grill: "",
     flatGrill: "",
     saladStation: "",
     sauceStation: "",
     mainKitchen: '',
+    holbrook: 'Basmati Rice',
     rawMeats: ""
   },
   {
@@ -767,6 +823,7 @@ const GROUP2_MEALS = [
     saladStation: "",
     sauceStation: "",
     mainKitchen: 'Crispy Chicken',
+    holbrook: '',
     rawMeats: "",
   },
   {
@@ -779,6 +836,7 @@ const GROUP2_MEALS = [
     saladStation: "Scallions",
     sauceStation: "",
     mainKitchen: '',
+    holbrook: '',
     rawMeats: "Cube Steak",
   },
   {
@@ -792,6 +850,7 @@ const GROUP2_MEALS = [
     saladStation: "Fold Mix",
     sauceStation: "",
     mainKitchen: '',
+    holbrook: '',
     rawMeats: "Filet Chicken"
   },
   {
@@ -805,6 +864,7 @@ const GROUP2_MEALS = [
     saladStation: "",
     sauceStation: "",
     mainKitchen: '',
+    holbrook: '',
     rawMeats: "Ground Chicken"
   },
   {
@@ -818,6 +878,7 @@ const GROUP2_MEALS = [
     saladStation: "Scallions",
     sauceStation: "",
     mainKitchen: '',
+    holbrook: '',
     rawMeats: "Pesto Steak"
   },
 
@@ -833,6 +894,7 @@ const GROUP2_MEALS = [
     saladStation: "",
     sauceStation: "",
     mainKitchen: 'Nuggets',
+    holbrook: '',
     rawMeats: ""
   },
   {
@@ -846,6 +908,7 @@ const GROUP2_MEALS = [
     saladStation: "Scallions",
     sauceStation: "",
     mainKitchen: '',
+    holbrook: '',
     rawMeats: "Ground Chicken"
   },
   {
@@ -859,6 +922,7 @@ const GROUP2_MEALS = [
     saladStation: "",
     sauceStation: "",
     mainKitchen: '',
+    holbrook: '',
     rawMeats: ""
   },
 
@@ -868,13 +932,14 @@ const GROUP2_MEALS = [
     name: "Teriyaki Flank Bowl",
     yield: 80,
     baselineRate: 139,
-    stove: "Basmati Rice",
+    stove: "",
     oven: "",
     grill: "Teriyaki Steak",
     flatGrill: "",
     saladStation: "",
     sauceStation: "",
     mainKitchen: '',
+    holbrook: 'Basmati Rice',
     rawMeats: ""
   },
 
@@ -889,19 +954,21 @@ const GROUP2_MEALS = [
     saladStation: "Cut Parsley",
     sauceStation: "",
     mainKitchen: 'Ground Beef',
+    holbrook: '',
     rawMeats: ""
   },
   {
     name: "Zeus Bowl",
     yield: 78,
     baselineRate: 177,
-    stove: "Basmati Rice",
+    stove: "",
     oven: "",
     grill: "",
     flatGrill: "",
     saladStation: "",
     sauceStation: "Zeus Sauce",
     mainKitchen: 'Chicken Kebab',
+    holbrook: 'Basmati Rice',
     rawMeats: "Cube Chicken"
   },
   {
@@ -915,6 +982,7 @@ const GROUP2_MEALS = [
     saladStation: "Vegan Quesadillas Mix",
     sauceStation: "",
     mainKitchen: '',
+    holbrook: '',
     rawMeats: "",
   },
   {
@@ -928,6 +996,7 @@ const GROUP2_MEALS = [
     saladStation: "",
     sauceStation: "CFA Sauce",
     mainKitchen: 'Russet Potato Wedges, Crispy Chicken Bowl Tenders',
+    holbrook: '',
     rawMeats: "",
   },
   {
@@ -941,6 +1010,7 @@ const GROUP2_MEALS = [
     saladStation: "White Onion",
     sauceStation: "Arches Mac Daddy Sauce",
     mainKitchen: 'Ground Beef',
+    holbrook: '',
     rawMeats: "",
   },
   {
@@ -954,6 +1024,7 @@ const GROUP2_MEALS = [
     saladStation: "Bean Salad, Onion & Peppers",
     sauceStation: "",
     mainKitchen: '',
+    holbrook: '',
     rawMeats: "Cube Steak",
   },
   {
@@ -967,6 +1038,7 @@ const GROUP2_MEALS = [
     saladStation: "Peppers and Onions for Philly",
     sauceStation: "Philly Steak Sauce",
     mainKitchen: '',
+    holbrook: '',
     rawMeats: "",
   },
   {
@@ -980,6 +1052,7 @@ const GROUP2_MEALS = [
     saladStation: "Cole Slaw Mix",
     sauceStation: "",
     mainKitchen: 'Popcorn Chicken',
+    holbrook: '',
     rawMeats: "",
   },
   {
@@ -993,6 +1066,7 @@ const GROUP2_MEALS = [
     saladStation: "Caramelized Onion",
     sauceStation: "Animal Style West Coast Sauce",
     mainKitchen: 'Russet Wedge Potatoes, Ground Beef',
+    holbrook: '',
     rawMeats: "",
   },
   {
@@ -1006,6 +1080,7 @@ const GROUP2_MEALS = [
     saladStation: "",
     sauceStation: "Zeus Sauce",
     mainKitchen: 'Chicken Kebab',
+    holbrook: '',
     rawMeats: "Cube Chicken"
   },
   {
@@ -1019,19 +1094,21 @@ const GROUP2_MEALS = [
     saladStation: "",
     sauceStation: "",
     mainKitchen: '',
+    holbrook: '',
     rawMeats: "Filet Chicken",
   },
   {
     name: "Arnold 2022 Bowl",
     yield: 83,
     baselineRate: 114,
-    stove: "Sticky Rice",
+    stove: "",
     oven: "",
     grill: "Arnold Chicken, Grilled Asparagus",
     flatGrill: "",
     saladStation: "",
     sauceStation: "",
     mainKitchen: '',
+    holbrook: 'Sticky Rice',
     rawMeats: "Filet Chicken",
   },
   {
@@ -1045,6 +1122,7 @@ const GROUP2_MEALS = [
     saladStation: "",
     sauceStation: "",
     mainKitchen: '',
+    holbrook: '',
     rawMeats: "Filet Chicken",
   },
 ];
