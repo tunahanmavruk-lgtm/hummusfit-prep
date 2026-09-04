@@ -30,9 +30,10 @@ const COL = {
   SALAD:      6,  // G
   SAUCE:      7,  // H
   RAW_MEATS:  8,  // I
-  MAIN_KITCHEN: 9  // J
+  MAIN_KITCHEN: 9,  // J
+  HOLBROOK:   10  // K
 };
-const TOTAL_COLS = 10;
+const TOTAL_COLS = 15;
 
 const STATION_COLS = [
   { key: 'stove',        col: COL.STOVE,      header: 'STOVE'      },
@@ -43,6 +44,7 @@ const STATION_COLS = [
   { key: 'sauceStation', col: COL.SAUCE,       header: 'SAUCE'      },
   { key: 'rawMeats',     col: COL.RAW_MEATS,   header: 'RAW MEATS'  },
   { key: 'mainKitchen', col: COL.MAIN_KITCHEN, header: 'MAIN KITCHEN' },
+  { key: 'holbrook',    col: COL.HOLBROOK,     header: 'HOLBROOK'     },
 ];
 
 function tabName() {
@@ -126,7 +128,7 @@ async function syncToSheets(prepSheet, groupNum, dayName, eventName) {
   const eventSuffix = eventName ? ` — ${eventName}` : '';
   const titleText   = `HummusFit Kitchen — Group ${groupNum} | ${tab}${eventSuffix}`;
 
-  const headerRow = ['MEAL NAME', '#', 'STOVE', 'OVEN', 'GRILL', 'FLAT GRILL', 'SALAD', 'SAUCE', 'RAW MEATS', 'MAIN KITCHEN'];
+  const headerRow = ['MEAL NAME', '#', 'STOVE', 'OVEN', 'GRILL', 'FLAT GRILL', 'SALAD', 'SAUCE', 'RAW MEATS', 'MAIN KITCHEN', 'HOLBROOK'];
 
   // Station cells: just the task name (dropdown overlaid separately)
   const dataRows = activeMeals.map(m => {
