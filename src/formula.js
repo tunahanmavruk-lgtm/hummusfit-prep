@@ -880,6 +880,16 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
     }
   }
 
+  // Labor Day Saturday: scale batches to 30% — rates inflated 2x, prevents overstock
+  const _ldSat = executionDate.getDay() === 5 && executionDate.getMonth() === 8 && executionDate.getDate() === 4;
+  if (_ldSat) {
+    console.log('⚡ Labor Day Saturday cap: scaling all batches to 30%');
+    prepSheet.forEach(m => {
+      m.batches = Math.max(0, Math.round(m.batches * 0.30));
+      m.exactUnits = m.batches * (m._debug ? m._debug.yield : 75);
+    });
+  }
+
   return prepSheet;
 }
 
