@@ -701,7 +701,9 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
     const TARGET_DAYS = holidayOverride !== null ? holidayOverride
       : isThursday && executionDate.getMonth() === 8 && executionDate.getDate() === 2 ? 5.4   // Labor Day: cron runs Wed Sep 2, generates Thu Sep 3 cook
       : isFriday && executionDate.getMonth() === 8 && executionDate.getDate() === 3 ? 6.5   // Labor Day: cron runs Thu Sep 3, generates Fri Sep 4 (no Mon Sep 7 cook → covers Sat PM→Thu PM)
-      : isThursday ? 6.0 : isFriday ? 4.6 : isSaturday ? 4.5 : isTuesday ? 4.0 : isWednesday ? 4.0 : isMonday ? 4.0 : 4.0;
+      : isThursday ? 6.0 : isFriday ? 4.6
+      : isSaturday && executionDate.getMonth() === 8 && executionDate.getDate() === 4 ? 1.5   // Labor Day: Sat cook lands Mon but packaged Tue → only covers Tue PM→Wed PM
+      : isSaturday ? 4.5 : isTuesday ? 4.0 : isWednesday ? 4.0 : isMonday ? 4.0 : 4.0;
 
     // Target inventory = daily rate × days to cover
 
