@@ -55,6 +55,7 @@ function buildHtml(prepSheet, groupNumber, dayName, eventName = null, eventMulti
         <td class="td-sauce">${meal.sauceStation || ''}</td>
         <td class="td-meats">${meal.rawMeats || ''}</td>
         <td class="td-mainkitchen">${meal.mainKitchen || ''}</td>
+        <td class="td-holbrook">${meal.holbrook || ''}</td>
       </tr>
     `;
   }).join('');
@@ -196,6 +197,7 @@ function buildHtml(prepSheet, groupNumber, dayName, eventName = null, eventMulti
   col.col-batch      { width: 5%; }
   col.col-station    { width: 9.5%; }
   col.col-mainkitchen { width: 9.5%; }
+  col.col-holbrook { width: 9%; }
 
   /* ── COLUMN HEADERS ── */
   thead tr { background: #1C4A45; }
@@ -223,7 +225,9 @@ function buildHtml(prepSheet, groupNumber, dayName, eventName = null, eventMulti
   th.col-sauce     { border-left: 2px solid #2E7D5E; }
   th.col-meats     { border-left: 2px solid #C0392B; }
   th.col-mainkitchen { border-left: 2px solid #8E44AD; }
+  th.col-holbrook { border-left: 2px solid #0EA5E9; }
   td.td-mainkitchen  { border-left: 2px solid #8E44AD; color: #6C3483; font-weight: 500; }
+  td.td-holbrook  { border-left: 2px solid #0EA5E9; color: #0876ab; font-weight: 500; }
 
   /* ── ROWS ── */
   tbody tr:nth-child(odd)  { background: #ffffff; }
@@ -411,6 +415,7 @@ ${eventBanner}
     <col class="col-station">
     <col class="col-station">
     <col class="col-mainkitchen">
+    <col class="col-holbrook">
   </colgroup>
   <thead>
     <tr>
@@ -424,6 +429,7 @@ ${eventBanner}
       <th class="col-sauce"><span class="icon">◈</span> Sauce Station</th>
       <th class="col-meats"><span class="icon">◆</span> Raw Meats</th>
       <th class="col-mainkitchen"><span class="icon">★</span> Main Kitchen</th>
+      <th class="col-holbrook"><span class="icon">🚚</span> Holbrook</th>
     </tr>
   </thead>
   <tbody>
