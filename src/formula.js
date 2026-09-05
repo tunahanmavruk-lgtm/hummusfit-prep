@@ -881,7 +881,7 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
   }
 
   // Labor Day Saturday: scale batches to 30% — rates inflated 2x, prevents overstock
-  const _ldSat = executionDate.getDay() === 5 && executionDate.getMonth() === 8 && executionDate.getDate() === 4;
+  const _ldSat = isSaturday && executionDate.getUTCMonth() === 8 && executionDate.getUTCDate() === 5; // UTC Sep 5
   if (_ldSat) {
     console.log('⚡ Labor Day Saturday cap: scaling all batches to 30%');
     prepSheet.forEach(m => {
