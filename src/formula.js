@@ -805,6 +805,7 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
       sauceStation:     meal.sauceStation || '',
       rawMeats:         meal.rawMeats     || '',
       mainKitchen:      meal.mainKitchen  || '',
+      holbrook:         meal.holbrook     || '',
       eventMultiplier,
       eventName:        eventName || null,
       _debug: {
