@@ -701,7 +701,7 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
     // Labor Day 2026 overrides — precomputed for clarity
     const isLaborDayThursday = isThursday && executionDate.getMonth() === 8 && executionDate.getDate() === 2;
     const isLaborDayFriday   = isFriday   && executionDate.getMonth() === 8 && executionDate.getDate() === 3;
-    const isLaborDaySaturday = isSaturday && executionDate.getMonth() === 8 && executionDate.getDate() === 4;
+    const isLaborDaySaturday = executionDate.getDay() === 5 && executionDate.getMonth() === 8 && executionDate.getDate() === 4; // Fri Sep 4 cron → Sat Sep 5 cook
     const TARGET_DAYS = holidayOverride !== null ? holidayOverride
       : isLaborDayThursday ? 5.4
       : isLaborDayFriday   ? 6.5
