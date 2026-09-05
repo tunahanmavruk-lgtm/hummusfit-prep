@@ -702,7 +702,7 @@ function calculateBatches(meals, inventory, sales, salesWindowDays = 7, dayName 
       : isThursday && executionDate.getMonth() === 8 && executionDate.getDate() === 2 ? 5.4   // Labor Day: cron runs Wed Sep 2, generates Thu Sep 3 cook
       : isFriday && executionDate.getMonth() === 8 && executionDate.getDate() === 3 ? 6.5   // Labor Day: cron runs Thu Sep 3, generates Fri Sep 4 (no Mon Sep 7 cook → covers Sat PM→Thu PM)
       : isThursday ? 6.0 : isFriday ? 4.6
-      : isSaturday && executionDate.getMonth() === 8 && executionDate.getDate() === 4 ? 0.7   // Labor Day: rates inflated 2x so 0.7 = ~1.5 real days coverage
+      : isSaturday && (() => { const c=new Date(executionDate); c.setDate(c.getDate()+1); return c.getMonth()===8 && c.getDate()===5; })() ? 0.7   // Labor Day Sat Sep 5: cook lands Mon packaged Tue
       : isSaturday ? 4.5 : isTuesday ? 4.0 : isWednesday ? 4.0 : isMonday ? 4.0 : 4.0;
 
     // Target inventory = daily rate × days to cover
