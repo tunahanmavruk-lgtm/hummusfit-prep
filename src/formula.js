@@ -917,7 +917,34 @@ function getTodayEST() {
 /**
  * Get group number for TOMORROW's cook (1 or 2), or null if tomorrow is Sunday.
  */
+// Kitchen-closed holidays (2026 dates, verified) — update this list each
+// year. Format: MM-DD, matched against tomorrow's EST calendar date, since
+// the nightly run always preps for the NEXT day.
+const HOLIDAYS_2026 = new Set([
+  '01-01', // New Year's Day
+  '05-25', // Memorial Day
+  '07-04', // Independence Day
+  '09-07', // Labor Day
+  '11-26', // Thanksgiving Day
+  '12-25', // Christmas Day
+]);
+
+function getTomorrowDateEST() {
+  const now = new Date();
+  now.setDate(now.getDate() + 1);
+  // en-CA locale reliably produces unambiguous YYYY-MM-DD — en-US's 2-digit
+  // month/day format uses slashes ("01/01"), not dashes, which silently
+  // failed to match the HOLIDAYS_2026 Set until this was caught by testing.
+  const iso = now.toLocaleDateString('en-CA', { timeZone: 'America/New_York' });
+  return iso.slice(5); // "MM-DD"
+}
+
+function isHolidayTomorrow() {
+  return HOLIDAYS_2026.has(getTomorrowDateEST());
+}
+
 function getDayGroup() {
+  if (isHolidayTomorrow()) return null;
   const day = getTomorrowEST();
   return COOK_SCHEDULE[day]?.group || null;
 }
