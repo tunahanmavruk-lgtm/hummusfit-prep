@@ -934,12 +934,12 @@ const GROUP2_MEALS = [
     baselineRate: 139,
     stove: "",
     oven: "",
-    grill: "Teriyaki Steak",
+    grill: "",
     flatGrill: "",
     saladStation: "",
     sauceStation: "",
     mainKitchen: '',
-    holbrook: 'Basmati Rice',
+    holbrook: 'Basmati Rice, Teriyaki Steak',
     rawMeats: ""
   },
 
