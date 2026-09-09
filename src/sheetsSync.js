@@ -340,4 +340,65 @@ async function syncToSheets(prepSheet, groupNum, dayName, eventName) {
   return sheetUrl;
 }
 
-module.exports = { syncToSheets, tabName };
+// ── Persistent cross-container run lock ────────────────────────
+// The in-memory mainRunning guard only protects within a single process.
+// Railway has shown tonight that overlapping container instances can each
+// run main() independently, unaware of each other, silently overwriting
+// one another's output. This writes a timestamp to a dedicated Sheet tab
+// that ANY instance checks first, so the lock survives across restarts
+// and is visible to every container, not just the one holding it.
+const LOCK_TAB = '_lock';
+const LOCK_TIMEOUT_MS = 15 * 60 * 1000; // 15 min — generous given slow runs tonight
+
+async function ensureLockTabExists(sheets, spreadsheetId) {
+  const meta = await sheets.spreadsheets.get({ spreadsheetId });
+  const exists = meta.data.sheets.some(s => s.properties.title === LOCK_TAB);
+  if (!exists) {
+    await sheets.spreadsheets.batchUpdate({
+      spreadsheetId,
+      requestBody: { requests: [{ addSheet: { properties: { title: LOCK_TAB, gridProperties: { rowCount: 2, columnCount: 2 } } } }] }
+    });
+  }
+}
+
+async function acquireLock(reason) {
+  const spreadsheetId = process.env.GOOGLE_SHEET_ID;
+  const auth   = getAuthClient();
+  const sheets = google.sheets({ version: 'v4', auth });
+
+  await ensureLockTabExists(sheets, spreadsheetId);
+
+  let existingTimestamp = '';
+  try {
+    const res = await sheets.spreadsheets.values.get({ spreadsheetId, range: `${LOCK_TAB}!A1` });
+    existingTimestamp = res.data.values?.[0]?.[0] || '';
+  } catch { /* empty cell — no lock held */ }
+
+  if (existingTimestamp) {
+    const age = Date.now() - new Date(existingTimestamp).getTime();
+    if (age < LOCK_TIMEOUT_MS) {
+      console.log(`[lock] Held by another instance, ${Math.round(age/1000)}s old — ${reason} declined`);
+      return false;
+    }
+    console.log(`[lock] Stale lock (${Math.round(age/1000)}s old) — assuming crashed run, proceeding`);
+  }
+
+  await sheets.spreadsheets.values.update({
+    spreadsheetId,
+    range: `${LOCK_TAB}!A1`,
+    valueInputOption: 'RAW',
+    requestBody: { values: [[new Date().toISOString()]] }
+  });
+  console.log(`[lock] Acquired for: ${reason}`);
+  return true;
+}
+
+async function releaseLock() {
+  const spreadsheetId = process.env.GOOGLE_SHEET_ID;
+  const auth   = getAuthClient();
+  const sheets = google.sheets({ version: 'v4', auth });
+  await sheets.spreadsheets.values.clear({ spreadsheetId, range: `${LOCK_TAB}!A1` }).catch(() => {});
+  console.log('[lock] Released');
+}
+
+module.exports = { syncToSheets, tabName, acquireLock, releaseLock };

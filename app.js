@@ -31,7 +31,7 @@ const { fetchInventory, fetchSales }                      = require('./src/shopi
 const { calculateBatches, getDayGroup, getDayName,
         getEventMultiplier, getTodayEST, COOK_SCHEDULE }   = require('./src/formula');
 const { generatePdf }                                     = require('./src/generatePdf');
-const { syncToSheets } = require('./src/sheetsSync');
+const { syncToSheets, acquireLock, releaseLock } = require('./src/sheetsSync');
 const { sendEmail }                                       = require('./src/emailer');
 const { saveDailySales, getRollingAverages }               = require('./src/burnRateStore');
 
@@ -802,17 +802,27 @@ let cachedIntelligence = null;
 // happened earlier that day.
 let mainRunning = false;
 
-function runMainOnce(source) {
+async function runMainOnce(source) {
   if (mainRunning) {
-    console.log(`\n⚠️  ${source} skipped — main() already running`);
+    console.log(`\n⚠️  ${source} skipped — main() already running (local guard)`);
     return;
   }
   mainRunning = true;
-  console.log(`\n🕐 ${source} — running blueprint...`);
-  main().catch(err => {
+  try {
+    const gotLock = await acquireLock(source);
+    if (!gotLock) {
+      console.log(`\n⚠️  ${source} skipped — another instance holds the persistent run lock`);
+      return;
+    }
+    console.log(`\n🕐 ${source} — running blueprint...`);
+    await main();
+  } catch (err) {
     console.error(`\n❌ ${source} ERROR:`, err.message);
     console.error(err.stack);
-  }).finally(() => { mainRunning = false; });
+  } finally {
+    await releaseLock().catch(() => {});
+    mainRunning = false;
+  }
 }
 
 // 11PM UTC = 7PM EDT, Sunday-Friday (matches Railway's own Cron Job
