@@ -229,6 +229,7 @@ async function generateClosedPdf() {
 }
 
 async function main() {
+  console.time('TOTAL RUN');
 
 
   // TEMP OVERRIDE — force Thursday G2 for one run (remove after)
@@ -283,9 +284,12 @@ async function main() {
       sales[meal.name]     = Math.floor(Math.random() * 200) + 10;
     });
   } else {
+    console.time('Step 1: Inventory');
     console.log('📦 STEP 1: Pulling 6AM inventory from Shopify...\n');
     inventory = await fetchInventory(meals);
 
+    console.timeEnd('Step 1: Inventory');
+    console.time('Step 2: Sales');
     console.log("\n📊 STEP 2: Pulling sales data from Shopify...");
     sales = await fetchSales(meals, dayName);
 
@@ -299,6 +303,8 @@ async function main() {
   const rollingRates = await getRollingAverages(meals);
 
   // ── STEP 3: God Mode batch calculation ───────────────────────────────────
+  console.timeEnd('Step 2: Sales');
+  console.time('Step 3: Batch formula');
   console.log('\n🧮 STEP 3: Running God Mode batch formula...\n');
   const prepSheet = calculateBatches(meals, inventory, sales, 1, dayName, DIRECT_TO_ASSEMBLY, rollingRates);
 
@@ -360,6 +366,8 @@ async function main() {
   }
 
   // ── STEP 4: Generate PDF ─────────────────────────────────────────────────
+  console.timeEnd('Step 3: Batch formula');
+  console.time('Step 4: PDF generation');
   console.log('📄 STEP 4: Generating prep sheet PDF...\n');
   // Cache meals data for /meals endpoint
   const today = new Date().toISOString().split('T')[0];
@@ -473,15 +481,21 @@ async function main() {
     console.log('   Open it to verify formatting before going live.\n');
   } else {
   
+  console.timeEnd('Step 4: PDF generation');
+  console.time('Step 5: Email');
   console.log('📧 STEP 5: Sending email via Resend...\n');
     await sendEmail(pdfBuffer, groupNumber, dayName);
     console.log('\n✅ DONE! Master Blueprint delivered.\n');
 
   // Upload to Cloudinary for QR code access
+  console.timeEnd('Step 5: Email');
+  console.time('Step 6: Cloudinary upload');
   console.log('☁️  STEP 6: Uploading to Cloudinary for QR access...');
   await uploadToCloudinary(pdfBuffer);
   // ── STEP 7: Sync to Google Sheets KDS ─────────────────────
   try {
+    console.timeEnd('Step 6: Cloudinary upload');
+    console.time('Step 7: Sheets sync');
     console.log('\n📊 STEP 7: Syncing to Google Sheets KDS...');
     const sheetUrl = await syncToSheets(prepSheet, groupNumber, dayName, eventName);
     console.log(`  ✓ KDS sheet live: ${sheetUrl}`);
@@ -820,6 +834,8 @@ async function runMainOnce(source) {
     console.error(`\n❌ ${source} ERROR:`, err.message);
     console.error(err.stack);
   } finally {
+    try { console.timeEnd('Step 7: Sheets sync'); } catch {}
+    try { console.timeEnd('TOTAL RUN'); } catch {}
     await releaseLock().catch(() => {});
     mainRunning = false;
   }
