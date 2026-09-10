@@ -34,6 +34,7 @@ const { generatePdf }                                     = require('./src/gener
 const { syncToSheets, acquireLock, releaseLock } = require('./src/sheetsSync');
 const { sendEmail }                                       = require('./src/emailer');
 const { saveDailySales, getRollingAverages }               = require('./src/burnRateStore');
+const { getProductionClock, shouldRunScheduled }           = require('./src/scheduleGate');
 
 const http = require('http');
 const cron = require('node-cron');
@@ -43,6 +44,7 @@ const PDF_PATH = path.join(__dirname, 'latest_blueprint.pdf');
 const TEST_MODE = process.env.TEST_MODE === 'true' || process.argv.includes('--test');
 const VERBOSE   = process.argv.includes('--verbose');
 const RUN_ONCE  = process.argv.includes('--run-once');
+const SCHEDULED = process.argv.includes('--scheduled');
 
 // ── CLOUDINARY UPLOAD ────────────────────────────────────────
 async function uploadToCloudinary(pdfBuffer) {
@@ -845,12 +847,18 @@ async function runMainOnce(source) {
 }
 
 if (RUN_ONCE) {
-  runMainOnce('One-shot scheduled run')
-    .then(ok => process.exit(ok ? 0 : 1))
-    .catch(err => {
-      console.error('\n❌ One-shot runner failed:', err);
-      process.exit(1);
-    });
+  const productionClock = getProductionClock();
+  if (SCHEDULED && !shouldRunScheduled()) {
+    console.log(`\n⏭️  UTC schedule check skipped at ${productionClock.weekday} ${String(productionClock.hour).padStart(2, '0')}:00 America/New_York.`);
+    process.exit(0);
+  } else {
+    runMainOnce('One-shot scheduled run')
+      .then(ok => process.exit(ok ? 0 : 1))
+      .catch(err => {
+        console.error('\n❌ One-shot runner failed:', err);
+        process.exit(1);
+      });
+  }
 } else {
   server.listen(PORT, () => {
     console.log(`\n🌐 PDF server running on port ${PORT}`);

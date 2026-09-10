@@ -4,7 +4,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "start:cron": "node app.js --run-once"
+    "start:cron": "node app.js --run-once --scheduled"
   },
   "dependencies": {
     "googleapis": "^173.0.0",
