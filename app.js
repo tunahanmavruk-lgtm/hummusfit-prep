@@ -42,6 +42,7 @@ const PDF_PATH = path.join(__dirname, 'latest_blueprint.pdf');
 
 const TEST_MODE = process.env.TEST_MODE === 'true' || process.argv.includes('--test');
 const VERBOSE   = process.argv.includes('--verbose');
+const RUN_ONCE  = process.argv.includes('--run-once');
 
 // ── CLOUDINARY UPLOAD ────────────────────────────────────────
 async function uploadToCloudinary(pdfBuffer) {
@@ -737,7 +738,7 @@ setInterval(()=>{ window.location.reload(); }, REFRESH_MS);
 
 // ── HTTP SERVER — serves latest PDF at /blueprint ───────────
 const PORT = process.env.PORT || 3000;
-http.createServer((req, res) => {
+const server = http.createServer((req, res) => {
   if (req.url === '/health') {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({ status: 'ok', uptime: process.uptime(), timestamp: new Date().toISOString() }));
@@ -798,8 +799,6 @@ http.createServer((req, res) => {
     res.writeHead(404);
     res.end('Not found');
   }
-}).listen(PORT, () => {
-  console.log(`\n🌐 PDF server running on port ${PORT}`);
 });
 
 // Cache for /meals endpoint
@@ -819,40 +818,49 @@ let mainRunning = false;
 async function runMainOnce(source) {
   if (mainRunning) {
     console.log(`\n⚠️  ${source} skipped — main() already running (local guard)`);
-    return;
+    return true;
   }
   mainRunning = true;
+  let lockAcquired = false;
   try {
     const gotLock = await acquireLock(source);
     if (!gotLock) {
       console.log(`\n⚠️  ${source} skipped — another instance holds the persistent run lock`);
-      return;
+      return true;
     }
+    lockAcquired = true;
     console.log(`\n🕐 ${source} — running blueprint...`);
     await main();
+    return true;
   } catch (err) {
     console.error(`\n❌ ${source} ERROR:`, err.message);
     console.error(err.stack);
+    return false;
   } finally {
     try { console.timeEnd('Step 7: Sheets sync'); } catch {}
     try { console.timeEnd('TOTAL RUN'); } catch {}
-    await releaseLock().catch(() => {});
+    if (lockAcquired) await releaseLock().catch(() => {});
     mainRunning = false;
   }
 }
 
-// 11PM UTC = 7PM EDT, Sunday-Friday (matches Railway's own Cron Job
-// resource — kept as a backup in case that resource ever misfires, guarded
-// against double-run by mainRunning above)
-cron.schedule('0 23 * * 0-5', () => {
-  runMainOnce('Internal cron (11PM UTC / 7PM EDT)');
-}, { timezone: 'UTC' });
+if (RUN_ONCE) {
+  runMainOnce('One-shot scheduled run')
+    .then(ok => process.exit(ok ? 0 : 1))
+    .catch(err => {
+      console.error('\n❌ One-shot runner failed:', err);
+      process.exit(1);
+    });
+} else {
+  server.listen(PORT, () => {
+    console.log(`\n🌐 PDF server running on port ${PORT}`);
+  });
 
-console.log('\n⏳ Server alive. Internal cron scheduled for 11PM UTC (7PM EDT) daily, Sun-Fri.');
-console.log('\n✅ Server ready. Waiting for Railway cron at 7PM EDT or /run-now request.');
+  // Local/server-mode backup only. Production Railway cron uses
+  // `npm run start:cron`, which executes once and exits.
+  cron.schedule('0 23 * * 0-5', () => {
+    runMainOnce('Internal cron (11PM UTC / 7PM EDT)');
+  }, { timezone: 'UTC' });
 
-// Internal 9PM EDT cron removed Aug 14 2026 — Railway's platform-level Cron
-// Job resource (0 23 * * 0-5 UTC / 7PM EDT) + the startup setTimeout above
-// already trigger one run per day. This second schedule was firing main()
-// a second time in the same long-lived process, causing duplicate runs.
-console.log('\n⏳ Server alive. Next run triggered by Railway Cron Job at 7PM EDT.');
+  console.log('\n⏳ Server mode active. Internal cron scheduled for 11PM UTC (7PM EDT), Sun-Fri.');
+}
