@@ -1020,7 +1020,7 @@ const GROUP2_MEALS = [
     stove: "Lime Rice",
     oven: "",
     grill: "",
-    flatGrill: "Cube Seasoned Steak",
+    flatGrill: "Cube Seasoned Steak, Onion & Peppers",
     saladStation: "Red Bean Corn Salad, Peppers and Onions",
     sauceStation: "",
     mainKitchen: '',
